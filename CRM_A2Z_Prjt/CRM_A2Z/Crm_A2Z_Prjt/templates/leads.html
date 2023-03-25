@@ -987,7 +987,8 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                                                 </div>
                                                 <div class="p-3">
-                                                    <form class="needs-validation" novalidate="" action="https://themesbrand.com/velzon/html/default/index.html">
+                                                    <form method='post' id="LeadAddForm" class="needs-validation" novalidate="" data-cities-url="{% url 'Crm_App:ajax_load_cities'%}" data-places-url="{% url 'Crm_App:ajax_load_places'%}">
+                                                        {% csrf_token %}
                                                         <div class="mb-3">
                                                             <label for="title" class="form-label text-muted">Lead Title <span class="text-danger">*</span></label>
                                                             {{form.lead_title}}
@@ -1024,10 +1025,11 @@
                                                           
                                                         </div>
                                                         <div class="mb-3">
-                                                           <label class="form-label text-muted" for="address">State<span class="text-danger">*</span></label>
-                                                                   {{form.state}}
+                                                            <label class="form-label text-muted" for="address">State<span class="text-danger">*</span></label>
+                                                                {{form.state}}
                                                           
                                                         </div>
+                                                        
                                                         <div class="row">
                                                                <div class="col-lg-6">
                                                                     <div class="mb-3">
@@ -1971,44 +1973,61 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-    $("#id_state").change(function () {
-        const url = $("#LeadAddForm").attr("data-cities-url");  // get the url of the `load_cities` view
-        const countryId = $(this).val();  // get the selected country ID from the HTML input
-
-        $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
-            data: {
-                'country_id': countryId       // add the country id to the GET parameters
-            },
-            success: function (data) {   // `data` is the return of the `load_cities` view function
-                $("#id_district").html(data);  // replace the contents of the city input with the data that came from the server
-               
+       <!-- JAVASCRIPT -->
+       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+       <script>
+        $(document).ready(function() {
+          // Disable district and city fields initially
+          $('#id_district').prop('disabled', true);
+          $('#id_city').prop('disabled', true);
+        
+          // Enable district field when state is selected
+          $('#id_state').change(function() {
+            const url = $("#LeadAddForm").attr("data-cities-url");
+            const countryId = $(this).val();
+        
+            if (countryId) {
+              $('#id_district').prop('disabled', false);
+              $.ajax({
+                url: url,
+                data: {
+                  'country_id': countryId
+                },
+                success: function(data) {
+                  $('#id_district').html(data);
+                  $('#id_city').prop('disabled', true);
+                }
+              });
+            } else {
+              // Disable district and city fields if state is not selected
+              $('#id_district').prop('disabled', true);
+              $('#id_city').prop('disabled', true);
             }
-        });
-
-    });
-</script>
-<script>
-    $("#id_district").change(function () {
-        const url = $("#LeadAddForm").attr("data-places-url");  // get the url of the `load_cities` view
-        const countryId = $(this).val();  // get the selected country ID from the HTML input
-
-        $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
-            data: {
-                'country_id': countryId       // add the country id to the GET parameters
-            },
-            success: function (data) {   // `data` is the return of the `load_cities` view function
-                $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
-               
+          });
+        
+          // Enable city field when district is selected
+          $('#id_district').change(function() {
+            const url = $("#LeadAddForm").attr("data-places-url");
+            const districtId = $(this).val();
+        
+            if (districtId) {
+              $('#id_city').prop('disabled', false);
+              $.ajax({
+                url: url,
+                data: {
+                  'country_id': districtId
+                },
+                success: function(data) {
+                  $('#id_city').html(data);
+                }
+              });
+            } else {
+              // Disable city field if district is not selected
+              $('#id_city').prop('disabled', true);
             }
+          });
         });
-
-    });
-</script>
+        </script>
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>

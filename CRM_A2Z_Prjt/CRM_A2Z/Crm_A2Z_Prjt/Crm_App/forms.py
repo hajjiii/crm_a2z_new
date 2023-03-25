@@ -33,38 +33,30 @@ class LeadAddForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['district'].queryset = District.objects.none()
+        self.fields['city'].queryset = City.objects.none()
 
         if 'state' in self.data:
-                try:
-                    country_id = int(self.data.get('state'))
-                    self.fields['district'].queryset = District.objects.filter(state=country_id).all()
-                except (ValueError, TypeError):
-                    pass  # invalid input from the client; ignore and fallback to empty City queryset
+            try:
+                state_id = int(self.data.get('state'))
+                self.fields['district'].queryset = District.objects.filter(state=state_id)
+            except (ValueError, TypeError):
+                pass
         elif self.instance.pk:
             self.fields['district'].queryset = self.instance.state.district_set.all()
 
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['city'].queryset = City.objects.none()
-
         if 'district' in self.data:
-                try:
-                    country_id = int(self.data.get('district'))
-                    self.fields['city'].queryset = City.objects.filter(district=country_id).all()
-                except (ValueError, TypeError):
-                    pass  # invalid input from the client; ignore and fallback to empty City queryset
-        elif self.instance.pk:
+            try:
+                district_id = int(self.data.get('district'))
+                self.fields['city'].queryset = City.objects.filter(district=district_id)
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk and self.instance.district:
             self.fields['city'].queryset = self.instance.district.city_set.all()
-
-
+    
 
 class LeadViewForm(forms.ModelForm):
+    notes_about_client = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows':3}), required=True)
     class Meta:
         model = Leads
         fields = ['notes_about_client']
-        widgets ={
-             
-            'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'})
-
-        }
+       

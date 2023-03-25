@@ -130,37 +130,34 @@ def lead_delete(request,id):
     qs.delete()
     return redirect('Crm_App:lead_add')
 
-def lead_edit(request,id):
+def lead_edit(request, id):
     ProductsFormset = modelformset_factory(LeadsView, form=LeadViewForm)
-    form = LeadAddForm(request.POST or None)
-    lead = Leads.objects.filter(id=id).first()
-    formset = ProductsFormset(request.POST or None, queryset= lead.leads.all(), prefix='leads')
-    if request.method == 'POST':
-        form = LeadAddForm(request.POST,instance=lead)
-        if form.is_valid() and formset.is_valid():
-            try:
-                with transaction.atomic():
-                    lead = form.save(commit=False)
-                    lead.save()
-                    for product in formset:
-                        data = product.save(commit=False)
-                        data.lead = lead
-                        data.save()
-            except:
-                print("Error Encountered")
-            return redirect('Crm_App:lead_add')
-        else:
-            print(formset.errors)
     lead = Leads.objects.filter(id=id).first()
     form = LeadAddForm(instance=lead)
+    formset = ProductsFormset(request.POST or None, queryset=lead.leads.all(), prefix='leads')
+    if request.method == 'POST':
+        form = LeadAddForm(request.POST, instance=lead)
+        if form.is_valid() and formset.is_valid():
+            request.session['lead_form_data'] = form.cleaned_data
+            request.session['leads_formset_data'] = formset.cleaned_data
+            lead = form.save(commit=False)
+            lead.save()
+            if all('notes_about_client' in forms.cleaned_data and forms.cleaned_data['notes_about_client'] for forms in formset):
+                with transaction.atomic():
+                    for data in formset.save(commit=False):
+                        data.lead = lead
+                        data.save()
+                return redirect('Crm_App:lead_add')
+            else:
+                formset.non_form_errors().append("Note field cannot be empty")
+        else:
+            print(formset.errors)
+    
     context = {
-        'form':form,
-        'formset':formset
+        'form': form,
+        'formset': formset,
     }
-    return render(request,'lead-edit.html',context)
-
-
-
+    return render(request, 'lead-edit.html', context)
 
 
 
