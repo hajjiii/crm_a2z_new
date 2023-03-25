@@ -63,15 +63,34 @@ class District(models.Model):
     def __str__(self):
         return self.name
 
+    state = models.ForeignKey(State,on_delete=models.CASCADE,blank=True,null=True)
     name = models.CharField(max_length=100,blank=True,null=True)
+
+ 
+class City(models.Model):
+    def __str__(self):
+        return self.name
+
+    district = models.ForeignKey(District,on_delete=models.CASCADE,blank=True,null=True)
+    name = models.CharField(max_length=100,blank=True,null=True)
+    
+    
 
     
     
 class InterestRate(models.Model):
     def __str__(self):
-        return self.name
+        return str(self.name)
     
     name = models.IntegerField(blank = True,null=True)
+
+
+class LeadStatus(models.Model):
+    def __str__(self):
+        return self.name
+    
+    name = models.CharField(max_length=100, null=True, blank=True)
+
 
     
     
@@ -89,6 +108,7 @@ class Leads(models.Model):
     def __str__(self):
         return self.lead_title
     added_by = models.ForeignKey(ExtendedUserModel,on_delete=models.CASCADE, blank=True, null=True)
+    added_by_admin = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
     lead_title = models.CharField(max_length=100, blank=True, null=True)
     lead_description = models.TextField(blank=True, null=True)
     contact_person_name = models.CharField(max_length=100, blank=True, null=True)
@@ -97,7 +117,8 @@ class Leads(models.Model):
     business_name = models.CharField(max_length=100, blank=True, null=True)
     state = models.ForeignKey(State,on_delete=models.CASCADE, blank=True, null=True)
     district = models.ForeignKey(District,on_delete=models.CASCADE, blank=True, null=True)
-    city = models.CharField(max_length=100,blank=True,null=True)
+    # city = models.CharField(max_length=100,blank=True,null=True)
+    city = models.ForeignKey(City,on_delete=models.CASCADE, blank=True, null=True)
     business_address = models.TextField(blank=True, null=True)
     interest_rate = models.ForeignKey(InterestRate,on_delete=models.CASCADE , blank=True, null=True)
     lead_generated_date = models.DateField(blank=False, null=False)
@@ -106,6 +127,13 @@ class Leads(models.Model):
     min_price = models.PositiveBigIntegerField(blank=True, null=True)
     max_price = models.PositiveBigIntegerField(blank=True, null=True)
     lead_category = models.ForeignKey(LeadCategory, on_delete=models.CASCADE,blank=True,null=True)
+    status = models.ForeignKey(LeadStatus, on_delete=models.CASCADE,blank=True,null=True,default='Fresh')
     notes_about_client = models.TextField(blank=True,null=True)
+
+
+class LeadsView(models.Model):
+    lead = models.ForeignKey(Leads,on_delete=models.CASCADE,blank=True,null=True,related_name='leads')
+    notes_about_client = models.TextField(blank=True,null=True) 
+
 
 

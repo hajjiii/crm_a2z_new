@@ -1,3 +1,4 @@
+from django.forms import modelformset_factory
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
@@ -7,8 +8,8 @@ import uuid
 from django.conf import settings
 from django.core.mail import send_mail
 from .forms import *
-
-
+from .filters import LeadFilter
+from django.db import transaction, IntegrityError
 
 def index(request):
     if 'username' in request.session:
@@ -67,11 +68,96 @@ def usermanagement(request):
         return render(request,'usermanagement.html',context)
 
 
-# def lead_add(request):
-#     form = LeadAddForm()
-#     if request.method == 'POST':
-#         FORM =
+def lead_add(request):
+    if request.user.is_superuser:
+            name = request.user
+    else:
+        name = request.user.username
+        added_by = ExtendedUserModel.objects.get(user__username = name )
+    form = LeadAddForm()
+    if request.method == 'POST':
+        form = LeadAddForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            if request.user.is_superuser:
+                data.added_by_admin = name
+                data.added_by = None
+            else:
+                data.added_by = added_by
+                data.added_by_admin = None
+            data.save()
+            print('form saved----')
+            return redirect('Crm_App:lead_add')
+    else:
+        form=LeadAddForm()
+    
+    all_leads = Leads.objects.all()
+    lead_filter = LeadFilter(request.GET, queryset=all_leads)
 
+    context ={
+        'form':form,
+        'all_leads':all_leads,
+        'filter': lead_filter
+
+    }
+    return render(request,'leads.html',context)
+
+def load_cities(request):
+    country_id = request.GET.get('country_id')
+    cities = District.objects.filter(state=country_id).all()
+    return render(request, 'city_dropdown_list_options.html', {'cities': cities})
+
+
+def load_places(request):
+    country_id = request.GET.get('country_id')
+    cities = City.objects.filter(district=country_id).all()
+    return render(request, 'place_dropdown_list_options.html', {'cities': cities})
+
+
+
+def lead_view(request,id):
+
+    qs = Leads.objects.get(id=id)
+    form = LeadAddForm(instance=qs)
+    context = {
+        'form':form
+    }
+    return render(request,'leads-view.html',context)
+
+
+def lead_delete(request,id):
+    qs = Leads.objects.get(id=id)
+    qs.delete()
+    return redirect('Crm_App:lead_add')
+
+def lead_edit(request,id):
+    ProductsFormset = modelformset_factory(LeadsView, form=LeadViewForm)
+    form = LeadAddForm(request.POST or None)
+    lead = Leads.objects.filter(id=id).first()
+    formset = ProductsFormset(request.POST or None, queryset= lead.leads.all(), prefix='leads')
+    if request.method == 'POST':
+        form = LeadAddForm(request.POST,instance=lead)
+        if form.is_valid() and formset.is_valid():
+            try:
+                with transaction.atomic():
+                    lead = form.save(commit=False)
+                    lead.save()
+                    for product in formset:
+                        data = product.save(commit=False)
+                        data.lead = lead
+                        data.save()
+            except:
+                print("Error Encountered")
+            return redirect('Crm_App:lead_add')
+        else:
+            print(formset.errors)
+    lead = Leads.objects.filter(id=id).first()
+    form = LeadAddForm(instance=lead)
+    context = {
+        'form':form,
+        'formset':formset
+    }
+    return render(request,'lead-edit.html',context)
 
 
 
