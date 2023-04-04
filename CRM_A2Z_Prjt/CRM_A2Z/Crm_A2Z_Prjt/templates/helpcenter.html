@@ -1,5 +1,4 @@
-<!doctype html>
-{% load widget_tweaks %}
+<!doctype html>.
 {% load static %}
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
@@ -8,18 +7,17 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Lead Edit | A2ZAlphabetsolutionz CRM</title>
+    <title>Follow Up Date  |A2Z Alphabet Solutionz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{% static 'assets/images/a2z_icon.jpg' %}">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
 
-    <!-- swiper css -->
-    <link rel="stylesheet" href="{% static 'assets/libs/swiper/swiper-bundle.min.css' %}">
+    <!-- Sweet Alert css-->
+    <link href="{% static 'assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
 
     <!-- Layout config Js -->
-    <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.js'%}"></script>
     <script src="{% static 'assets/js/layout.js' %}"></script>
     <!-- Bootstrap Css -->
     <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
@@ -29,7 +27,7 @@
     <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'assets/css/style.css" rel="stylesheet' %}" type="text/css">
+    <script src="https://kit.fontawesome.com/9fe20a73d5.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -55,7 +53,7 @@
 
                     <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
-                           <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
+                            <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
                             <img src="{% static 'assets/images/A2z_logo.png' %}" alt="" height="17">
@@ -176,28 +174,30 @@
                     </div>
                 </div>
 
-             <!--   <div class="dropdown ms-1 topbar-head-dropdown header-item">
+               <!-- <div class="dropdown ms-1 topbar-head-dropdown header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img id="header-lang-img" src="assets/images/flags/us.svg" alt="Header Language" height="20" class="rounded">
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
 
+                       
                         <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="en" title="English">
                             <img src="assets/images/flags/us.svg" alt="user-image" class="me-2 rounded" height="18">
                             <span class="align-middle">English</span>
                         </a>
 
-                        
+                      
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="sp" title="Spanish">
                             <img src="assets/images/flags/spain.svg" alt="user-image" class="me-2 rounded" height="18">
                             <span class="align-middle">Española</span>
                         </a>
 
+                       
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="gr" title="German">
                             <img src="assets/images/flags/germany.svg" alt="user-image" class="me-2 rounded" height="18"> <span class="align-middle">Deutsche</span>
                         </a>
 
-                        
+                      
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="it" title="Italian">
                             <img src="assets/images/flags/italy.svg" alt="user-image" class="me-2 rounded" height="18">
                             <span class="align-middle">Italiana</span>
@@ -215,13 +215,13 @@
                             <span class="align-middle">中国人</span>
                         </a>
 
-                        
+                     
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="fr" title="French">
                             <img src="assets/images/flags/french.svg" alt="user-image" class="me-2 rounded" height="18">
                             <span class="align-middle">français</span>
                         </a>
 
-                      
+                       
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="ar" title="Arabic">
                             <img src="assets/images/flags/ae.svg" alt="user-image" class="me-2 rounded" height="18">
                             <span class="align-middle">Arabic</span>
@@ -292,7 +292,7 @@
                     </div>
                 </div>-->
 
-             <!--   <div class="dropdown topbar-head-dropdown ms-1 header-item">
+               <!-- <div class="dropdown topbar-head-dropdown ms-1 header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-cart-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                         <i class='bx bx-shopping-bag fs-22'></i>
                         <span class="position-absolute topbar-badge cartitem-badge fs-10 translate-middle badge rounded-pill bg-info">5</span>
@@ -454,7 +454,7 @@
                 <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                         <i class='bx bx-bell fs-22'></i>
-                        <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">3<span class="visually-hidden">unread messages</span></span>
+                        <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{notification_count}}<span class="visually-hidden">unread messages</span></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
 
@@ -465,7 +465,7 @@
                                         <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
                                     </div>
                                     <div class="col-auto dropdown-tabs">
-                                        <span class="badge badge-soft-light fs-13"> 4 New</span>
+                                        <span class="badge badge-soft-light fs-13"> {{notification_count}} New</span>
                                     </div>
                                 </div>
                             </div>
@@ -474,17 +474,17 @@
                                 <ul class="nav nav-tabs dropdown-tabs nav-tabs-custom" data-dropdown-tabs="true" id="notificationItemsTab" role="tablist">
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab" aria-selected="true">
-                                            All (4)
+                                            All ({{notification_count}})
                                         </a>
                                     </li>
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link" data-bs-toggle="tab" href="#messages-tab" role="tab" aria-selected="false">
-                                            Messages
+                                            Exit Lead
                                         </a>
                                     </li>
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link" data-bs-toggle="tab" href="#alerts-tab" role="tab" aria-selected="false">
-                                            Alerts
+                                            Manpower 
                                         </a>
                                     </li>
                                 </ul>
@@ -495,18 +495,119 @@
                         <div class="tab-content position-relative" id="notificationItemsTabContent">
                             <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
                                 <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    {% for i in notification %}
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                       
+                                        <div class="d-flex">
+                                           
+                                            <div class="flex-1">
+                                                <a href="{%url 'Crm_App:mark_notification_as_read' i.id %}" class="stretched-link">
+                                                    <h6 class="mt-0 mb-2 lh-base">{{i.notification_title}} by {{i.notified_by}}
+                                                        
+                                                    </h6>
+                                                </a>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> Just 30 sec ago</span>
+                                                </p>
+                                            </div>
+                                            
+                                            {% if i.status == '0' %}
+                                            <div class="avatar-xs me-3">
+                                                <span class="avatar-title bg-soft-info text-info rounded-circle fs-16">
+                                                    <i class="fa-sharp fa-solid fa-eye" class="mark-as-read" data-notification-id="{{ i.id }}"></i>
+                                                    {% comment %} <i class="fa-sharp fa-solid fa-eye" onclick="markNotificationAsRead({{ i.id }})"></i> {% endcomment %}
+                                                </span>
+                                            </div>
+                                            {% endif %}
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check01">
+                                                    <label class="form-check-label" for="all-notification-check01"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    {% endfor %}
+
+                                    
+
+                                    
+
+                                    
+                                    {% comment %}  {% endcomment %}
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane fade py-2 ps-2" id="messages-tab" role="tabpanel" aria-labelledby="messages-tab">
+                                <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    {% for i in notification %}
+                                    {%if i.notification_title == 'request for exitlead'  %}
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                       
                                         <div class="d-flex">
                                             <div class="avatar-xs me-3">
                                                 <span class="avatar-title bg-soft-info text-info rounded-circle fs-16">
                                                     <i class="bx bx-badge-check"></i>
                                                 </span>
                                             </div>
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-2 lh-base">Your <b>Elite</b> author Graphic
-                                                        Optimization <span class="text-secondary">reward</span> is
-                                                        ready!
+                                            <div class="flex-Manpower 1">
+                                                <a href="{{i.table_link}}{{i.lead.id}}" class="stretched-link">
+                                                    <h6 class="mt-0 mb-2 lh-base">{{i.notification_title}} by {{i.notified_by}}
+                                                        
+                                                    </h6>
+                                                </a>
+                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                    <span><i class="mdi mdi-clock-outline"></i> Just 30 sec ago</span>
+                                                </p>
+                                            </div>
+                                            
+                                            <div class="px-2 fs-15">
+                                                <div class="form-check notification-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check01">
+                                                    <label class="form-check-label" for="all-notification-check01"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    {%endif%}
+
+                                    {% endfor %}
+
+                                    
+
+                                    
+
+
+
+                                    
+
+                                    {% comment %} <div class="my-3 text-center view-all">
+                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
+                                            All Messages <i class="ri-arrow-right-line align-middle"></i></button>
+                                    </div> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade py-2 ps-2" id="alerts-tab" role="tabpanel" aria-labelledby="messages-tab">
+                                <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                    {% for i in notification %}
+                                    {%if i.notification_title == 'request for Manpower'  %}
+
+                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                       
+                                        <div class="d-flex">
+                                            <div class="avatar-xs me-3">
+                                                <span class="avatar-title bg-soft-info text-info rounded-circle fs-16">
+                                                    <i class="bx bx-badge-check"></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-Manpower 1">
+                                                <a href="{{i.table_link}}{{i.lead.id}}" class="stretched-link">
+                                                    <h6 class="mt-0 mb-2 lh-base">{{i.notification_title}} by {{i.notified_by}}
+                                                        
                                                     </h6>
                                                 </a>
                                                 <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
@@ -520,191 +621,26 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
+                                    {%endif%}
 
-                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                        <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
-                                                </a>
-                                                <div class="fs-13 text-muted">
-                                                    <p class="mb-1">Answered to your comment on the cash flow forecast's
-                                                        graph 🔔.</p>
-                                                </div>
-                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2 fs-15">
-                                                <div class="form-check notification-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check02">
-                                                    <label class="form-check-label" for="all-notification-check02"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
 
-                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                        <div class="d-flex">
-                                            <div class="avatar-xs me-3">
-                                                <span class="avatar-title bg-soft-danger text-danger rounded-circle fs-16">
-                                                    <i class='bx bx-message-square-dots'></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-2 fs-13 lh-base">You have received <b class="text-success">20</b> new messages in the conversation
-                                                    </h6>
-                                                </a>
-                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2 fs-15">
-                                                <div class="form-check notification-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check03">
-                                                    <label class="form-check-label" for="all-notification-check03"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
-                                    <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                        <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-8.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
-                                                </a>
-                                                <div class="fs-13 text-muted">
-                                                    <p class="mb-1">We talked about a project on linkedin.</p>
-                                                </div>
-                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 4 hrs ago</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2 fs-15">
-                                                <div class="form-check notification-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="all-notification-check04">
-                                                    <label class="form-check-label" for="all-notification-check04"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
-                                    <div class="my-3 text-center view-all">
-                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
-                                            All Notifications <i class="ri-arrow-right-line align-middle"></i></button>
-                                    </div>
-                                </div>
 
-                            </div>
 
-                            <div class="tab-pane fade py-2 ps-2" id="messages-tab" role="tabpanel" aria-labelledby="messages-tab">
-                                <div data-simplebar style="max-height: 300px;" class="pe-2">
-                                    <div class="text-reset notification-item d-block dropdown-item">
-                                        <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-3.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">James Lemire</h6>
-                                                </a>
-                                                <div class="fs-13 text-muted">
-                                                    <p class="mb-1">We talked about a project on linkedin.</p>
-                                                </div>
-                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 30 min ago</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2 fs-15">
-                                                <div class="form-check notification-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check01">
-                                                    <label class="form-check-label" for="messages-notification-check01"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
-                                    <div class="text-reset notification-item d-block dropdown-item">
-                                        <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
-                                                </a>
-                                                <div class="fs-13 text-muted">
-                                                    <p class="mb-1">Answered to your comment on the cash flow forecast's
-                                                        graph 🔔.</p>
-                                                </div>
-                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2 fs-15">
-                                                <div class="form-check notification-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check02">
-                                                    <label class="form-check-label" for="messages-notification-check02"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-reset notification-item d-block dropdown-item">
-                                        <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-6.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
-                                                </a>
-                                                <div class="fs-13 text-muted">
-                                                    <p class="mb-1">Mentionned you in his comment on 📃 invoice #12501.
-                                                    </p>
-                                                </div>
-                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 10 hrs ago</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2 fs-15">
-                                                <div class="form-check notification-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check03">
-                                                    <label class="form-check-label" for="messages-notification-check03"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-reset notification-item d-block dropdown-item">
-                                        <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-8.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                            <div class="flex-1">
-                                                <a href="#!" class="stretched-link">
-                                                    <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
-                                                </a>
-                                                <div class="fs-13 text-muted">
-                                                    <p class="mb-1">We talked about a project on linkedin.</p>
-                                                </div>
-                                                <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 3 days ago</span>
-                                                </p>
-                                            </div>
-                                            <div class="px-2 fs-15">
-                                                <div class="form-check notification-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="messages-notification-check04">
-                                                    <label class="form-check-label" for="messages-notification-check04"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="my-3 text-center view-all">
+                                    {% comment %} <div class="my-3 text-center view-all">
                                         <button type="button" class="btn btn-soft-success waves-effect waves-light">View
                                             All Messages <i class="ri-arrow-right-line align-middle"></i></button>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                             </div>
-                            <div class="tab-pane fade p-4" id="alerts-tab" role="tabpanel" aria-labelledby="alerts-tab"></div>
 
                             <div class="notification-actions" id="notification-actions">
                                 <div class="d-flex text-muted justify-content-center">
@@ -721,7 +657,7 @@
                             <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/avatar-1.jpg' %}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Designation</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
                             </span>
                         </span>
                     </button>
@@ -729,11 +665,11 @@
                         <!-- item-->
                         <h6 class="dropdown-header">Welcome Anna!</h6>
                         <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
-                       <!-- <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>-->
+                        <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
                         <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
-                       <!-- <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>-->
+                        <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
                         <div class="dropdown-divider"></div>
-                        <!--<a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>-->
+                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
                         <a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
                         <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
                         <a class="dropdown-item" href="auth-logout-basic.html"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
@@ -857,249 +793,274 @@
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
+       
+        <!-- end main content-->
         <div class="main-content">
 
             <div class="page-content">
                 <div class="container-fluid">
-                    <div class="profile-foreground position-relative mx-n4 mt-n4">
-                        <div class="profile-wid-bg">
-                            <img src="{% static 'assets/images/profile-bg.jpg' %}" alt="" class="profile-wid-img" />
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">Tomorrow Date Lead</h4>
+
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li>
+                                        <li class="breadcrumb-item active">Tomorrow Date Lead</li>
+                                    </ol>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    
+                    <!-- end page title -->
 
-                    <div class="row">
-                        <div class="col-lg-12" id="profile-col">
-                            <div>
-                                
-                                <!-- Tab panes -->
-                                <div class="tab-content   pt-4 text-muted">
-                                    <div class="tab-pane active mt-10" id="overview-tab" role="tabpanel">
-                                        <div class="row" style="margin-top: 130px;">
-                                            <div class="col-xxl-12">
-                                                
+                  
+                    <!--end row-->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card" id="leadsList">
+                                <div class="card-header border-0">
 
-                                                <div class="card profile-project-card shadow-none profile-project-info ">
-                                                    <div class="card-body p-4">
-                                                        
-                                                        <div class="p-2 mt-4">
-                                                            <form form method='post' id="LeadAddForm" class="needs-validation" novalidate="" data-cities-url="{% url 'Crm_App:ajax_load_cities'%}" data-places-url="{% url 'Crm_App:ajax_load_places'%}">
-                                                                {% csrf_token %}
-                                                                <div class="mb-3">
-                                                                    <label for="title" class="form-label text-muted">Lead Title <span class="text-danger">*</span></label>
-                                                                    {{form.lead_title}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="Description" class="form-label text-muted">Leads Description <span class="text-danger">*</span></label>
-                                                                                {{form.lead_description}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="title" class="form-label text-muted">Contact Person Name <span class="text-danger">*</span></label>
-                                                                                {{form.contact_person_name}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="phone" class="form-label text-muted">Contact Person Phone<span class="text-danger">*</span></label>
-                                                                                {{form.contact_person_phone}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="designation" class="form-label text-muted">Contact Person Designation<span class="text-danger">*</span></label>
-                                                                                    {{form.contact_person_designation}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="photo" class="form-label text-muted " >Business Name</label>
-                                                                    {{form.business_name}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label text-muted" for="address">Address<span class="text-danger">*</span></label>
-                                                                    {{form.business_address}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                   <label class="form-label text-muted" for="address">State<span class="text-danger">*</span></label>
-                                                                           {{form.state}}
-                                                                  
-                                                                </div>
-                                                                <div class="row">
-                                                                       <div class="col-lg-6">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label text-muted" for="address">District<span class="text-danger">*</span></label>
-                                                                                {{form.district}}
-                                                                                
-                                                                                
-                                                                            </div>
-                                                                       </div>
-                                                                       <div class="col-lg-6">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label text-muted" for="address">City<span class="text-danger">*</span></label>
-                                                                                {{form.city}}
-                                                                           </div>
-                                                                        </div>
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="designation" class="form-label text-muted">Intrest Rate<span class="text-danger">*</span></label>
-                                                                    {{form.interest_rate}}
-                                                                   
-                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                         <div class="mb-3">
-                                                                            <label for="autoCompleteFruit" class="text-muted">Lead generated Date</label>
-                                                                            {{form.lead_generated_date}}
-                                                                             
-                                                                             
-                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                         <div class="mb-3">
-                                                                            <label for="autoCompleteCars" class="text-muted">Next Follow Up Date</label>
-                                                                            {{form.next_follow_up_date}}
-                                                                        </div>
-                                                                     </div>
-                                                             </div>
-                                                             <div class="row">
-                                                                <div class="col-lg-6">
-                                                                     <div class="mb-3">
-                                                                        <label for="autoCompleteFruit" class="text-muted">Min Price</label>
-                                                                        {{form.min_price}}
-                                                                         
-                                                                         
-                                                                     </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                     <div class="mb-3">
-                                                                        <label for="autoCompleteCars" class="text-muted">Max Price<span class="text-danger">*</span></label>
-                                                                        {{form.max_price}}
-                                                                    </div>
-                                                                 </div>
-                                                         </div>
-                                                         <div class="row">
-                                                            <div class="col-lg-6">
-                                                                 <div class="mb-3">
-                                                                    <label for="autoCompleteFruit" class="text-muted">Leads Catagories</label>
-                                                                    {{form.lead_category}}
-                                                                     
-                                                                     
-                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                 <div class="mb-3">
-                                                                    <label for="autoCompleteCars" class="text-muted">Lead Status<span class="text-danger">*</span></label>
-                                                                    {{form.status}}
-                                                                </div>
-                                                             </div>
-                                                             <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                        
-                                                                    <label for="autoCompleteFruit" class=" form-label text-muted">Note About Client</label>
-                                                                    {{form.notes_about_client}}
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                        
-                                                                   
-                                                                </div>
-                                                                
-                                                            </div>
-                                                            
-                                                             
-                                                     </div>
-                                                     <hr>
-
-                                                     
-                                                    <div class="mb-3">
-                                                        
-                                                        <div class="col-lg-12" id="overflow">
-                                                            <table class="table table-responsive table-borderless table-lg">
-                                                                <thead class="text-center">
-                                                                <tr>
-                                                                    <th>Note About Client:</th>
-                                                                    
-        
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    
-                                                                {% for form_data in formset %}
-                                                                <tr class="item">
-                                                                    <td style="width:165px">
-                                                                        {% render_field form_data.notes_about_client class="form-control" %}
-
-                                                                       
-                                                                    </td>
-                                                                    
-                                                                    {{ form_data.id }}
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-danger btn-sm remove-form-row"
-                                                                                id="{{ formset.prefix }}">Delete</button>
-                                                                    </td>
-                                                                </tr>
-                                                                {% endfor %}
-                                                                <tr>
-                                                                  <td colspan="9"
-                                                                        style="border-left: none!important; border-right: none !important; border-bottom: none!important;">
-                                                                        <button type="button" class="btn btn-sm btn-success add-form-row"
-                                                                                id="{{ formset.prefix }}">Add</button>
-                                                                    </td> 
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            {{ formset.management_form }}
-                                                        </div>
-                                                    </div>
-                                                   
-                                                   
-        
-                                                                
-                                                                <div class="mt-4 text-center">
-                                                                   
-                                                                <button class="btn btn-success w-sm " type="submit">Save</button>
-                                                                </div>
-                                                                
-                                                                <!-- <div class="mt-4 text-center">
-                                                                <div class="signin-other-title">
-                                                                <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
-                                                                </div>
-                                                                
-                                                                <div>
-                                                                <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
-                                                                <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
-                                                                <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
-                                                                <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
-                                                                </div>
-                                                                </div> -->
-                                                            </form>
-                                                        
-                                                        </div>
-                                                        </div>
-                                                        <!-- end card body -->
-                                                    <!-- end card body -->
-                                                </div><!-- end card -->
-
-                                             
-
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-sm-3">
+                                            <div class="search-box">
+                                                <input type="text" class="form-control search" placeholder="Search for...">
+                                                <i class="ri-search-line search-icon"></i>
                                             </div>
-                                          
-                                        <!--end row-->
+                                        </div>
+                                     
                                     </div>
-                                   
                                 </div>
-                                <!--end tab-content-->
+                                <div class="card-body">
+                                    <div>
+                                        <div class="table-responsive table-card">
+                                            <table class="table align-middle" id="customerTable">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th scope="col" style="width: 50px;">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                                            </div>
+                                                        </th>
+
+                                                        <th class="sort" data-sort="name">Requested By Field Excutive</th>
+                                                        <th class="sort" data-sort="name">Lead Added By</th>
+
+                                                        
+                                                        <th class="sort" data-sort="company_name">Lead Title</th>
+                                                        <th class="sort" data-sort="leads_score">Notification Title</th>
+                                                        <th class="sort" data-sort="phone">Description</th>
+                                                        <th class="sort" data-sort="Action">Action</th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="list form-check-all">
+                                                    {%for i in all_notification%}
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                            </div>
+                                                        </th>
+                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
+                                                        <td class="name">{{i.notified_by}}</td>
+                                                        <td class="name">{% for user in i.lead.added_by.all %}
+                                                        {{ user }}{% if not forloop.last %},{% endif %} 
+                                                        {% endfor %}</td>
+                                                    
+                                                        <td class="company_name">{{i.lead.lead_title}}</td>
+                                                        <td class="leads_score">{{i.notification_title}}</td>
+
+                                                        <td class="phone">{{i.description}}</td>
+                                                        {%if i.notification_title == 'request for Manpower'  %}
+                                                        <th class="Action"><a class="nav-link" href="{%url 'Crm_App:help_centre_action' i.id%}"><i class="ri-task-fill ri-md"></i></a></th>
+                                                        {% else %}
+                                                        <th class="Action"><a class="nav-link" href="{%url 'Crm_App:exit_lead_action' i.id%}"><i class="ri-task-fill ri-md"></i></a></th>
+                                                        {% endif %}
+                                                       
+                                                    
+                                                    </tr>
+                                                    {%endfor%}
+                                                    
+                                                   
+                                                  
+                                                </tbody>
+                                            </table>
+                                            <div class="noresult" style="display: none">
+                                                <div class="text-center">
+                                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                                                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                                                    <p class="text-muted mb-0">We've searched more than 150+ leads We did not find any leads for you search.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <div class="pagination-wrap hstack gap-2">
+                                                <a class="page-item pagination-prev disabled" href="#">
+                                                    Previous
+                                                </a>
+                                                <ul class="pagination listjs-pagination mb-0"></ul>
+                                                <a class="page-item pagination-next" href="#">
+                                                    Next
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!--end offcanvas-->
+
+                                </div>
                             </div>
+
                         </div>
                         <!--end col-->
                     </div>
-                    <!--end row-->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="card" id="leadsList">
+                                <div class="card-header border-0">
 
-                </div><!-- container-fluid -->
-            </div><!-- End Page-content -->
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-sm-3">
+                                            <div class="search-box">
+                                                <input type="text" class="form-control search" placeholder="Search for...">
+                                                <i class="ri-search-line search-icon"></i>
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div>
+                                        <div class="table-responsive table-card">
+                                            <table class="table align-middle" id="customerTable">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th scope="col" style="width: 50px;">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                                            </div>
+                                                        </th>
+                                                        <th class="sort" data-sort="leadtitle">Lead ID</th>
+
+                                                        <th class="sort" data-sort="leadtitle">Leads Title</th>
+                                                        <th class="sort" data-sort="businessname">Business Name</th>
+                                                        <th class="sort" data-sort="exitlead">Exit Lead</th>
+                                                        <th class="sort" data-sort="Manpowerrequest">Man Power Request</th>
+                                                        
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="list form-check-all">
+                                                    {% for i in leads%}
+
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                            </div>
+                                                        </th>
+                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
+                                                        <td class="leadtitle"  id="lead-button" name="lead_id" value="{{ lead.id }}" data-project-id="{{ i.id }}">{{i.id}}</td>
+
+                                                        <td class="leadtitle">{{i.lead_title}}</td>
+                                                        
+                                                        <td class="businessname1"><a href="{% url 'Crm_App:lead_view' i.id %}">{{i.business_name}}</a></td>
+                                                        <td class="exitlead"><a href="{% url 'Crm_App:exit_lead' i.id %}"><i class="mdi mdi-exit-run text-danger ri-md"></i></a></td>
+
+                                                        <td class="exitlead"><a href="{% url 'Crm_App:lead_manpower_request' i.id %}"><i class="lab   las la-hands-helping text-primary la-md"></i></a></td>
+
+                                                        {% comment %} <td class="exitlead"><a type="button" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal1"> <i class="lab   las la-hands-helping text-primary la-md"></i></a></td> {% endcomment %}
+                                                       
+                                                       
+                                                    
+                                                    </tr>
+                                                   
+                                                    {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                            
+                                            <div class="noresult" style="display: none">
+                                                <div class="text-center">
+                                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                                                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                                                    <p class="text-muted mb-0">We've searched more than 150+ leads We did not find any leads for you search.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <div class="pagination-wrap hstack gap-2">
+                                                <a class="page-item pagination-prev disabled" href="#">
+                                                    Previous
+                                                </a>
+                                                <ul class="pagination listjs-pagination mb-0"></ul>
+                                                <a class="page-item pagination-next" href="#">
+                                                    Next
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="modal fade" id="showModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered ">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-light p-3 ">
+                                                        <h5 class="modal-title" id="exampleModalLabel">message</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                                                    </div>
+                                                    <div class="p-3">
+                                                        <form class="needs-validation" novalidate="" action="https://themesbrand.com/velzon/html/default/index.html">
+                                                        
+                                                            <div class="mb-3">
+                                                        
+                                                            <textarea class="form-control"></textarea>
+                                                            <div class="invalid-feedback">
+                                                            Please enter Leads Description
+                                                            </div>
+                                                            </div>
+                                                    
+                                                            <div>
+                                                    
+                                                            <!-- end row -->
+                                                            </div>
+                                                            <div class="mt-2 text-center">
+                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                                                                <button class="btn btn-success w-sm " type="submit">Save</button>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                           
+                                                          
+                                                        
+                                                        </form>
+                                                    </div>    
+                                                </div>
+                                        </div>
+                                    </div>
+
+                                            
+                                </div>
+
+                                    <!--end offcanvas-->
+
+                                </div>
+                              
+                            </div>
+
+                    </div>
+              
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
 
             <footer class="footer">
                 <div class="container">
@@ -1114,8 +1075,7 @@
                     </div>
                 </div>
             </footer>
-        </div><!-- end main content-->
-
+        </div>
     </div>
     <!-- END layout-wrapper -->
 
@@ -1806,60 +1766,25 @@
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-     $(document).ready(function() {
-       // Disable district and city fields initially
-       $('#id_district').prop('disabled', true);
-       $('#id_city').prop('disabled', true);
-     
-       // Enable district field when state is selected
-       $('#id_state').change(function() {
-         const url = $("#LeadAddForm").attr("data-cities-url");
-         const countryId = $(this).val();
-     
-         if (countryId) {
-           $('#id_district').prop('disabled', false);
-           $.ajax({
-             url: url,
-             data: {
-               'country_id': countryId
-             },
-             success: function(data) {
-               $('#id_district').html(data);
-               $('#id_city').prop('disabled', true);
-             }
-           });
-         } else {
-           // Disable district and city fields if state is not selected
-           $('#id_district').prop('disabled', true);
-           $('#id_city').prop('disabled', true);
-         }
-       });
-     
-       // Enable city field when district is selected
-       $('#id_district').change(function() {
-         const url = $("#LeadAddForm").attr("data-places-url");
-         const districtId = $(this).val();
-     
-         if (districtId) {
-           $('#id_city').prop('disabled', false);
-           $.ajax({
-             url: url,
-             data: {
-               'country_id': districtId
-             },
-             success: function(data) {
-               $('#id_city').html(data);
-             }
-           });
-         } else {
-           // Disable city field if district is not selected
-           $('#id_city').prop('disabled', true);
-         }
-       });
-     });
-     </script>
+
+    $(document).ready(function() {
+        $('.mark-as-read').click(function() {
+            var notificationId = $(this).data('notification-id');
+            $.ajax({
+                url: '{% url "Crm_App:mark_notification_as_read" 0 %}'.replace('0', notificationId),
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Update the UI to reflect the status change
+                        $(this).remove();
+                    }
+                }
+            });
+        });
+    });
+</script>
+  
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
@@ -1867,15 +1792,17 @@
     <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
     <script src="{% static 'assets/js/plugins.js' %}"></script>
 
-    <!-- swiper js -->
-    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+    <!-- list.js min js -->
+    <script src="{% static 'assets/libs/list.js/list.min.js' %}"></script>
+    <script src="{% static 'assets/libs/list.pagination.js/list.pagination.min.js' %}"></script>
 
-    <!-- profile init js -->
-    <script src="{% static 'assets/js/pages/profile.init.js' %}"></script>
+    <!-- Sweet Alerts js -->
+    <script src="{% static 'assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+    <!-- crm leads init -->
+    <script src="{% static 'assets/js/pages/crm-leads.init.js' %}"></script>
 
     <!-- App js -->
     <script src="{% static 'assets/js/app.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/js/formset.js' %}"></script>
 </body>
 
 

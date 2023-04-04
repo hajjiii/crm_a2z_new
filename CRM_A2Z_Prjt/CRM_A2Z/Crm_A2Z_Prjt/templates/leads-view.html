@@ -1,5 +1,7 @@
 
 <!doctype html>
+{% load widget_tweaks %}
+
 {% load static %}
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
@@ -887,8 +889,8 @@
                                                         <h5 class="card-title mb-3">Info</h5>
                                                         <div class="table-responsive">
                                                             <table class="table table-borderless mb-0">
-                                                                
                                                                 <tbody >
+                                                                    
                                                                     <tr>
                                                                         <th class="ps-0" scope="row">Lead Title :</th>
                                                                         <td class="text-muted">{{form.instance.lead_title}}</td>
@@ -957,10 +959,32 @@
                                                                         <th class="ps-0" scope="row">Lead Catagories:</th>
                                                                         <td class="text-muted">{{form.instance.lead_category}}</td>
                                                                     </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Note About Client:</th>
+                                                                        <td class="text-muted">{{form.instance.notes_about_client}}</td>
+                                                                    </tr>
+                                                                    {% for form_data in formset %}
+                                                                    <tr class="item">
+                                                                        <td style="width:165px">
+                                                                            <tr>
+                                                                                <th class="ps-0" scope="row">Note About Client</th>
+                                                                                <td class="text-muted">{{ form_data.instance.notes_about_client }}</td>
+                                                                            </tr>
+                                                                         
+                                                                        </td>
+                                                                        
+                                                                        {{ form_data.id }}
+                                                                       
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                    {{ formset.management_form }}
+
+                                                                   
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div><!-- end card body -->
+                                                    
                                                 </div><!-- end card -->
 
                                              

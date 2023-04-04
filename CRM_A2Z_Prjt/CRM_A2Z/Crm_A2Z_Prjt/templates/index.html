@@ -814,6 +814,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_change_request' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Lead Change Request</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link menu-link" href="followup.html">
                                 <i class="bx bx bx-calendar"></i> <span data-key="t-widgets">Follow Up Remainder</span>
                             </a>
@@ -835,7 +840,7 @@
                             </div>
                         </li>-->
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="helpcenter.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_help_centre'%}">
                                 <i class="lab las la-headset"></i> <span data-key="t-widgets">Help Center</span>
                             </a>
                         </li>

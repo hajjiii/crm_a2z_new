@@ -22,7 +22,37 @@ urlpatterns = [
     path('ajax/load-places/', views.load_places, name='ajax_load_places'),
     path('lead-view/<int:id>',views.lead_view,name='lead_view'),
     path('lead-delete/<int:id>',views.lead_delete,name='lead_delete'),
-    path('lead-edit/<int:id>',views.lead_edit,name='lead_edit')
+    path('lead-edit/<int:id>',views.lead_edit,name='lead_edit'),
+    path('lead-preview/<int:id>',views.lead_preview,name='lead_preview'),
+    path('lead-edit-approve/<int:id>',views.approve_lead_edit,name='approve_lead_edit'),
+    path('lead-change-request',views.lead_change_request,name='lead_change_request'),
+    path('lead-change-request-view/<int:id>',views.lead_change_request_view,name='lead_change_request_view'),
+    path('lead-change-request-preview/<int:id>',views.lead_request_change_preview,name='lead_request_change_preview'),
+    path('lead-change-request-edit-approve/<int:id>',views.approve_lead_request_change_edit,name='approve_lead_request_change_edit'),
+    path('lead-help-centre',views.lead_help_centre,name='lead_help_centre'),
+    path('lead-help-centre/<int:id>',views.lead_help_centre_edit,name='exit_lead'),
+    path('lead-manpower-request-edit/<int:id>',views.lead_manpower_request,name='lead_manpower_request'),
+    path('notifications/<int:id>/', views.mark_notification_as_read, name='mark_notification_as_read'),
+    path('lead-help-centre-action/<int:id>',views.lead_help_centre_action,name='help_centre_action'),
+    path('exit-lead-action/<int:id>',views.exit_lead_action,name='exit_lead_action'),
+
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+
 
 
 

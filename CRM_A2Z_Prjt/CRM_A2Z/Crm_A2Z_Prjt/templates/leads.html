@@ -932,6 +932,7 @@
                                                         <th class="sort" data-sort="leads_score">Phone</th>
                                                         {% comment %} <th class="sort" data-sort="phone">View</th> {% endcomment %}
                                                         <th class="sort" data-sort="location">Request For Change</th>
+                                                        <th class="sort" data-sort="phone"> Preview</th>
                                                         <th class="sort" data-sort="location">Action</th>
                                                        
                                                     </tr>
@@ -951,6 +952,7 @@
                                                         <td class="phone">{{i.contact_person_phone}}</td>
                                                         {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_view' i.id %}"><i class="fas fa-eye"></i></a></td> {% endcomment %}
                                                         <td class="location text-center"><a href="{% url 'Crm_App:lead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                        <td class="location"><a href="{% url 'Crm_App:lead_preview' i.id %}"><i class="fa-solid fa-eye"></i></a></td>
                                                         <td class="location"><a href="{% url 'Crm_App:lead_delete' i.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
 
                                                     
@@ -1026,7 +1028,7 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="form-label text-muted" for="address">State<span class="text-danger">*</span></label>
-                                                                {{form.state}}
+                                                            <span id="LeadFilter10">     {{form.state}}</span>
                                                           
                                                         </div>
                                                         
@@ -1034,7 +1036,7 @@
                                                                <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label class="form-label text-muted" for="address">District<span class="text-danger">*</span></label>
-                                                                        {{form.district}}
+                                                                      <span >  {{form.district }}</span>
                                                                         
                                                                         
                                                                     </div>
@@ -1042,7 +1044,7 @@
                                                                <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label class="form-label text-muted" for="address">City<span class="text-danger">*</span></label>
-                                                                        {{form.city}}
+                                                                        <span id="LeadFilter9">     {{form.city}}</span>
                                                                    </div>
                                                                 </div>
                                                         </div>
@@ -1118,6 +1120,7 @@
                                                         <div class="mt-4 text-center">
                                                             <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
                                                         <button class="btn btn-success w-sm " type="submit">Create</button>
+                                                        
                                                         </div>
                                                         
                                                         <!-- <div class="mt-4 text-center">
@@ -1170,7 +1173,7 @@
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <!--end offcanvas-header-->
-                                        <form action="#" class="d-flex flex-column justify-content-end h-100">
+                                        <form action="#" class="d-flex flex-column justify-content-end h-100  " >
                                             <div class="offcanvas-body">
                                                 <div class="mb-4">
                                                     <label for=" LeadTitle" class="form-label text-muted text-uppercase fw-semibold mb-3">Lead Title</label>
@@ -1241,7 +1244,10 @@
                                                     </div>
                                                     <div class="mt-4">
                                                         <div class="row g-2 align-items-center justify-content-center">
-                                                            <input type="submit" class="btn btn-primary w-50"  value="Search">
+                                                           
+                                                            <button type="button" class="search-box__reset" id="search-box__reset ">Réinitialiser</button> 
+
+                                                            <input type="submit" class="btn btn-primary w-50 btn-search" id="btn-search"  value="Search">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1974,6 +1980,23 @@
     </div>
 
        <!-- JAVASCRIPT -->
+       <script>
+
+        $("#search-box__reset").on('click', function(e) {
+        e.preventDefault();
+        $("#id_lead_title").val('');
+        $("#id_contact_person_name").val('');
+        $("#id_interest_rate").val(''); //reset input field
+        $("#id_fromdate").val('');
+        $("#id_todate").val(''); //reset input field
+        $("#id_min_price").val('');
+        $("#id_max_price").val(''); //reset input field
+        $("#id_status").val('');
+        $("#id_lead_category").val(''); //reset input field
+       
+        $("#btn-search").click();
+        });
+        </script>
        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
        <script>
         $(document).ready(function() {
@@ -2028,6 +2051,8 @@
           });
         });
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>

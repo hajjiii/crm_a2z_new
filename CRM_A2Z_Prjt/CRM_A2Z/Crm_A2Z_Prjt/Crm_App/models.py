@@ -107,7 +107,9 @@ class LeadCategory(models.Model):
 class Leads(models.Model):
     def __str__(self):
         return self.lead_title
-    added_by = models.ForeignKey(ExtendedUserModel,on_delete=models.CASCADE, blank=True, null=True)
+    
+    added_by=models.ManyToManyField(ExtendedUserModel, blank=True)
+    # added_by = models.ForeignKey(ExtendedUserModel,on_delete=models.CASCADE, blank=True, null=True)
     added_by_admin = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
     lead_title = models.CharField(max_length=100, blank=True, null=True)
     lead_description = models.TextField(blank=True, null=True)
@@ -127,13 +129,54 @@ class Leads(models.Model):
     min_price = models.PositiveBigIntegerField(blank=True, null=True)
     max_price = models.PositiveBigIntegerField(blank=True, null=True)
     lead_category = models.ForeignKey(LeadCategory, on_delete=models.CASCADE,blank=True,null=True)
-    status = models.ForeignKey(LeadStatus, on_delete=models.CASCADE,blank=True,null=True,default='Fresh')
+    status = models.ForeignKey(LeadStatus, on_delete=models.CASCADE,blank=True,null=True,default=1)
     notes_about_client = models.TextField(blank=True,null=True)
+    # exit_lead_desc = models.TextField(blank=True, null=True)
+
+
+class TempLead(models.Model):
+    def __str__(self):
+        return self.lead_title
+    lead = models.ForeignKey(Leads, on_delete=models.CASCADE)
+    lead_title = models.CharField(max_length=100, blank=True, null=True)
+    lead_description = models.TextField(blank=True, null=True)
+    contact_person_name = models.CharField(max_length=100, blank=True, null=True)
+    contact_person_phone = models.CharField(max_length=30, blank=True, null=True)
+    contact_person_designation = models.CharField(max_length=100, blank=True, null=True)
+    business_name = models.CharField(max_length=100, blank=True, null=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, blank=True, null=True)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, blank=True, null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True)
+    business_address = models.TextField(blank=True, null=True)
+    interest_rate = models.ForeignKey(InterestRate, on_delete=models.CASCADE , blank=True, null=True)
+    lead_generated_date = models.DateField(blank=False, null=False)
+    next_follow_up_date = models.DateField(blank=False, null=False)
+    min_price = models.PositiveBigIntegerField(blank=True, null=True)
+    max_price = models.PositiveBigIntegerField(blank=True, null=True)
+    lead_category = models.ForeignKey(LeadCategory, on_delete=models.CASCADE, blank=True, null=True)
+    status = models.ForeignKey(LeadStatus, on_delete=models.CASCADE, blank=True, null=True, default='Fresh')
+    notes_about_client = models.TextField(blank=True,null=True)
+
 
 
 class LeadsView(models.Model):
     lead = models.ForeignKey(Leads,on_delete=models.CASCADE,blank=True,null=True,related_name='leads')
+    temp_lead = models.ForeignKey(TempLead,on_delete=models.CASCADE,blank=True,null=True,related_name='tleads')
     notes_about_client = models.TextField(blank=True,null=True) 
 
 
-
+class Notification(models.Model):
+    def __str__(self):
+        return self.key
+    status_choices = (
+        ('0','0'),
+        ('1','1'),
+    )
+    key = models.CharField(max_length=25, blank=True, null=True)
+    notification_title = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=25,choices=status_choices,blank=False,null=False,default=0)
+    added_on = models.DateField(auto_now_add=True, blank=False, null=False)
+    notified_by = models.CharField(max_length=100, blank=True, null=True)
+    table_link = models.TextField(blank=True, null=True)
+    lead = models.ForeignKey(Leads,on_delete = models.CASCADE,blank=True,null=True,related_name='nlead')

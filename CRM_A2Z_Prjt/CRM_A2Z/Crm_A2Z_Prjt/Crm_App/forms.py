@@ -5,7 +5,7 @@ class LeadAddForm(forms.ModelForm):
     class Meta:
         model = Leads
         fields = "__all__"
-        exclude = ['added_by','added_on','added_by_admin']
+        exclude = ['added_by','added_on','added_by_admin','exit_lead_desc']
 
         widgets ={
             'lead_title':forms.TextInput(attrs={'class':'form-control'}),
@@ -52,6 +52,25 @@ class LeadAddForm(forms.ModelForm):
                 pass
         elif self.instance.pk and self.instance.district:
             self.fields['city'].queryset = self.instance.district.city_set.all()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
     
 
 class LeadViewForm(forms.ModelForm):
@@ -60,3 +79,74 @@ class LeadViewForm(forms.ModelForm):
         model = Leads
         fields = ['notes_about_client']
        
+
+
+class NotificationForm(forms.ModelForm):
+    class Meta:
+        model = Notification
+        fields =['description']
+        widgets ={
+            'description':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+        }
+        
+
+class LeadsManpowerAssignmentForm(forms.ModelForm):
+    added_by = forms.ModelMultipleChoiceField(queryset=ExtendedUserModel.objects.filter(usertype='Field Executive'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    
+    
+    class Meta:
+        model = Leads
+        fields = ['added_by']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Get the branch of the exit lead requested person
+        self.branch = self.instance.added_by.first().branch
+
+        # Update the queryset of the added_by field to filter by usertype='Admin' and branch=self.branch
+        self.fields['added_by'].queryset = ExtendedUserModel.objects.filter(usertype='Field Executive', branch=self.branch)
+    
+    
+    
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     if self.instance.pk:
+    #         # Get the already assigned field executives
+    #         assigned_field_executives = self.instance.added_by.values_list('pk', flat=True)
+    #         # Exclude them from the queryset
+    #         self.fields['added_by'].queryset = ExtendedUserModel.objects.filter(
+    #             usertype='Field Executive'
+    #         ).exclude(id__in=assigned_field_executives)
+    #     else:
+    #         self.fields['added_by'].queryset = ExtendedUserModel.objects.filter(
+    #             usertype='Field Executive'
+    #         )
+    
+
+    
+class ExitLeadAssignmentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Get the branch of the exit lead requested person
+        self.branch = self.instance.added_by.first().branch
+
+        # Update the queryset of the added_by field to filter by usertype='Admin' and branch=self.branch
+        self.fields['added_by'].queryset = ExtendedUserModel.objects.filter(usertype='Admin', branch=self.branch).exclude(
+            id=self.instance.added_by.first().id
+        )
+
+    added_by = forms.ModelMultipleChoiceField(queryset=ExtendedUserModel.objects.filter(usertype='Admin'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    
+    class Meta:
+        model = Leads
+        fields = ['added_by']
+
+        
+    

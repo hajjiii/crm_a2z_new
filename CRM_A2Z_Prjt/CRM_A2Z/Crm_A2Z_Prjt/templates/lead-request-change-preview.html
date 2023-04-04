@@ -1,14 +1,21 @@
+
 <!doctype html>
 {% load widget_tweaks %}
+
 {% load static %}
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
-
+<style>
+    .profile-project-card
+    {
+        margin-top: 100px;
+    }
+</style>
 
 <head>
 
     <meta charset="utf-8" />
-    <title>Lead Edit | A2ZAlphabetsolutionz CRM</title>
+    <title>Profile | A2ZAlphabetsolutionz CRM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -19,7 +26,6 @@
     <link rel="stylesheet" href="{% static 'assets/libs/swiper/swiper-bundle.min.css' %}">
 
     <!-- Layout config Js -->
-    <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.js'%}"></script>
     <script src="{% static 'assets/js/layout.js' %}"></script>
     <!-- Bootstrap Css -->
     <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
@@ -30,7 +36,6 @@
     <!-- custom Css-->
     <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'assets/css/style.css" rel="stylesheet' %}" type="text/css">
-
 </head>
 
 <body>
@@ -55,7 +60,7 @@
 
                     <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
-                           <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
+                            <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
                             <img src="{% static 'assets/images/A2z_logo.png' %}" alt="" height="17">
@@ -121,7 +126,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{% static 'assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="{% static 'assets/images/users/avatar-2.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-1">
                                             <h6 class="m-0">Angela Bernier</h6>
                                             <span class="fs-11 mb-0 text-muted">Manager</span>
@@ -131,7 +136,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{% static 'assets/images/users/avatar-3.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="{% static 'assets/images/users/avatar-3.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-1">
                                             <h6 class="m-0">David Grasso</h6>
                                             <span class="fs-11 mb-0 text-muted">Web Designer</span>
@@ -141,7 +146,7 @@
                                 <!-- item -->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                     <div class="d-flex">
-                                        <img src="{% static 'assets/images/users/avatar-5.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                        <img src="{% static 'assets/images/users/avatar-5.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                         <div class="flex-1">
                                             <h6 class="m-0">Mike Bunch</h6>
                                             <span class="fs-11 mb-0 text-muted">React Developer</span>
@@ -524,7 +529,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <img src="{% static 'assets/images/users/avatar-2.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
@@ -573,7 +578,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-8.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <img src="{% static 'assets/images/users/avatar-8.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
@@ -606,7 +611,7 @@
                                 <div data-simplebar style="max-height: 300px;" class="pe-2">
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-3.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <img src="{% static 'assets/images/users/avatar-3.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">James Lemire</h6>
@@ -629,7 +634,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-2.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <img src="{% static 'assets/images/users/avatar-2.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
@@ -653,7 +658,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-6.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <img src="{% static '/images/users/avatar-6.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Kenneth Brown</h6>
@@ -677,7 +682,7 @@
 
                                     <div class="text-reset notification-item d-block dropdown-item">
                                         <div class="d-flex">
-                                            <img src="{% static 'assets/images/users/avatar-8.jpg' %}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <img src="{% static 'assets/images/users/avatar-8.jpg'%}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                             <div class="flex-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
@@ -718,7 +723,7 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/avatar-1.jpg' %}" alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/avatar-1.jpg'%}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
                                 <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Designation</span>
@@ -775,19 +780,19 @@
                 <!-- Dark Logo-->
                 <a href="index.html" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
+                        <img src="{% static 'assets/images/a2z_icon.jpg'%}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{% static 'assets/images/A2z_logo.jpg' %}" alt="" height="17">
+                        <img src="{% static 'assets/images/A2z_logo.jpg'%}" alt="" height="17">
                     </span>
                 </a>
                 <!-- Light Logo-->
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
+                        <img src="{% static 'assets/images/a2z_icon.jpg'%}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{% static 'assets/images/A2z_logo.png' %}" alt="" height="17">
+                        <img src="{% static 'assets/images/A2z_logo.png'%}" alt="" height="17">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -863,7 +868,7 @@
                 <div class="container-fluid">
                     <div class="profile-foreground position-relative mx-n4 mt-n4">
                         <div class="profile-wid-bg">
-                            <img src="{% static 'assets/images/profile-bg.jpg' %}" alt="" class="profile-wid-img" />
+                            <img src="{% static 'assets/images/profile-bg.jpg'%}" alt="" class="profile-wid-img" />
                         </div>
                     </div>
                     
@@ -873,215 +878,120 @@
                             <div>
                                 
                                 <!-- Tab panes -->
-                                <div class="tab-content   pt-4 text-muted">
-                                    <div class="tab-pane active mt-10" id="overview-tab" role="tabpanel">
-                                        <div class="row" style="margin-top: 130px;">
+                                <div class="tab-content pt-4 text-muted">
+                                    <div class="tab-pane active" id="overview-tab" role="tabpanel">
+                                        <div class="row">
                                             <div class="col-xxl-12">
                                                 
 
                                                 <div class="card profile-project-card shadow-none profile-project-info ">
-                                                    <div class="card-body p-4">
-                                                        
-                                                        <div class="p-2 mt-4">
-                                                            <form form method='post' id="LeadAddForm" class="needs-validation" novalidate="" data-cities-url="{% url 'Crm_App:ajax_load_cities'%}" data-places-url="{% url 'Crm_App:ajax_load_places'%}">
-                                                                {% csrf_token %}
-                                                                <div class="mb-3">
-                                                                    <label for="title" class="form-label text-muted">Lead Title <span class="text-danger">*</span></label>
-                                                                    {{form.lead_title}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="Description" class="form-label text-muted">Leads Description <span class="text-danger">*</span></label>
-                                                                                {{form.lead_description}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="title" class="form-label text-muted">Contact Person Name <span class="text-danger">*</span></label>
-                                                                                {{form.contact_person_name}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="phone" class="form-label text-muted">Contact Person Phone<span class="text-danger">*</span></label>
-                                                                                {{form.contact_person_phone}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="designation" class="form-label text-muted">Contact Person Designation<span class="text-danger">*</span></label>
-                                                                                    {{form.contact_person_designation}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="photo" class="form-label text-muted " >Business Name</label>
-                                                                    {{form.business_name}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label text-muted" for="address">Address<span class="text-danger">*</span></label>
-                                                                    {{form.business_address}}
-                                                                  
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                   <label class="form-label text-muted" for="address">State<span class="text-danger">*</span></label>
-                                                                           {{form.state}}
-                                                                  
-                                                                </div>
-                                                                <div class="row">
-                                                                       <div class="col-lg-6">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label text-muted" for="address">District<span class="text-danger">*</span></label>
-                                                                                {{form.district}}
-                                                                                
-                                                                                
-                                                                            </div>
-                                                                       </div>
-                                                                       <div class="col-lg-6">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label text-muted" for="address">City<span class="text-danger">*</span></label>
-                                                                                {{form.city}}
-                                                                           </div>
-                                                                        </div>
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="designation" class="form-label text-muted">Intrest Rate<span class="text-danger">*</span></label>
-                                                                    {{form.interest_rate}}
-                                                                   
-                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                         <div class="mb-3">
-                                                                            <label for="autoCompleteFruit" class="text-muted">Lead generated Date</label>
-                                                                            {{form.lead_generated_date}}
-                                                                             
-                                                                             
-                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-6">
-                                                                         <div class="mb-3">
-                                                                            <label for="autoCompleteCars" class="text-muted">Next Follow Up Date</label>
-                                                                            {{form.next_follow_up_date}}
-                                                                        </div>
-                                                                     </div>
-                                                             </div>
-                                                             <div class="row">
-                                                                <div class="col-lg-6">
-                                                                     <div class="mb-3">
-                                                                        <label for="autoCompleteFruit" class="text-muted">Min Price</label>
-                                                                        {{form.min_price}}
-                                                                         
-                                                                         
-                                                                     </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                     <div class="mb-3">
-                                                                        <label for="autoCompleteCars" class="text-muted">Max Price<span class="text-danger">*</span></label>
-                                                                        {{form.max_price}}
-                                                                    </div>
-                                                                 </div>
-                                                         </div>
-                                                         <div class="row">
-                                                            <div class="col-lg-6">
-                                                                 <div class="mb-3">
-                                                                    <label for="autoCompleteFruit" class="text-muted">Leads Catagories</label>
-                                                                    {{form.lead_category}}
-                                                                     
-                                                                     
-                                                                 </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                 <div class="mb-3">
-                                                                    <label for="autoCompleteCars" class="text-muted">Lead Status<span class="text-danger">*</span></label>
-                                                                    {{form.status}}
-                                                                </div>
-                                                             </div>
-                                                             <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                        
-                                                                    <label for="autoCompleteFruit" class=" form-label text-muted">Note About Client</label>
-                                                                    {{form.notes_about_client}}
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                        
-                                                                   
-                                                                </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title mb-3">Info</h5>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-borderless mb-0">
                                                                 
-                                                            </div>
-                                                            
-                                                             
-                                                     </div>
-                                                     <hr>
-
-                                                     
-                                                    <div class="mb-3">
-                                                        
-                                                        <div class="col-lg-12" id="overflow">
-                                                            <table class="table table-responsive table-borderless table-lg">
-                                                                <thead class="text-center">
-                                                                <tr>
-                                                                    <th>Note About Client:</th>
-                                                                    
-        
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    
-                                                                {% for form_data in formset %}
-                                                                <tr class="item">
-                                                                    <td style="width:165px">
-                                                                        {% render_field form_data.notes_about_client class="form-control" %}
-
+                                                                <tbody >
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Lead Title :</th>
+                                                                        <td class="text-muted">{{form.instance.lead_title}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Lead Description :</th>
+                                                                        <td class="text-muted">{{form.instance.lead_description}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Contact Person Name :</th>
+                                                                        <td class="text-muted">{{form.instance.contact_person_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Contact Person Phone:</th>
+                                                                        <td class="text-muted"> {{form.instance.contact_person_phone}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Designation</th>
+                                                                        <td class="text-muted">{{form.instance.contact_person_designation}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Business Name</th>
+                                                                        <td class="text-muted">{{form.instance.business_name}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Address:</th>
+                                                                        <td class="text-muted">{{form.instance.business_address}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">State:</th>
+                                                                        <td class="text-muted">{{form.instance.state}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">District:</th>
+                                                                        <td class="text-muted">{{form.instance.district}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">City:</th>
+                                                                        <td class="text-muted">{{form.instance.city}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Intrest Rate:</th>
+                                                                        <td class="text-muted">{{form.instance.interest_rate}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Lead Generated Date:</th>
+                                                                        <td class="text-muted">{{form.instance.lead_generated_date}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Next Follow Up Date:</th>
+                                                                        <td class="text-muted">{{form.instance.next_follow_up_date}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Min Price:</th>
+                                                                        <td class="text-muted">{{form.instance.min_price}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Max Price:</th>
+                                                                        <td class="text-muted">{{form.instance.max_price}}</td>
+                                                                    </tr>
+                                                                     <tr>
+                                                                        <th class="ps-0" scope="row">Lead Status:</th>
+                                                                        <td class="text-muted">{{form.instance.status}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Lead Catagories:</th>
+                                                                        <td class="text-muted">{{form.instance.lead_category}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th class="ps-0" scope="row">Note About Client:</th>
+                                                                        <td class="text-muted">{{form.instance.notes_about_client}}</td>
+                                                                    </tr>
+                                                                    {% comment %} {% for form_data in formset %}
+                                                                    <tr class="item">
+                                                                        <td style="width:165px">
+                                                                            <tr>
+                                                                                <th class="ps-0" scope="row">Note About Client</th>
+                                                                                <td class="text-muted">{{ form_data.instance.notes_about_client }}</td>
+                                                                            </tr>
+                                                                         
+                                                                        </td>
+                                                                        
+                                                                        {{ form_data.id }}
                                                                        
-                                                                    </td>
-                                                                    
-                                                                    {{ form_data.id }}
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-danger btn-sm remove-form-row"
-                                                                                id="{{ formset.prefix }}">Delete</button>
-                                                                    </td>
-                                                                </tr>
-                                                                {% endfor %}
-                                                                <tr>
-                                                                  <td colspan="9"
-                                                                        style="border-left: none!important; border-right: none !important; border-bottom: none!important;">
-                                                                        <button type="button" class="btn btn-sm btn-success add-form-row"
-                                                                                id="{{ formset.prefix }}">Add</button>
-                                                                    </td> 
-                                                                </tr>
+                                                                    </tr>
+                                                                    {% endfor %}
+                                                                    {{ formset.management_form }} {% endcomment %}
+
+                                                                   
                                                                 </tbody>
                                                             </table>
-                                                            {{ formset.management_form }}
                                                         </div>
-                                                    </div>
-                                                   
-                                                   
-        
-                                                                
-                                                                <div class="mt-4 text-center">
-                                                                   
-                                                                <button class="btn btn-success w-sm " type="submit">Save</button>
-                                                                </div>
-                                                                
-                                                                <!-- <div class="mt-4 text-center">
-                                                                <div class="signin-other-title">
-                                                                <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
-                                                                </div>
-                                                                
-                                                                <div>
-                                                                <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
-                                                                <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
-                                                                <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
-                                                                <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
-                                                                </div>
-                                                                </div> -->
-                                                            </form>
-                                                        
-                                                        </div>
-                                                        </div>
-                                                        <!-- end card body -->
-                                                    <!-- end card body -->
+                                                    </div><!-- end card body -->
+                                                    {% comment %} <a href="{{ approve_url }}">Approve</a> {% endcomment %}
+                                                    
                                                 </div><!-- end card -->
+                                                <div class="mt-4 text-center">
+                                                                   
+                                                    <button class="btn btn-success w-sm " type="submit"><a href="{{ approve_url }}">Approve</a></button>
+                                                    </div>
+                                                    
 
                                              
 
@@ -1699,26 +1609,26 @@
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-01" value="img-1">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-01">
-                                    <img src="{% static 'assets/images/sidebar/img-1.jpg' %}" alt="" class="avatar-md w-auto object-cover">
+                                    <img src="{% static 'assets/images/sidebar/img-1.jpg'%}" alt="" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>	
 
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-02" value="img-2">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-02">
-                                    <img src="{% static 'assets/images/sidebar/img-2.jpg' %}" alt="" class="avatar-md w-auto object-cover">
+                                    <img src="{% static 'assets/images/sidebar/img-2.jpg'%}" alt="" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-03" value="img-3">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-03">
-                                    <img src="{% static 'assets/images/sidebar/img-3.jpg' %}" alt="" class="avatar-md w-auto object-cover">
+                                    <img src="{% static 'assets/images/sidebar/img-3.jpg'%}" alt="" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>
                             <div class="form-check sidebar-setting card-radio">
                                 <input class="form-check-input" type="radio" name="data-sidebar-image" id="sidebarimg-04" value="img-4">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-04">
-                                    <img src="{% static 'assets/images/sidebar/img-4.jpg' %}" alt="" class="avatar-md w-auto object-cover">
+                                    <img src="{% static 'assets/images/sidebar/img-4.jpg'%}" alt="" class="avatar-md w-auto object-cover">
                                 </label>
                             </div>
                         </div>
@@ -1806,76 +1716,21 @@
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-     $(document).ready(function() {
-       // Disable district and city fields initially
-       $('#id_district').prop('disabled', true);
-       $('#id_city').prop('disabled', true);
-     
-       // Enable district field when state is selected
-       $('#id_state').change(function() {
-         const url = $("#LeadAddForm").attr("data-cities-url");
-         const countryId = $(this).val();
-     
-         if (countryId) {
-           $('#id_district').prop('disabled', false);
-           $.ajax({
-             url: url,
-             data: {
-               'country_id': countryId
-             },
-             success: function(data) {
-               $('#id_district').html(data);
-               $('#id_city').prop('disabled', true);
-             }
-           });
-         } else {
-           // Disable district and city fields if state is not selected
-           $('#id_district').prop('disabled', true);
-           $('#id_city').prop('disabled', true);
-         }
-       });
-     
-       // Enable city field when district is selected
-       $('#id_district').change(function() {
-         const url = $("#LeadAddForm").attr("data-places-url");
-         const districtId = $(this).val();
-     
-         if (districtId) {
-           $('#id_city').prop('disabled', false);
-           $.ajax({
-             url: url,
-             data: {
-               'country_id': districtId
-             },
-             success: function(data) {
-               $('#id_city').html(data);
-             }
-           });
-         } else {
-           // Disable city field if district is not selected
-           $('#id_city').prop('disabled', true);
-         }
-       });
-     });
-     </script>
-    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
-    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
-    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
-    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
-    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/libs/simplebar/simplebar.min.js'%}"></script>
+    <script src="{% static 'assets/libs/node-waves/waves.min.js'%}"></script>
+    <script src="{% static 'assets/libs/feather-icons/feather.min.js'%}"></script>
+    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js'%}"></script>
+    <script src="{% static 'assets/js/plugins.js'%}"></script>
 
     <!-- swiper js -->
-    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/libs/swiper/swiper-bundle.min.js'%}"></script>
 
     <!-- profile init js -->
-    <script src="{% static 'assets/js/pages/profile.init.js' %}"></script>
+    <script src="{% static 'assets/js/pages/profile.init.js'%}"></script>
 
     <!-- App js -->
-    <script src="{% static 'assets/js/app.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/js/formset.js' %}"></script>
+    <script src="{% static 'assets/js/app.js'%}"></script>
 </body>
 
 
