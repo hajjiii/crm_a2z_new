@@ -1,17 +1,51 @@
 from django import forms
-from .models import *
+from Crm_App.models import *
+
+
+
+
+
+
+
+class BranchAddForm(forms.ModelForm):
+    class Meta:
+        model = Branch
+        fields = '__all__'
+
+        widgets = {
+            'name' : forms.TextInput(attrs={'class':'form-control'}),
+            'addrs' : forms.Textarea(attrs={'class':'form-control'}),
+            'phn' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+
+
+
+
+class BranchUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Branch
+        fields = '__all__'
+        
+        widgets = {
+            'name' : forms.TextInput(attrs={'class':'form-control'}),
+            'addrs' : forms.Textarea(attrs={'class':'form-control'}),
+            'phn' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+
+
+
 
 class LeadAddForm(forms.ModelForm):
     class Meta:
         model = Leads
         fields = "__all__"
-        exclude = ['added_by','added_on','added_by_admin','exit_lead_desc']
+        exclude = ['added_by','added_on','added_by_admin']
 
         widgets ={
             'lead_title':forms.TextInput(attrs={'class':'form-control'}),
             'lead_description':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
             'contact_person_name':forms.TextInput(attrs={'class':'form-control'}),
-            'contact_person_phone':forms.TextInput(attrs={'class':'form-control'}),
+            'contact_person_phone':forms.NumberInput(attrs={'class':'form-control'}),
             'contact_person_designation':forms.TextInput(attrs={'class':'form-control'}),
             'business_name':forms.TextInput(attrs={'class':'form-control'}),
             'business_address':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
@@ -26,7 +60,9 @@ class LeadAddForm(forms.ModelForm):
             'max_price':forms.NumberInput(attrs={'class':'form-control'}),
             'lead_category':forms.Select(attrs={'class':'form-control'}),
             'status':forms.Select(attrs={'class':'form-control'}),
-            'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'})
+            'lead_delivery_date': forms.DateInput(attrs={'class':'form-control','type':'date'}),
+            'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'note_about_field_executive':forms.Textarea(attrs={'class':'form-control','rows':'3'})
 
         }
 
@@ -52,26 +88,8 @@ class LeadAddForm(forms.ModelForm):
                 pass
         elif self.instance.pk and self.instance.district:
             self.fields['city'].queryset = self.instance.district.city_set.all()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
     
+
 
 class LeadViewForm(forms.ModelForm):
     notes_about_client = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows':3}), required=True)
@@ -79,6 +97,71 @@ class LeadViewForm(forms.ModelForm):
         model = Leads
         fields = ['notes_about_client']
        
+
+
+
+class ProjectEditForm(forms.ModelForm):
+    class Meta:
+        model = Leads
+        fields = "__all__"
+        exclude = ['added_by','added_on','added_by_admin']
+
+        widgets ={
+            'lead_title':forms.TextInput(attrs={'class':'form-control'}),
+            'lead_description':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'contact_person_name':forms.TextInput(attrs={'class':'form-control'}),
+            'contact_person_phone':forms.NumberInput(attrs={'class':'form-control'}),
+            'contact_person_designation':forms.TextInput(attrs={'class':'form-control'}),
+            'business_name':forms.TextInput(attrs={'class':'form-control'}),
+            'business_address':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'state':forms.Select(attrs={'class':'form-control'}),
+            'district':forms.Select(attrs={'class':'form-control'}),
+            'city':forms.Select(attrs={'class':'form-control'}),
+            # 'city':forms.TextInput(attrs={'class':'form-control'}),
+            'interest_rate':forms.Select(attrs={'class':'form-control'}),
+            'lead_generated_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+            'next_follow_up_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+            'min_price':forms.NumberInput(attrs={'class':'form-control'}),
+            'max_price':forms.NumberInput(attrs={'class':'form-control'}),
+            'lead_category':forms.Select(attrs={'class':'form-control'}),
+            'status':forms.Select(attrs={'class':'form-control'}),
+            'lead_delivery_date': forms.DateInput(attrs={'class':'form-control','type':'date'}),
+            'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'note_about_field_executive':forms.Textarea(attrs={'class':'form-control','rows':'3'})
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['district'].queryset = District.objects.none()
+        self.fields['city'].queryset = City.objects.none()
+
+        if 'state' in self.data:
+            try:
+                state_id = int(self.data.get('state'))
+                self.fields['district'].queryset = District.objects.filter(state=state_id)
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk:
+            self.fields['district'].queryset = self.instance.state.district_set.all()
+
+        if 'district' in self.data:
+            try:
+                district_id = int(self.data.get('district'))
+                self.fields['city'].queryset = City.objects.filter(district=district_id)
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk and self.instance.district:
+            self.fields['city'].queryset = self.instance.district.city_set.all()
+    
+
+
+
+
+
+
+
+
 
 
 class NotificationForm(forms.ModelForm):
@@ -147,6 +230,55 @@ class ExitLeadAssignmentForm(forms.ModelForm):
     class Meta:
         model = Leads
         fields = ['added_by']
+
+
+
+
+class ProjectModuleForm(forms.ModelForm):
+    class Meta:
+        model = ProjectModule
+        fields = "__all__"
+        exclude = ['key','project','lead','added_by','added_on','status']
+        widgets ={
+            'module_title':forms.TextInput(attrs={'class':'form-control'}),
+            'module_description':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+        }
+
+
+
+
+class ProjectAsignmentForm(forms.ModelForm):
+    module_assigned = forms.ModelMultipleChoiceField(
+        queryset=ProjectModule.objects.none(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    project_assignment = forms.ModelMultipleChoiceField(
+        queryset=ExtendedUserModel.objects.none(),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+    )
+
+   
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request')
+        project = kwargs.pop('project')
+        if not request.user.is_superuser:
+            branch = kwargs.pop('branch')
+            name = kwargs.pop('name')
+
+        super().__init__(*args, **kwargs)
+        self.fields['module_assigned'].queryset = ProjectModule.objects.filter(project=project)
+        if not request.user.is_superuser:
+            self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch=branch).exclude(user__username=name)
+        else:
+            self.fields['project_assignment'].queryset = ExtendedUserModel.objects.all()
+
+
+    class Meta:
+        model = ProjectAssignment
+        fields = ['project_assignment', 'module_assigned']
+        exclude = ['key', 'project', 'lead', 'project_module', 'added_by', 'added_on']
+       
 
         
     

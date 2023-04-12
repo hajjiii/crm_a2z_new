@@ -42,7 +42,7 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="{% url 'Crm_App:index' %}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
@@ -51,7 +51,7 @@
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light">
+                    <a href="{% url 'Crm_App:index' %}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
@@ -84,8 +84,8 @@
                             </div>
 
                             <div class="dropdown-item bg-transparent text-wrap">
-                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
-                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="{% url 'Crm_App:index' %}" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="{% url 'Crm_App:index' %}" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
                             </div>
                             <!-- item-->
                             <div class="dropdown-header mt-2">
@@ -718,25 +718,31 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/avatar-1.jpg' %}" alt="Header Avatar">
+                            {% if user.user.user_photo %}
+                            <img class="rounded-circle header-profile-user" src="{{user.user.user_photo.url}}" alt="Header Avatar">
+                            {% else %}
+                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/user.png' %}" alt="Header Avatar">
+                            {% endif %}
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{user.username}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{user.user.usertype}}</span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome Anna!</h6>
-                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
-                        <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
+                        <h6 class="dropdown-header">Welcome {{user.username}}!</h6>
+                        {% if not user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'Crm_App:profile_view' %}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                        {% endif %}
+                       <!-- <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>-->
                         <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
-                        <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                       <!-- <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>-->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
-                        <a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
+                       <!-- <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>-->
+                        <!--<a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>-->
                         <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
-                        <a class="dropdown-item" href="auth-logout-basic.html"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        <a class="dropdown-item" href="{% url 'Crm_App:logout' %}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
                     </div>
                 </div>
             </div>
@@ -773,7 +779,7 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <!-- Dark Logo-->
-                <a href="index.html" class="logo logo-dark">
+                <a href="{% url 'Crm_App:index' %}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                     </span>
@@ -782,7 +788,7 @@
                     </span>
                 </a>
                 <!-- Light Logo-->
-                <a href="index.html" class="logo logo-light">
+                <a href="{% url 'Crm_App:index' %}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                     </span>
@@ -803,43 +809,52 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="usermanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:index' %}">
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Dashboard</span>
                             </a>
                         </li>
+                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="usermanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:usermanagement' %}">
                                 <i class="bx bx-user"></i> <span data-key="t-widgets">Users Management</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="leadsmanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:branch' %}">
+                                <i class="bx bx-user"></i> <span data-key="t-widgets">Branch Management</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_add' %}">
                                 <i class="ri-pulse-line"></i> <span data-key="t-widgets">Leads Management</span>
                             </a>
                         </li>
+                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="followup.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_change_request' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Lead Change Request</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:placemanagement' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Place Management</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:usertype_settings' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Usertype Management</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:follow_up_reminder' %}">
                                 <i class="bx bx bx-calendar"></i> <span data-key="t-widgets">Follow Up Remainder</span>
                             </a>
                         </li>
-                       <!--<li class="nav-item">
-                            <a href="#sidebarEmail" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmail" data-key="t-email">
-                                <i class="bx bx-calendar"></i>Follow Up remainder
-                            </a>
-                            <div class="menu-dropdown collapse" id="sidebarEmail" style="">
-                            <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                            <a href="tomorrow.html" class="nav-link" data-key="t-mailbox"> Tomorrow Date </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="dayafter.html" class="nav-link" data-key="t-mailbox">Day After Tomorrow </a>
-                            </li>
-                           
-                            </ul>
-                            </div>
-                        </li>-->
+                       
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="helpcenter.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_help_centre' %}">
                                 <i class="lab las la-headset"></i> <span data-key="t-widgets">Help Center</span>
                             </a>
                         </li>
@@ -931,8 +946,14 @@
                                                         <th class="sort" data-sort="company_name">Contact Person Name</th>
                                                         <th class="sort" data-sort="leads_score">Phone</th>
                                                         {% comment %} <th class="sort" data-sort="phone">View</th> {% endcomment %}
+                                                        {% if user.is_superuser %}
+                                                        <th class="sort" data-sort="location">Edit</th>
+                                                        {% else %}                                                       
                                                         <th class="sort" data-sort="location">Request For Change</th>
+                                                        {% endif %} 
+                                                        {% if not user.is_superuser %}                                                       
                                                         <th class="sort" data-sort="phone"> Preview</th>
+                                                        {% endif %}
                                                         <th class="sort" data-sort="location">Action</th>
                                                        
                                                     </tr>
@@ -951,8 +972,14 @@
                                                         <td class="leads_score">{{i.contact_person_name}}</td>
                                                         <td class="phone">{{i.contact_person_phone}}</td>
                                                         {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_view' i.id %}"><i class="fas fa-eye"></i></a></td> {% endcomment %}
+                                                        {% if user.is_superuser %}
                                                         <td class="location text-center"><a href="{% url 'Crm_App:lead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                        {% else %}
+                                                        <td class="location text-center"><a href="{% url 'Crm_App:tlead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                        {% endif %}
+                                                        {% if not user.is_superuser %}
                                                         <td class="location"><a href="{% url 'Crm_App:lead_preview' i.id %}"><i class="fa-solid fa-eye"></i></a></td>
+                                                        {% endif %}
                                                         <td class="location"><a href="{% url 'Crm_App:lead_delete' i.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
 
                                                     
@@ -1028,7 +1055,7 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label class="form-label text-muted" for="address">State<span class="text-danger">*</span></label>
-                                                            <span id="LeadFilter10">     {{form.state}}</span>
+                                                            <span id="LeadFilter10">{{form.state}}</span>
                                                           
                                                         </div>
                                                         
@@ -1036,7 +1063,7 @@
                                                                <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label class="form-label text-muted" for="address">District<span class="text-danger">*</span></label>
-                                                                      <span >  {{form.district }}</span>
+                                                                      <span >{{form.district }}</span>
                                                                         
                                                                         
                                                                     </div>
@@ -1044,15 +1071,11 @@
                                                                <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                         <label class="form-label text-muted" for="address">City<span class="text-danger">*</span></label>
-                                                                        <span id="LeadFilter9">     {{form.city}}</span>
+                                                                        <span id="LeadFilter9">{{form.city}}</span>
                                                                    </div>
                                                                 </div>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label for="designation" class="form-label text-muted">Intrest Rate<span class="text-danger">*</span></label>
-                                                            {{form.interest_rate}}
-                                                           
-                                                         </div>
+                                                        
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                  <div class="mb-3">
@@ -1095,17 +1118,38 @@
                                                          </div>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                         <div class="mb-3">
+                                                        <div class="mb-3">
                                                             <label for="autoCompleteCars" class="text-muted">Lead Status<span class="text-danger">*</span></label>
                                                             {{form.status}}
                                                         </div>
-                                                     </div>
-                                             </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="designation" class="form-label text-muted">Intrest Rate<span class="text-danger">*</span></label>
+                                                            {{form.interest_rate}}
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="designation" class="form-label text-muted">Lead Delivery date</label>
+                                                            {{form.lead_delivery_date}}
+                                                        
+                                                        </div>
+                                                    </div>
+                                              
                                              <div class="mb-3">
-                                                
                                                 <label for="autoCompleteFruit" class=" form-label text-muted">Note About Client</label>
                                                 {{form.notes_about_client}}
                                             </div>
+                                            {% if user.is_superuser or user.user.usertype == 'Office Staff' %}
+                                            <div class="mb-3">
+                                                <label for="autoCompleteFruit" class=" form-label text-muted">Note About Field executive</label>
+                                                {{form.note_about_field_executive}}
+                                            </div>
+                                            {% endif %}
                                                         <!--  -->
                                            
 
@@ -1980,6 +2024,26 @@
     </div>
 
        <!-- JAVASCRIPT -->
+
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m="{{message}}";
+    swal("{{message}}",'','success')
+    {% comment %} swal("Perfect!", m, "success") {% endcomment %}
+    </script>
+    {% else %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m="{{message}}";
+    swal("{{message}}",'','error')
+    {% comment %} swal("Perfect!", m, "success") {% endcomment %}
+    </script>
+    {% endif %}
+    {% endfor %}
+
+
        <script>
 
         $("#search-box__reset").on('click', function(e) {
@@ -2053,6 +2117,9 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       
+    
+
+    
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>

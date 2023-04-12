@@ -15,7 +15,10 @@ admin.site.register(Leads)
 admin.site.register(LeadsView)
 admin.site.register(TempLead)
 admin.site.register(Notification)
-
+admin.site.register(ProjectStatus)
+admin.site.register(Project)
+admin.site.register(ProjectModule)
+admin.site.register(ProjectAssignment)
 
 
 

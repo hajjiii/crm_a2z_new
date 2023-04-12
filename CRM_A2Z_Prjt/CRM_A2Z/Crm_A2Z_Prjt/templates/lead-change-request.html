@@ -803,43 +803,52 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="usermanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:index' %}">
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Dashboard</span>
                             </a>
                         </li>
+                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="usermanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:usermanagement' %}">
                                 <i class="bx bx-user"></i> <span data-key="t-widgets">Users Management</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="leadsmanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:branch' %}">
+                                <i class="bx bx-user"></i> <span data-key="t-widgets">Branch Management</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_add' %}">
                                 <i class="ri-pulse-line"></i> <span data-key="t-widgets">Leads Management</span>
                             </a>
                         </li>
+                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="followup.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_change_request' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Lead Change Request</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:placemanagement' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Place Management</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:usertype_settings' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Usertype Management</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:follow_up_reminder' %}">
                                 <i class="bx bx bx-calendar"></i> <span data-key="t-widgets">Follow Up Remainder</span>
                             </a>
                         </li>
-                       <!--<li class="nav-item">
-                            <a href="#sidebarEmail" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmail" data-key="t-email">
-                                <i class="bx bx-calendar"></i>Follow Up remainder
-                            </a>
-                            <div class="menu-dropdown collapse" id="sidebarEmail" style="">
-                            <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                            <a href="tomorrow.html" class="nav-link" data-key="t-mailbox"> Tomorrow Date </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="dayafter.html" class="nav-link" data-key="t-mailbox">Day After Tomorrow </a>
-                            </li>
-                           
-                            </ul>
-                            </div>
-                        </li>-->
+                       
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="helpcenter.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_help_centre' %}">
                                 <i class="lab las la-headset"></i> <span data-key="t-widgets">Help Center</span>
                             </a>
                         </li>
@@ -933,7 +942,9 @@
                                                         {% comment %} <th class="sort" data-sort="phone">View</th> {% endcomment %}
                                                         {% comment %} <th class="sort" data-sort="location">Request For Change</th> {% endcomment %}
                                                         <th class="sort" data-sort="phone"> Preview</th>
-                                                        {% comment %} <th class="sort" data-sort="location">Action</th> {% endcomment %}
+                                                        {% comment %} <th class="sort" data-sort="phone"> Edit</th> {% endcomment %}
+
+                                                        <th class="sort" data-sort="location">Action</th>
                                                        
                                                     </tr>
                                                 </thead>
@@ -953,7 +964,8 @@
                                                         {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_view' i.id %}"><i class="fas fa-eye"></i></a></td> {% endcomment %}
                                                         {% comment %} <td class="location text-center"><a href="{% url 'Crm_App:lead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td> {% endcomment %}
                                                         <td class="location"><a href="{% url 'Crm_App:lead_request_change_preview' i.id %}"><i class="fa-solid fa-eye"></i></a></td>
-                                                        {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_delete' i.id %}"><i class="fa-solid fa-trash-can"></i></a></td> {% endcomment %}
+
+                                                        <td class="location"><a href="{% url 'Crm_App:lead_change_request_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i>Edit</a></td>
 
                                                     
                                                     </tr>

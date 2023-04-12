@@ -8,38 +8,42 @@ function updateElementIndex(el, prefix, ndx) {
     if (el.id) el.id = el.id.replace(id_regex, replacement);
     if (el.name) el.name = el.name.replace(id_regex, replacement);
 }
+
 function addForm(btn, prefix) {
     var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
     if (formCount < 1000) {
-        // Create a new row with the same structure as the previous row
-        var newRow = $('<tr class="item">' + $('.item:first').html() + '</tr>');
+        // Clone a form (without event handlers) from the first form
+        var row = $(".item:last").clone(false).get(0);
 
-        // Clear the form fields
-        newRow.find('.formset-field').each(function () {
+        // Insert it after the last form
+        $(row).removeAttr('id').hide().insertAfter(".item:last").slideDown(300);
+
+        // Remove the bits we don't want in the new row/form
+        // e.g. error messages
+        $(".errorlist", row).remove();
+        $(row).children().removeClass("error");
+
+        // Relabel or rename all the relevant bits
+        $(row).find('.formset-field').each(function () {
+            updateElementIndex(this, prefix, formCount);
             $(this).val('');
             $(this).removeAttr('value');
             $(this).prop('checked', false);
         });
-        newRow.find('.formset-field').not(':checkbox').val('');
-
-        // Insert the new row after the last row
-        newRow.appendTo('#overflow table tbody');
-
-        // Relabel or rename all the relevant bits
-        newRow.find('.formset-field').each(function () {
-            updateElementIndex(this, prefix, formCount);
-        });
 
         // Add an event handler for the delete item/form link
-        newRow.find(".delete").click(function () {
+        $(row).find(".delete").click(function () {
             return deleteForm(this, prefix);
         });
-
         // Update the total form count
         $("#id_" + prefix + "-TOTAL_FORMS").val(formCount + 1);
-    }
+
+    } // End if
+
     return false;
 }
+
+
 function deleteForm(btn, prefix) {
       var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
       if (formCount > 1) {

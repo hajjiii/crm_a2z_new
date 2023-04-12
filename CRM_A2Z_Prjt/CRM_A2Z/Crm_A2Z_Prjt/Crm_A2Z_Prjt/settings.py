@@ -51,7 +51,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware'
 ]
 
 ROOT_URLCONF = 'Crm_A2Z_Prjt.urls'
@@ -136,25 +135,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'hajaraajialpha@gmail.com'
-EMAIL_HOST_PASSWORD = 'mdtoeglcosfiwisi'
-
-
-
-
-
-
-
-
-
-# # EMAIL_CONFIG
-# EMAIL_FROM_USER = ''
-# EMAIL_HOST = os.environ.get('EMAIL_HOST')
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-# EMAIL_PORT =os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER = 'midhunkbalpha@gmail.com'
+EMAIL_HOST_PASSWORD = 'cljpuqrpqojlselp'

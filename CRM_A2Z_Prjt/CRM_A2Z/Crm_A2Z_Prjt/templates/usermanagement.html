@@ -13,6 +13,7 @@
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/a2z_icon.jpg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Sweet Alert css-->
     <link href="{% static 'assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
@@ -42,7 +43,7 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="{% url 'Crm_App:index' %}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
@@ -51,7 +52,7 @@
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light">
+                    <a href="{% url 'Crm_App:index' %}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
@@ -84,8 +85,8 @@
                             </div>
 
                             <div class="dropdown-item bg-transparent text-wrap">
-                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
-                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="{% url 'Crm_App:index' %}" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="{% url 'Crm_App:index' %}" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
                             </div>
                             <!-- item-->
                             <div class="dropdown-header mt-2">
@@ -718,25 +719,33 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/avatar-1.jpg' %}" alt="Header Avatar">
+                            {% if user.user.user_photo %}
+                            <img class="rounded-circle header-profile-user" src="{{user.user.user_photo.url}}" alt="Header Avatar">
+                            {% else %}
+                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/user.png' %}" alt="Header Avatar">
+                            {% endif %}
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
+                                
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{user.username}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{user.user.usertype}}</span>
+                                
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome Anna!</h6>
-                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
-                        <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
+                        <h6 class="dropdown-header">Welcome {{user.username}}!</h6>
+                        {% if not user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'Crm_App:profile_view' %}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                        {% endif %}
+                       <!-- <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>-->
                         <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
-                        <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
+                       <!-- <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>-->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
-                        <a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
+                       <!-- <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>-->
+                        <!--<a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>-->
                         <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
-                        <a class="dropdown-item" href="auth-logout-basic.html"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        <a class="dropdown-item" href="{% url 'Crm_App:logout' %}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
                     </div>
                 </div>
             </div>
@@ -773,7 +782,7 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <!-- Dark Logo-->
-                <a href="index.html" class="logo logo-dark">
+                <a href="{% url 'Crm_App:index' %}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                     </span>
@@ -782,7 +791,7 @@
                     </span>
                 </a>
                 <!-- Light Logo-->
-                <a href="index.html" class="logo logo-light">
+                <a href="{% url 'Crm_App:index' %}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                     </span>
@@ -803,43 +812,52 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="usermanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:index' %}">
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Dashboard</span>
                             </a>
                         </li>
+                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="usermanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:usermanagement' %}">
                                 <i class="bx bx-user"></i> <span data-key="t-widgets">Users Management</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="leadsmanagement.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:branch' %}">
+                                <i class="bx bx-user"></i> <span data-key="t-widgets">Branch Management</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_add' %}">
                                 <i class="ri-pulse-line"></i> <span data-key="t-widgets">Leads Management</span>
                             </a>
                         </li>
+                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="followup.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_change_request' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Lead Change Request</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:placemanagement' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Place Management</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:usertype_settings' %}">
+                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Usertype Management</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:follow_up_reminder' %}">
                                 <i class="bx bx bx-calendar"></i> <span data-key="t-widgets">Follow Up Remainder</span>
                             </a>
                         </li>
-                       <!--<li class="nav-item">
-                            <a href="#sidebarEmail" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmail" data-key="t-email">
-                                <i class="bx bx-calendar"></i>Follow Up remainder
-                            </a>
-                            <div class="menu-dropdown collapse" id="sidebarEmail" style="">
-                            <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                            <a href="tomorrow.html" class="nav-link" data-key="t-mailbox"> Tomorrow Date </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="dayafter.html" class="nav-link" data-key="t-mailbox">Day After Tomorrow </a>
-                            </li>
-                           
-                            </ul>
-                            </div>
-                        </li>-->
+                       
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="helpcenter.html">
+                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_help_centre' %}">
                                 <i class="lab las la-headset"></i> <span data-key="t-widgets">Help Center</span>
                             </a>
                         </li>
@@ -898,7 +916,7 @@
                                             <div class="hstack gap-2">
                                                 <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                                             
-                                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add Leads</button>
+                                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add User</button>
                                                <!-- <span class="dropdown">
                                                     <button class="btn btn-soft-info btn-icon fs-14" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class="ri-settings-4-line"></i>
@@ -927,6 +945,8 @@
                                                             </div>
                                                         </th>
                                                         <th class="sort" data-sort="name">User</th>
+                                                        <th class="sort" data-sort="name">Type</th>
+                                                        <th class="sort" data-sort="name">Phone</th>
                                                         <th class="sort" data-sort="company_name">Branch</th>
                                                         <th class="sort" data-sort="leads_score">Status</th>
                                                         <th class="sort" data-sort="phone">Action</th>
@@ -944,46 +964,24 @@
                                                         </th>
                                                         <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
                                                       
-                                                        <td>{{i.user.username}}</td>
-                        
-                                                        <td>{{i.branch}}</td>
+                                                        <td class="name"><a href="{% url 'Crm_App:usermanagement_view' i.id %}">{{i.username}}</td>
+                                                        <td class="name">{{i.user.usertype}}</td>
+                                                        <td class="name">{{i.user.phn_number}}</td>
+                                                        <td class="company_name">{{i.user.branch}}</td>
                                                         
-                                                        {% if i.status.name == 'Active' %}
-                                                        <td><span class="badge badge-soft-success">{{i.status}}</span></td>
+                                                        {% if i.user.status.name == 'Active' %}
+                                                        <td class="leads_score"><span class="badge badge-soft-success">{{i.user.status}}</span></td>
                                                         {% else %}
-                                                        <td><span class="badge badge-soft-danger">{{i.status}}</span></td>
+                                                        <td class="phone"><span class="badge badge-soft-danger">{{i.user.status}}</span></td>
                                                         {% endif %}
                                                         <td>
-                                                        <div class="dropdown">
-                                                        <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="ri-more-2-fill"></i>
-                                                        </a>
-                                                        
-                                                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                                        <li><a class="dropdown-item"  href="pages-profile.html">View</a></li>
-                                                        <li>
-                                                            <a class="dropdown-item" href="#sidebarMaps" data-bs-toggle="collapse" role="button" aria-expanded="true" >
-                                                                <span data-key="t-maps">Edit</span>
-                                                            </a>
-                                                            <div class=" simplebar-offset menu-dropdown offset" id="sidebarMaps">
-                                                                <ul class="  nav nav-sm flex-column">
-                                                                    <li class="nav-item">
-                                                                        <a href="maps-google.html" class="nav-link" data-key="t-google">
-                                                                            -Active
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a href="maps-vector.html" class="nav-link" data-key="t-vector">
-                                                                           -Deactive
-                                                                        </a>
-                                                                    </li>
-                                                                  
-                                                                </ul>
-                                                            </div>
+                                                        <li class="list-inline-item">
+                                                            <a href="{% url 'Crm_App:usermanagement_update' i.id %}"><button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit text-white"></i></button></a>
                                                         </li>
-                                                        <li><a class="dropdown-item" href="#">Delete</a></li>
-                                                        </ul>
-                                                        </div>
+                                                        <li class="list-inline-item">
+                                                            <a href="{% url 'Crm_App:usermanagement_delete' i.id %}"><button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash text-white"></i></button></a>
+                                                        </li>
+                                                        
                                                         </td>
                                                     
                                                     </tr>
@@ -1047,7 +1045,7 @@
                                             <div class="card mt-4" id="card-modal">
                                             <div class="text-center mt-sm-5 mb-2 text-white-50">
                                             <div>
-                                            <a href="index.html" class="d-inline-block auth-logo">
+                                            <a href="{% url 'Crm_App:index' %}" class="d-inline-block auth-logo">
                                             <img src="{% static 'assets/images/A2z_logo.jpg' %}" alt="" height="50px">
                                             </a>
                                             </div>
@@ -1064,7 +1062,7 @@
                                             </div>
                                             </div>
                                             <div class="p-2 mt-4">
-                                            <form class="needs-validation" novalidate method='post' enctype='multipart/form-data'>
+                                            <form class="needs-validation"  method='post' enctype='multipart/form-data'>
                                                 {% csrf_token %}
                                              <div class="row">
                                                     <div class="col-lg-6">
@@ -1091,8 +1089,8 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label class="form-label" for="password-input">Password<span class="text-danger">*</span></label>
-                                                        <div class="position-relative auth-pass-inputgroup">
-                                                        <input type="password" name='password' class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                        <div class="position-relative ">
+                                                        <input type="password" name='password' class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" required>
                                                         <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                         <div class="invalid-feedback">
                                                         Please enter password
@@ -1103,8 +1101,8 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="password-input">Confirm Password<span class="text-danger">*</span></label>
-                                                    <div class="position-relative auth-pass-inputgroup">
-                                                    <input type="password" name='password2' class="form-control pe-5 password-input" onpaste="return false" placeholder="Confirm password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                    <div class="position-relative">
+                                                    <input type="password" name='password2' class="form-control pe-5 password-input" onpaste="return false" placeholder="Confirm password" id="password-input" aria-describedby="passwordInput" required>
                                                     <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                     <div class="invalid-feedback">
                                                     Confirm Password
@@ -2015,22 +2013,28 @@
     
     <!-- JAVASCRIPT -->
     {% for message in messages %}
-        {% if message.tags == 'success' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-        var m="{{message}}";
-        swal("{{message}}",'','success')
-        {% comment %} swal("Perfect!", m, "success") {% endcomment %}
-        </script>
-        {% else %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-        var m="{{message}}";
-        swal("{{message}}",'','error')
-        {% comment %} swal("Perfect!", m, "success") {% endcomment %}
-        </script>
-        {% endif %}
-        {% endfor %}
+    {% if message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m="{{message}}";
+    swal("{{message}}",'','success')
+    {% comment %} swal("Perfect!", m, "success") {% endcomment %}
+    </script>
+    {% else %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m="{{message}}";
+    swal("{{message}}",'','error')
+    {% comment %} swal("Perfect!", m, "success") {% endcomment %}
+    </script>
+    {% endif %}
+    {% endfor %}
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
