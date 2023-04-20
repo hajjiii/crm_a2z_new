@@ -946,19 +946,21 @@
                                                         <th class="sort" data-sort="company_name">Contact Person Name</th>
                                                         <th class="sort" data-sort="leads_score">Phone</th>
                                                         {% comment %} <th class="sort" data-sort="phone">View</th> {% endcomment %}
-                                                        {% if user.is_superuser or user.user.usertype == 'Admin' %}
+                                                        {% comment %} {% if user.is_superuser or user.user.usertype == 'Admin' %} {% endcomment %}
+                                                        {% if user.user.usertype == 'Admin' %}
+
                                                         <th class="sort" data-sort="location">Edit</th>
-                                                        <th class="sort" data-sort="location">Module Mangement</th>
+                                                        <th class="sort" data-sort="location">Module Management</th>
                                                         <th class="sort" data-sort="location">Assignment</th>
 
 
 
-                                                        {% else %}                                                       
-                                                        <th class="sort" data-sort="location">Request For Change</th>
+                                                        {% comment %} {% else %}                                                        {% endcomment %}
+                                                        {% comment %} <th class="sort" data-sort="location">Request For Change</th> {% endcomment %}
                                                         {% endif %} 
-                                                        {% if not user.is_superuser %}                                                       
-                                                        <th class="sort" data-sort="phone"> Preview</th>
-                                                        {% endif %}
+                                                        {% comment %} {% if not user.is_superuser %}                                                        {% endcomment %}
+                                                        {% comment %} <th class="sort" data-sort="phone"> Preview</th> {% endcomment %}
+                                                        {% comment %} {% endif %} {% endcomment %}
                                                         
                                                         <th class="sort" data-sort="location">Action</th>
                                                        
@@ -974,21 +976,23 @@
                                                         </th>
                                                         <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
                                                       
-                                                        <td class="company_name"><a href="{% url 'Crm_App:lead_view' i.id %}">{{i.lead_title}}</a></td>
+                                                        <td class="company_name"><a href="{% url 'Crm_App:project_view' i.id %}">{{i.lead_title}}</a></td>
                                                         <td class="leads_score">{{i.contact_person_name}}</td>
                                                         <td class="phone">{{i.contact_person_phone}}</td>
                                                         {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_view' i.id %}"><i class="fas fa-eye"></i></a></td> {% endcomment %}
-                                                        {% if user.is_superuser or user.user.usertype == 'Admin' %}
+                                                        {% comment %} {% if user.is_superuser or user.user.usertype == 'Admin' %} {% endcomment %}
+                                                        {% if user.user.usertype == 'Admin' %}
+
                                                         <td class="location text-center"><a href="{% url 'Crm_App:project_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                                        <td class="location text-center"><a href="{% url 'Crm_App:module_add' i.id %}"><i class="fa-solid fa-layer-group fa-bounce"></i></a></td>
+                                                        <td class="location text-center"><a href="{% url 'Crm_App:module_add' i.id %}"><i class="fa-solid fa-layer-group fa-bounce"></i></a>[ {{module_count}} ]</td>
                                                         <td class="location text-center"><a href="{% url 'Crm_App:project_assignment' i.id %}"><i class="fa-solid fa-list-check"></i></a></td>
 
 
-                                                        {% else %}
-                                                        <td class="location text-center"><a href="{% url 'Crm_App:tlead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                        {% comment %} {% else %} {% endcomment %}
+                                                        {% comment %} <td class="location text-center"><a href="{% url 'Crm_App:tlead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td> {% endcomment %}
                                                         {% endif %}
                                                         {% if not user.is_superuser %}
-                                                        <td class="location"><a href="{% url 'Crm_App:lead_preview' i.id %}"><i class="fa-solid fa-eye"></i></a></td>
+                                                        {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_preview' i.id %}"><i class="fa-solid fa-eye"></i></a></td> {% endcomment %}
                                                         {% endif %}
                                                         <td class="location"><a href="{% url 'Crm_App:project_delete' i.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
 

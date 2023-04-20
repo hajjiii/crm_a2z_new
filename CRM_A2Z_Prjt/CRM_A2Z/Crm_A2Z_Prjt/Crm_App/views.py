@@ -243,8 +243,7 @@ def lead_add(request):
     return render(request, 'leads.html', context)
 
 
-          
-
+  
 
 
 def load_cities(request):
@@ -272,39 +271,45 @@ def lead_view(request,id):
 
 
 
-
-
 def tlead_edit(request, id):
-    ProductsFormset = modelformset_factory(LeadsView, form=LeadViewForm)
     lead = Leads.objects.filter(id=id).first()
+    
+    # Check if a corresponding TempLead object exists
+    
+    
+    ProductsFormset = modelformset_factory(LeadsView, form=LeadViewForm)
     form = LeadAddForm(instance=lead)
     formset = ProductsFormset(request.POST or None, queryset=lead.leads.all(), prefix='leads')
     if request.method == 'POST':
         form = LeadAddForm(request.POST, instance=lead)
         print(form)
         if form.is_valid() and formset.is_valid():
+            if TempLead.objects.filter(lead=lead).exists():
+                # Lead has already been approved, cannot be edited
+                messages.error(request, 'This lead has already been waiting for approval and cannot be edited.')
+                return redirect('Crm_App:lead_add')
+            
             lead_edit = TempLead.objects.create(
-                # user=request.user,
                 lead=lead,
                 lead_title=form.cleaned_data['lead_title'],
                 lead_description=form.cleaned_data['lead_description'],
                 contact_person_name=form.cleaned_data['contact_person_name'],
                 contact_person_phone=form.cleaned_data['contact_person_phone'],
-                contact_person_designation = form.cleaned_data['contact_person_designation'],
-                business_name = form.cleaned_data['business_name'],
-                state = form.cleaned_data['state'],
-                district = form.cleaned_data['district'],
-                city = form.cleaned_data['city'],
-                business_address = form.cleaned_data['business_address'],
-                interest_rate = form.cleaned_data['interest_rate'],
-                lead_generated_date = form.cleaned_data['lead_generated_date'],
-                next_follow_up_date = form.cleaned_data['next_follow_up_date'],
-                min_price = form.cleaned_data['min_price'],
-                max_price = form.cleaned_data['max_price'],
-                lead_category = form.cleaned_data['lead_category'],
-                lead_delivery_date = form.cleaned_data['lead_delivery_date'],
-                status = form.cleaned_data['status'],
-                notes_about_client = form.cleaned_data['notes_about_client'],
+                contact_person_designation=form.cleaned_data['contact_person_designation'],
+                business_name=form.cleaned_data['business_name'],
+                state=form.cleaned_data['state'],
+                district=form.cleaned_data['district'],
+                city=form.cleaned_data['city'],
+                business_address=form.cleaned_data['business_address'],
+                interest_rate=form.cleaned_data['interest_rate'],
+                lead_generated_date=form.cleaned_data['lead_generated_date'],
+                next_follow_up_date=form.cleaned_data['next_follow_up_date'],
+                min_price=form.cleaned_data['min_price'],
+                max_price=form.cleaned_data['max_price'],
+                lead_category=form.cleaned_data['lead_category'],
+                lead_delivery_date=form.cleaned_data['lead_delivery_date'],
+                status=form.cleaned_data['status'],
+                notes_about_client=form.cleaned_data['notes_about_client'],
             )
             lead_edit.save()
             if all('notes_about_client' in forms.cleaned_data and forms.cleaned_data['notes_about_client'] for forms in formset):
@@ -316,14 +321,28 @@ def tlead_edit(request, id):
                 return redirect('Crm_App:lead_add')
             else:
                 formset.non_form_errors().append("Note field cannot be empty")
+
         else:
             print(formset.errors)
-    
+    if lead.status.name == 'Closed':
+        for field in form.fields.values():
+            field.disabled = True
+
+        for frm in formset.forms:
+            for field in frm.fields.values():
+                field.disabled = True
+
     context = {
         'form': form,
         'formset': formset,
     }
     return render(request, 'tlead-edit.html', context)
+
+
+
+
+
+
 
 def lead_preview(request,id):
     temp = TempLead.objects.filter(lead__id=id).first()
@@ -525,6 +544,12 @@ def lead_edit(request,id):
                 
         data.save()
         return redirect('Crm_App:lead_add')
+    else:
+        # Check if the lead status is closed and disable form fields
+        if lead.status.name == 'Closed':
+            for field in form.fields.values():
+                field.disabled = True
+        
     
     context = {
         'form':form
@@ -566,20 +591,15 @@ def lead_delete(request,id):
 
 
 def project_edit(request,project_id):
-    lead = Leads.objects.filter(id=project_id).first()
-    form = ProjectEditForm(request.POST or None, instance=lead)
-    if form.is_valid():
-        form.save()
-        messages.success(request,'Successfully edited')
-        return redirect('Crm_App:project_management')
+
     
-    context = {
-        'form':form
-    }
-    return render(request,'project-edit.html',context)
+    return render(request,'project-edit.html')
 
 
 
+def project_view(request,id):
+   
+    return render(request,'leads-view.html')
 
 
 
@@ -629,7 +649,7 @@ def module_add(request,id):
             if request.user.is_superuser:
                 data.added_by_admin = request.user
             else:
-                data.added_by = request.user.username
+                data.added_by = ExtendedUserModel.objects.get(user__username=request.user.username) 
             data.save()
 
         return redirect(reverse('Crm_App:module_add', args=[id]))
@@ -660,24 +680,26 @@ def module_delete(request, id):
 
 
 
-def project_assignment(request,id):
-
+def project_assignment(request, id):
+    
+    
+    branch = []
     name = request.user.username
     project = Project.objects.get(id=id)
     lead = project.lead
     instance = ProjectAssignment.objects.filter(project=project).first()
-    if not request.user.is_superuser:
-        added = ExtendedUserModel.objects.get(user__username=name)
-        branch = added.branch
-
-
+    added_by_users = project.added_by.all()  # Accessing the ManyToManyField
+    user_names = [user.user.username for user in added_by_users]   
+    for user_name in user_names:
+        user = ExtendedUserModel.objects.get(user__username=user_name)
+        branch.append(user.branch)
 
     k = str(time.time()).encode('utf-8')
     h = blake2b(key=k, digest_size=10)
     key = h.hexdigest()
 
     if request.method == 'POST':
-        form = ProjectAsignmentForm(request.POST, project=project)
+        form = ProjectAsignmentForm(request.POST, project=project, branch=branch,instance=instance,request=request)
         if form.is_valid():
             data = form.save(commit=False)
             data.key = key
@@ -689,22 +711,28 @@ def project_assignment(request,id):
                 data.added_by = ExtendedUserModel.objects.get(user__username=name)
             data.save()
             form.save_m2m()
-            # branch = data.added_by.branch
             return redirect('Crm_App:project_management')
-
     else:
-       
-        if not request.user.is_superuser:
-            form = ProjectAsignmentForm(project=project,instance=instance,branch=branch,name=name,request=request)
-        else:
-            form = ProjectAsignmentForm(project=project,instance=instance,request=request)
+        # if request.user.is_superuser:
+        #     form = ProjectAsignmentForm(project=project, instance=instance, branch=branch, request=request)
+        # else:
+        form = ProjectAsignmentForm(project=project, instance=instance, branch=branch,request=request)
 
     context = {
-        'form': form
+        'form': form,
+        'project': project,
+       
     }
+
+   
     return render(request, 'project-asignment.html', context)
 
 
+def load_branch(request):
+    branch_id = request.GET.get('branch_id')
+    others = ExtendedUserModel.objects.filter(branch=branch_id).all()
+    print(others)
+    return render(request, 'branch_dropdown_list_options.html', {'others': others})
 
 
 
@@ -1003,8 +1031,15 @@ def send_mail_after_registration(email,token):
 
 
 def project_management(request):
+    # if request.user.is_superuser:
     projects = Project.objects.all()
-    return render(request,'project.html',{'projects':projects})
+    module_count = ProjectModule.objects.all().count()
+    # elif request.user.extendedusermodel.usertype=='Admin':
+    #     added_by = ExtendedUserModel.objects.flter(user__username=request.user.username)
+    #     print(added_by)
+    #     projects = Project.objects.filter()
+
+    return render(request,'project.html',{'projects':projects,'module_count':module_count})
 
 
 

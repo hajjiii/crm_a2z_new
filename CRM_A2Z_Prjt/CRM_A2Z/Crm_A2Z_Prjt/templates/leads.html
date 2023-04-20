@@ -8,15 +8,16 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Office Staff Leads |A2Z Alphabet Solutionz</title>
+    <title>Leads |A2Z Alphabet Solutionz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
     <script src="https://kit.fontawesome.com/9fe20a73d5.js" crossorigin="anonymous"></script>
+
     <!-- Sweet Alert css-->
-    <link href="{% static 'assets/libs/sweetalert2/sweetalert2.min.css'%}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
 
     <!-- Layout config Js -->
     <script src="{% static 'assets/js/layout.js' %}"></script>
@@ -42,7 +43,7 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="{% url 'Crm_App:index' %}" class="logo logo-dark">
+                    <a href="index.html" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
@@ -51,7 +52,7 @@
                         </span>
                     </a>
 
-                    <a href="{% url 'Crm_App:index' %}" class="logo logo-light">
+                    <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                         </span>
@@ -71,11 +72,11 @@
 
                 <!-- App Search-->
                 <form class="app-search d-none d-md-block">
-                    {% comment %} <div class="position-relative">
+                    <div class="position-relative">
                         <input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">
                         <span class="mdi mdi-magnify search-widget-icon"></span>
                         <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
-                    </div> {% endcomment %}
+                    </div>
                     <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
                         <div data-simplebar style="max-height: 320px;">
                             <!-- item-->
@@ -84,8 +85,8 @@
                             </div>
 
                             <div class="dropdown-item bg-transparent text-wrap">
-                                <a href="{% url 'Crm_App:index' %}" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
-                                <a href="{% url 'Crm_App:index' %}" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
+                                <a href="index.html" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i class="mdi mdi-magnify ms-1"></i></a>
                             </div>
                             <!-- item-->
                             <div class="dropdown-header mt-2">
@@ -718,31 +719,25 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            {% if user.user.user_photo %}
-                            <img class="rounded-circle header-profile-user" src="{{user.user.user_photo.url}}" alt="Header Avatar">
-                            {% else %}
-                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/user.png' %}" alt="Header Avatar">
-                            {% endif %}
+                            <img class="rounded-circle header-profile-user" src="{% static 'assets/images/users/avatar-1.jpg' %}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{user.username}}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{user.user.usertype}}</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome {{user.username}}!</h6>
-                        {% if not user.is_superuser %}
-                        <a class="dropdown-item" href="{% url 'Crm_App:profile_view' %}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
-                        {% endif %}
-                       <!-- <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>-->
+                        <h6 class="dropdown-header">Welcome Anna!</h6>
+                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                        <a class="dropdown-item" href="apps-chat.html"><i class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Messages</span></a>
                         <a class="dropdown-item" href="apps-tasks-kanban.html"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Taskboard</span></a>
-                       <!-- <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>-->
+                        <a class="dropdown-item" href="pages-faqs.html"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Help</span></a>
                         <div class="dropdown-divider"></div>
-                       <!-- <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>-->
-                        <!--<a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>-->
+                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Balance : <b>$5971.67</b></span></a>
+                        <a class="dropdown-item" href="pages-profile-settings.html"><span class="badge bg-soft-success text-success mt-1 float-end">New</span><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Settings</span></a>
                         <a class="dropdown-item" href="auth-lockscreen-basic.html"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Lock screen</span></a>
-                        <a class="dropdown-item" href="{% url 'Crm_App:logout' %}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        <a class="dropdown-item" href="auth-logout-basic.html"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
                     </div>
                 </div>
             </div>
@@ -779,7 +774,7 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <!-- Dark Logo-->
-                <a href="{% url 'Crm_App:index' %}" class="logo logo-dark">
+                <a href="index.html" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                     </span>
@@ -788,7 +783,7 @@
                     </span>
                 </a>
                 <!-- Light Logo-->
-                <a href="{% url 'Crm_App:index' %}" class="logo logo-light">
+                <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{% static 'assets/images/a2z_icon.jpg' %}" alt="" height="22">
                     </span>
@@ -809,52 +804,43 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:index' %}">
+                            <a class="nav-link menu-link" href="usermanagement.html">
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Dashboard</span>
                             </a>
                         </li>
-                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:usermanagement' %}">
+                            <a class="nav-link menu-link" href="usermanagement.html">
                                 <i class="bx bx-user"></i> <span data-key="t-widgets">Users Management</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:branch' %}">
-                                <i class="bx bx-user"></i> <span data-key="t-widgets">Branch Management</span>
-                            </a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_add' %}">
+                            <a class="nav-link menu-link" href="leadsmanagement.html">
                                 <i class="ri-pulse-line"></i> <span data-key="t-widgets">Leads Management</span>
                             </a>
                         </li>
-                        {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_change_request' %}">
-                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Lead Change Request</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:placemanagement' %}">
-                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Place Management</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:usertype_settings' %}">
-                                <i class="ri-pulse-line"></i> <span data-key="t-widgets">Usertype Management</span>
-                            </a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:follow_up_reminder' %}">
+                            <a class="nav-link menu-link" href="followup.html">
                                 <i class="bx bx bx-calendar"></i> <span data-key="t-widgets">Follow Up Remainder</span>
                             </a>
                         </li>
-                       
+                       <!--<li class="nav-item">
+                            <a href="#sidebarEmail" class="nav-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmail" data-key="t-email">
+                                <i class="bx bx-calendar"></i>Follow Up remainder
+                            </a>
+                            <div class="menu-dropdown collapse" id="sidebarEmail" style="">
+                            <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                            <a href="tomorrow.html" class="nav-link" data-key="t-mailbox"> Tomorrow Date </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="dayafter.html" class="nav-link" data-key="t-mailbox">Day After Tomorrow </a>
+                            </li>
+                           
+                            </ul>
+                            </div>
+                        </li>-->
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'Crm_App:lead_help_centre' %}">
+                            <a class="nav-link menu-link" href="helpcenter.html">
                                 <i class="lab las la-headset"></i> <span data-key="t-widgets">Help Center</span>
                             </a>
                         </li>
@@ -941,19 +927,18 @@
                                                                 <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                             </div>
                                                         </th>
-
+                                            
                                                         <th class="sort" data-sort="name">Leads Title</th>
                                                         <th class="sort" data-sort="company_name">Contact Person Name</th>
                                                         <th class="sort" data-sort="leads_score">Phone</th>
                                                         {% comment %} <th class="sort" data-sort="phone">View</th> {% endcomment %}
-                                                        {% if user.is_superuser %}
+                                                        {% if user.is_superuser or user.user.usertype == 'Admin' %}
                                                         <th class="sort" data-sort="location">Edit</th>
                                                         {% else %}                                                       
                                                         <th class="sort" data-sort="location">Request For Change</th>
-                                                        {% endif %} 
-                                                        {% if not user.is_superuser %}                                                       
                                                         <th class="sort" data-sort="phone"> Preview</th>
-                                                        {% endif %}
+                                                        {% endif %} 
+                                                        
                                                         <th class="sort" data-sort="location">Action</th>
                                                        
                                                     </tr>
@@ -972,21 +957,22 @@
                                                         <td class="leads_score">{{i.contact_person_name}}</td>
                                                         <td class="phone">{{i.contact_person_phone}}</td>
                                                         {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_view' i.id %}"><i class="fas fa-eye"></i></a></td> {% endcomment %}
-                                                        {% if user.is_superuser %}
+                                                        {% if user.is_superuser or user.user.usertype == 'Admin' %}
                                                         <td class="location text-center"><a href="{% url 'Crm_App:lead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                                         {% else %}
                                                         <td class="location text-center"><a href="{% url 'Crm_App:tlead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                                                        {% endif %}
-                                                        {% if not user.is_superuser %}
                                                         <td class="location"><a href="{% url 'Crm_App:lead_preview' i.id %}"><i class="fa-solid fa-eye"></i></a></td>
                                                         {% endif %}
+                                                        
                                                         <td class="location"><a href="{% url 'Crm_App:lead_delete' i.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
-
+                                            
                                                     
                                                     </tr>
                                                 {%endfor%}
                                                 </tbody>
                                             </table>
+                                            
+                                            
                                             <div class="noresult" style="display: none">
                                                 <div class="text-center">
                                                     <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
@@ -1021,26 +1007,27 @@
                                                         <div class="mb-3">
                                                             <label for="title" class="form-label text-muted">Lead Title <span class="text-danger">*</span></label>
                                                             {{form.lead_title}}
-                                                          
+                                                        
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="Description" class="form-label text-muted">Leads Description <span class="text-danger">*</span></label>
-                                                                        {{form.lead_description}}
+                                                            {{form.lead_description}}
                                                           
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="title" class="form-label text-muted">Contact Person Name <span class="text-danger">*</span></label>
-                                                                        {{form.contact_person_name}}
+                                                            {{form.contact_person_name}}
                                                           
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="phone" class="form-label text-muted">Contact Person Phone<span class="text-danger">*</span></label>
-                                                                        {{form.contact_person_phone}}
+                                                            {{form.contact_person_phone}}
                                                           
                                                         </div>
+                                                        
                                                         <div class="mb-3">
                                                             <label for="designation" class="form-label text-muted">Contact Person Designation<span class="text-danger">*</span></label>
-                                                                            {{form.contact_person_designation}}
+                                                            {{form.contact_person_designation}}
                                                           
                                                         </div>
                                                         <div class="mb-3">
@@ -1053,29 +1040,35 @@
                                                             {{form.business_address}}
                                                           
                                                         </div>
+                                                        <div>
+                                                        <div class="row mb-3">
+                                                          
+                                                        <!-- end col -->
                                                         <div class="mb-3">
                                                             <label class="form-label text-muted" for="address">State<span class="text-danger">*</span></label>
                                                             <span id="LeadFilter10">{{form.state}}</span>
                                                           
                                                         </div>
-                                                        
-                                                        <div class="row">
-                                                               <div class="col-lg-6">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label text-muted" for="address">District<span class="text-danger">*</span></label>
-                                                                      <span >{{form.district }}</span>
-                                                                        
-                                                                        
-                                                                    </div>
-                                                               </div>
-                                                               <div class="col-lg-6">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label text-muted" for="address">City<span class="text-danger">*</span></label>
-                                                                        <span id="LeadFilter9">{{form.city}}</span>
-                                                                   </div>
-                                                                </div>
+                                                        <!-- end col -->
                                                         </div>
-                                                        
+                                                        <!-- end row -->
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                 <div class="mb-3">
+                                                                     <label class="form-label text-muted" for="address">District<span class="text-danger">*</span></label>
+                                                                   <span >{{form.district }}</span>
+                                                                     
+                                                                     
+                                                                 </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                 <div class="mb-3">
+                                                                     <label class="form-label text-muted" for="address">City<span class="text-danger">*</span></label>
+                                                                     <span id="LeadFilter9">{{form.city}}</span>
+                                                                </div>
+                                                             </div>
+                                                     </div>
+                                                        <!-- end col -->
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                  <div class="mb-3">
@@ -1091,68 +1084,77 @@
                                                                     {{form.next_follow_up_date}}
                                                                 </div>
                                                              </div>
-                                                     </div>
-                                                     <div class="row">
-                                                        <div class="col-lg-6">
-                                                             <div class="mb-3">
-                                                                <label for="autoCompleteFruit" class="text-muted">Min Price</label>
-                                                                {{form.min_price}}
-                                                                 
-                                                                 
-                                                             </div>
                                                         </div>
+                                                        <!-- end col -->
+                                                        </div>
+                                                        <!-- end row -->
+                                                        
+                                                    <div class="row">
                                                         <div class="col-lg-6">
-                                                             <div class="mb-3">
-                                                                <label for="autoCompleteCars" class="text-muted">Max Price<span class="text-danger">*</span></label>
-                                                                {{form.max_price}}
+                                                            <div class="mb-3">
+                                                               <label for="autoCompleteFruit" class="text-muted">Min Price</label>
+                                                               {{form.min_price}}
+                                                                
+                                                                
                                                             </div>
-                                                         </div>
-                                                 </div>
-                                                 <div class="row">
-                                                    <div class="col-lg-6">
-                                                         <div class="mb-3">
-                                                            <label for="autoCompleteFruit" class="text-muted">Leads Catagories</label>
-                                                            {{form.lead_category}}
-                                                             
-                                                             
-                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
+                                                       </div>
+                                                       <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="autoCompleteCars" class="text-muted">Lead Status<span class="text-danger">*</span></label>
-                                                            {{form.status}}
-                                                        </div>
+                                                           <label for="autoCompleteCars" class="text-muted">Max Price<span class="text-danger">*</span></label>
+                                                           {{form.max_price}}
+                                                       </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <label for="designation" class="form-label text-muted">Intrest Rate<span class="text-danger">*</span></label>
-                                                            {{form.interest_rate}}
-                                                        
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <label for="designation" class="form-label text-muted">Lead Delivery date</label>
-                                                            {{form.lead_delivery_date}}
-                                                        
-                                                        </div>
-                                                    </div>
-                                              
-                                             <div class="mb-3">
-                                                <label for="autoCompleteFruit" class=" form-label text-muted">Note About Client</label>
-                                                {{form.notes_about_client}}
-                                            </div>
-                                            {% if user.is_superuser or user.user.usertype == 'Office Staff' %}
-                                            <div class="mb-3">
-                                                <label for="autoCompleteFruit" class=" form-label text-muted">Note About Field executive</label>
-                                                {{form.note_about_field_executive}}
-                                            </div>
-                                            {% endif %}
-                                                        <!--  -->
-                                           
 
+                                                    </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                   <label for="autoCompleteFruit" class="text-muted">Leads Catagories</label>
+                                                                   {{form.lead_category}}
+                                                                    
+                                                                </div>
+                                                           </div>
+                                                        <!-- end col -->
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label for="autoCompleteCars" class="text-muted">Lead Status<span class="text-danger">*</span></label>
+                                                                {{form.status}}
+                                                            </div>
+                                                        </div>
+                                                        <!-- end col -->
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="designation" class="form-label text-muted">Intrest Rate<span class="text-danger">*</span></label>
+                                                                    {{form.interest_rate}}
+                                                                
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="mb-3">
+                                                                    <label for="designation" class="form-label text-muted">Lead Delivery date</label>
+                                                                    {{form.lead_delivery_date}}
+                                                                
+                                                                </div>
+                                                            </div>
+                                                            <!-- end col -->
+                                                            <div class="mb-3">
+                                                                <label for="autoCompleteFruit" class=" form-label text-muted">Note About Client</label>
+                                                                {{form.notes_about_client}}
+                                                            </div>
+                                                            {% if user.is_superuser or user.user.usertype == 'Office Staff' %}
+                                                            <div class="mb-3">
+                                                                <label for="autoCompleteFruit" class=" form-label text-muted">Note About Field executive</label>
+                                                                {{form.note_about_field_executive}}
+                                                            </div>
+                                                            {% endif %}
+                                                            <!-- end col -->
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                        
                                                         <div id="password-contain" class="p-3 bg-light mb-2 rounded">
                                                         <h5 class="fs-13">Password must contain:</h5>
                                                         <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b>8 characters</b></p>
@@ -1162,9 +1164,8 @@
                                                         </div>
                                                         
                                                         <div class="mt-4 text-center">
-                                                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                                                        <button class="btn btn-success w-sm " type="submit">Create</button>
-                                                        
+                                                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                                                        <button class="btn btn-success w-sm w-50 " type="submit">Create</button>
                                                         </div>
                                                         
                                                         <!-- <div class="mt-4 text-center">
@@ -1217,7 +1218,7 @@
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <!--end offcanvas-header-->
-                                        <form action="#" class="d-flex flex-column justify-content-end h-100  " >
+                                        <form action="#" class="d-flex flex-column justify-content-end h-100">
                                             <div class="offcanvas-body">
                                                 <div class="mb-4">
                                                     <label for=" LeadTitle" class="form-label text-muted text-uppercase fw-semibold mb-3">Lead Title</label>
@@ -1228,18 +1229,18 @@
                                                     <label for=" PersonName" class="form-label text-muted text-uppercase fw-semibold mb-3">Contact Person Name </label>
                                                     {% comment %} <input type="text" class="form-control"  placeholder="Enter Contact Person Name"> {% endcomment %}
                                                     {% render_field filter.form.contact_person_name class="form-control" %}
-
+                                            
                                                 </div>
                                                 <div class="mb-4">
                                                     <label for=" PersonPhone" class="form-label text-muted text-uppercase fw-semibold mb-3">Contact Person Phone </label>
                                                     {% comment %} <input type="text" class="form-control"  placeholder="Enter Contact Person Phone"> {% endcomment %}
                                                     {% render_field filter.form.contact_person_phone class="form-control" %}
-
+                                            
                                                 </div>
                                                 <div class="mb-4">
                                                     <label for=" intrestrate" class="form-label text-muted text-uppercase fw-semibold mb-3">Intrest rate </label>
                                                     {% render_field filter.form.interest_rate class="form-control" %}
-
+                                            
                                                 </div>
                                                 <div class="mb-4">
                                                    
@@ -1247,13 +1248,13 @@
                                                         <div class="col-lg">
                                                             <label for="fromdate" class="form-label text-muted text-uppercase fw-semibold mb-3">From</label>
                                                             {% render_field filter.form.fromdate type="date" class="form-control" %}
-
+                                            
                                                         </div>
                                                         
                                                         <div class="col-lg">
                                                             <label for="todate" class="form-label text-muted text-uppercase fw-semibold mb-3">TO</label>
                                                             {% render_field filter.form.todate type="date" class="form-control" %}
-
+                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1277,20 +1278,20 @@
                                                         <div class="col-lg">
                                                             <label for=" intrestrate" class="form-label text-muted text-uppercase fw-semibold mb-3">Lead Status </label>
                                                             {% render_field filter.form.status class="form-control" %}
-
+                                            
                                                         </div>
                                                         
                                                         <div class="col-lg">
                                                             <label for=" intrestrate" class="form-label text-muted text-uppercase fw-semibold mb-3">Lead Catergory </label>
                                                             {% render_field filter.form.lead_category class="form-control" %}
-
+                                            
                                                         </div>
                                                     </div>
                                                     <div class="mt-4">
                                                         <div class="row g-2 align-items-center justify-content-center">
                                                            
                                                             <button type="button" class="search-box__reset" id="search-box__reset ">Réinitialiser</button> 
-
+                                            
                                                             <input type="submit" class="btn btn-primary w-50 btn-search" id="btn-search"  value="Search">
                                                         </div>
                                                     </div>
@@ -2023,46 +2024,9 @@
         </div>
     </div>
 
-       <!-- JAVASCRIPT -->
-
-    {% for message in messages %}
-    {% if message.tags == 'success' %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script>
-    var m="{{message}}";
-    swal("{{message}}",'','success')
-    {% comment %} swal("Perfect!", m, "success") {% endcomment %}
-    </script>
-    {% else %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-    var m="{{message}}";
-    swal("{{message}}",'','error')
-    {% comment %} swal("Perfect!", m, "success") {% endcomment %}
-    </script>
-    {% endif %}
-    {% endfor %}
-
-
-       <script>
-
-        $("#search-box__reset").on('click', function(e) {
-        e.preventDefault();
-        $("#id_lead_title").val('');
-        $("#id_contact_person_name").val('');
-        $("#id_interest_rate").val(''); //reset input field
-        $("#id_fromdate").val('');
-        $("#id_todate").val(''); //reset input field
-        $("#id_min_price").val('');
-        $("#id_max_price").val(''); //reset input field
-        $("#id_status").val('');
-        $("#id_lead_category").val(''); //reset input field
-       
-        $("#btn-search").click();
-        });
-        </script>
-       <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-       <script>
         $(document).ready(function() {
           // Disable district and city fields initially
           $('#id_district').prop('disabled', true);
@@ -2115,12 +2079,6 @@
           });
         });
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      
-    
-
-    
-    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
     <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>

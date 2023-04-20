@@ -1003,21 +1003,22 @@
                                                                 </div>
                                                              </div>
                                                              <div class="col-lg-6">
-                                                                <div class="mb-3">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                       <label for="autoCompleteFruit" class="text-muted">Lead Delivery Date</label>
+                                                                       {{form.lead_delivery_date}}
+                                                                        
+                                                                        
+                                                                    </div>
+                                                               </div>
+                                                                {% comment %} <div class="mb-3">
                                                         
                                                                     <label for="autoCompleteFruit" class=" form-label text-muted">Note About Client</label>
                                                                     {{form.notes_about_client}}
-                                                                </div>
+                                                                </div> {% endcomment %}
 
                                                             </div>
-                                                                <div class="col-lg-6">
-                                                                     <div class="mb-3">
-                                                                        <label for="autoCompleteFruit" class="text-muted">Lead Delivery Date</label>
-                                                                        {{form.lead_delivery_date}}
-                                                                         
-                                                                         
-                                                                     </div>
-                                                                </div>
+                                                                
                                                             
                                                             <div class="col-lg-6">
                                                                 <div class="mb-3">
@@ -1876,6 +1877,12 @@
            $('#id_city').prop('disabled', true);
          }
        });
+       if ($('#id_state').val()) {
+        $('#id_district').prop('disabled', false);
+        if ($('#id_city').val()) {
+          $('#id_city').prop('disabled', false);
+        }
+      }
      });
      </script>
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

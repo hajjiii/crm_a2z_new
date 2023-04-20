@@ -890,12 +890,37 @@
 
                                                 <div class="card profile-project-card shadow-none profile-project-info ">
                                                     <div class="card-body p-4">
-                                                        
                                                         <div class="p-2 mt-4">
-                                                            <form form method='post' id="ProjectAsignmentForm" class="needs-validation" novalidate="" data-cities-url="{% url 'Crm_App:ajax_load_cities'%}" data-places-url="{% url 'Crm_App:ajax_load_places'%}">
+                                                            <form method='post' id="ProjectAsignmentForm" class="needs-validation" novalidate="" data-cities-url="{% url 'Crm_App:ajax_load_cities'%}" data-places-url="{% url 'Crm_App:ajax_load_places'%} " data-branches-url="{% url 'Crm_App:load_branch'%}">
                                                                 {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="Description" class="form-label text-muted">Project Title<span class="text-danger"></span></label>
+                                                                                       
+                                                                            <h6 > {{project.lead_title}}</h6>
+        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="mb-3">
+                                                                            <label for="Description" class="form-label text-muted">Project Description<span class="text-danger"></span></label>
+                                                                                       
+                                                                            <h6> {{project.lead_description}}</h6>
+        
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                                
+                                                                <hr>
+
                                                                 <div class="mb-3">
                                                                     <label for="title" class="form-label text-muted">Module Assignment <span class="text-danger">*</span></label>
+                                                                    <br>
+
+                                                                    <input type="checkbox" name="select_all" id="id_select_all">
+    <label for="id_select_all">Select All</label>
                                                                     {{form.module_assigned}}
                                                                   
                                                                 </div>
@@ -904,7 +929,15 @@
                                                                                 {{form.project_assignment}}
                                                                   
                                                                 </div>
-                                                                
+                                                                <hr>
+                                                                <div class="mb-3">
+                                                                    <label for="id_branch" id="id_branch" class="form-label text-muted">Branch<span class="text-danger">*</span></label>
+                                                                    {{ form.branch}}
+                                                               </div>
+                                                                <div class="mb-3">
+                                                                    <label for="id_assign_globaly" id="id_assign_globaly" class="form-label text-muted">Assign Globally</label>
+                                                                    {{ form.assign_globaly }}
+                                                                </div>
 
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
@@ -1650,60 +1683,24 @@
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+   
     <script>
-     $(document).ready(function() {
-       // Disable district and city fields initially
-       $('#id_district').prop('disabled', true);
-       $('#id_city').prop('disabled', true);
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][name^="module_assigned"]');
+        const selectAllCheckbox = document.querySelector('input[type="checkbox"][name="select_all"]');
+    
+        selectAllCheckbox.addEventListener('change', (e) => {
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = e.target.checked;
+          });
+        });
+      </script>
      
-       // Enable district field when state is selected
-       $('#id_state').change(function() {
-         const url = $("#LeadAddForm").attr("data-cities-url");
-         const countryId = $(this).val();
+    
+ 
+    
      
-         if (countryId) {
-           $('#id_district').prop('disabled', false);
-           $.ajax({
-             url: url,
-             data: {
-               'country_id': countryId
-             },
-             success: function(data) {
-               $('#id_district').html(data);
-               $('#id_city').prop('disabled', true);
-             }
-           });
-         } else {
-           // Disable district and city fields if state is not selected
-           $('#id_district').prop('disabled', true);
-           $('#id_city').prop('disabled', true);
-         }
-       });
-     
-       // Enable city field when district is selected
-       $('#id_district').change(function() {
-         const url = $("#LeadAddForm").attr("data-places-url");
-         const districtId = $(this).val();
-     
-         if (districtId) {
-           $('#id_city').prop('disabled', false);
-           $.ajax({
-             url: url,
-             data: {
-               'country_id': districtId
-             },
-             success: function(data) {
-               $('#id_city').html(data);
-             }
-           });
-         } else {
-           // Disable city field if district is not selected
-           $('#id_city').prop('disabled', true);
-         }
-       });
-     });
-     </script>
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
@@ -1725,3 +1722,7 @@
 
 
 </html>
+
+
+
+

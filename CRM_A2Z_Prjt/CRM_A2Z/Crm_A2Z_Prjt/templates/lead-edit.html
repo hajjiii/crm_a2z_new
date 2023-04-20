@@ -1013,11 +1013,11 @@
                                                                 </div>
                                                             </div>
                                                              <div class="col-lg-6">
-                                                                <div class="mb-3">
+                                                                {% comment %} <div class="mb-3">
                                                         
                                                                     <label for="autoCompleteFruit" class=" form-label text-muted">Note About Client</label>
                                                                     {{form.notes_about_client}}
-                                                                </div>
+                                                                </div> {% endcomment %}
 
                                                             </div>
                                                             <div class="col-lg-6">
@@ -1030,50 +1030,7 @@
                                                             
                                                              
                                                      </div>
-                                                     <hr>
-
                                                      
-                                                    <div class="mb-3">
-                                                        
-                                                        <div class="col-lg-12" id="overflow">
-                                                            <table class="table table-responsive table-borderless table-lg">
-                                                                <thead class="text-center">
-                                                                <tr>
-                                                                    <th>Note About Client:</th>
-                                                                    
-        
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    
-                                                                {% for form_data in formset %}
-                                                                <tr class="item">
-                                                                    <td style="width:165px">
-                                                                        {% render_field form_data.notes_about_client class="form-control" %}
-
-                                                                       
-                                                                    </td>
-                                                                    
-                                                                    {{ form_data.id }}
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-danger btn-sm remove-form-row"
-                                                                                id="{{ formset.prefix }}">Delete</button>
-                                                                    </td>
-                                                                </tr>
-                                                                {% endfor %}
-                                                                <tr>
-                                                                  <td colspan="9"
-                                                                        style="border-left: none!important; border-right: none !important; border-bottom: none!important;">
-                                                                        <button type="button" class="btn btn-sm btn-success add-form-row"
-                                                                                id="{{ formset.prefix }}">Add</button>
-                                                                    </td> 
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                            {{ formset.management_form }}
-                                                        </div>
-                                                    </div>
-                                                   
                                                    
         
                                                                 

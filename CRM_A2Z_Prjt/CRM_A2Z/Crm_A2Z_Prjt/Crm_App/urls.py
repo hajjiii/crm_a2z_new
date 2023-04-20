@@ -78,10 +78,15 @@ urlpatterns = [
     path('usermanagement-delete/<int:usr_id>/', views.usermanagement_delete,name='usermanagement_delete'),
     path('project-management/', views.project_management,name='project_management'),
     path('project-delete/<int:project_id>/', views.project_delete,name='project_delete'),
+    path('project-view/<int:id>',views.project_view,name='project_view'),
+
     path('project-edit/<int:project_id>/', views.project_edit,name='project_edit'),
     path('module-add/<int:id>/', views.module_add,name='module_add'),
     path('module-delete/<int:id>/', views.module_delete,name='module_delete'),
     path('project-assignment/<int:id>/', views.project_assignment,name='project_assignment'),
+    path('load_branch/', views.load_branch, name='load_branch'),
+
+
 
 
 

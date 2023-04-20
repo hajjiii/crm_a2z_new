@@ -141,7 +141,7 @@ class Leads(models.Model):
     lead_category = models.ForeignKey(LeadCategory, on_delete=models.CASCADE,blank=True,null=True)
     status = models.ForeignKey(LeadStatus, on_delete=models.CASCADE,blank=True,null=True,default=7)
     lead_delivery_date = models.DateField(blank=True,null=True)
-    notes_about_client = models.TextField(blank=True,null=True)
+    # notes_about_client = models.TextField(blank=True,null=True)
     note_about_field_executive = models.TextField(blank=True,null=True)
 
 
@@ -150,7 +150,7 @@ class Leads(models.Model):
 class TempLead(models.Model):
     def __str__(self):
         return self.lead_title
-    lead = models.ForeignKey(Leads, on_delete=models.CASCADE)
+    lead = models.ForeignKey(Leads, on_delete=models.SET_NULL,blank=True,null=True)
     lead_title = models.CharField(max_length=100, blank=True, null=True)
     lead_description = models.TextField(blank=True, null=True)
     contact_person_name = models.CharField(max_length=100, blank=True, null=True)
@@ -178,6 +178,8 @@ class LeadsView(models.Model):
     lead = models.ForeignKey(Leads,on_delete=models.CASCADE,blank=True,null=True,related_name='leads')
     temp_lead = models.ForeignKey(TempLead,on_delete=models.CASCADE,blank=True,null=True,related_name='tleads')
     notes_about_client = models.TextField(blank=True,null=True) 
+    # project = models.ForeignKey(Project,on_delete=models.CASCADE,blank=True,null=True,related_name='projects')
+
 
 
 
@@ -197,7 +199,7 @@ class Notification(models.Model):
     added_on = models.DateField(auto_now_add=True, blank=False, null=False)
     notified_by = models.CharField(max_length=100, blank=True, null=True)
     table_link = models.TextField(blank=True, null=True)
-    lead = models.ForeignKey(Leads,on_delete = models.CASCADE,blank=True,null=True,related_name='nlead')
+    lead = models.ForeignKey(Leads,on_delete=models.SET_NULL,blank=True,null=True,related_name='nlead')
 
 
 class Project(models.Model):
@@ -228,7 +230,8 @@ class Project(models.Model):
     lead_category = models.ForeignKey(LeadCategory, on_delete=models.CASCADE,blank=True,null=True)
     status = models.ForeignKey(ProjectStatus, on_delete=models.CASCADE,blank=True,null=True,default=1)
     lead_delivery_date = models.DateField(blank=True,null=True)
-    lead = models.ForeignKey(Leads,on_delete = models.CASCADE,blank=True,null=True,related_name='projectlead')
+    lead = models.ForeignKey(Leads, on_delete=models.SET_NULL,blank=True,null=True,related_name='projectlead')
+    lead_view = models.ForeignKey(LeadsView,on_delete=models.SET_NULL,blank=True,null=True,related_name='lead_view')
 
 
 
@@ -237,7 +240,7 @@ class ProjectModule(models.Model):
         return self.module_title
     key = models.CharField(max_length=25, blank=True, null=True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE,blank=True,null=True,related_name='projectmoduleprjct')
-    lead = models.ForeignKey(Leads,on_delete = models.CASCADE,blank=True,null=True,related_name='projectmodulelead')
+    lead = models.ForeignKey(Leads,on_delete=models.SET_NULL,blank=True,null=True,related_name='projectmodulelead')
     added_by = models.ForeignKey(ExtendedUserModel,on_delete=models.CASCADE,blank=True,null=True,related_name='projectModuleuser')
     added_by_admin = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
     added_on = models.DateField(auto_now_add=True, blank=False, null=False)
@@ -256,13 +259,15 @@ class ProjectModule(models.Model):
 class ProjectAssignment(models.Model):
     key = models.CharField(max_length=25, blank=True, null=True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE,blank=True,null=True,related_name='projectasgnmntmodule')    
-    lead = models.ForeignKey(Leads,on_delete = models.CASCADE,blank=True,null=True,related_name='projectasgnmntlead')
+    lead = models.ForeignKey(Leads,on_delete=models.SET_NULL,blank=True,null=True,related_name='projectasgnmntlead')
     # project_module = models.ForeignKey(ProjectModule,on_delete=models.CASCADE,blank=True,null=True,related_name='module')
     added_by = models.ForeignKey(ExtendedUserModel,on_delete=models.CASCADE,blank=True,null=True)
     added_by_admin = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
     added_on = models.DateField(auto_now_add=True, blank=False, null=False)
     module_assigned = models.ManyToManyField(ProjectModule,related_name='module_assigned', blank=True)
     project_assignment = models.ManyToManyField(ExtendedUserModel,related_name='project_assignment', blank=True)
+    branch =  models.ManyToManyField(Branch,related_name='branch', blank=True)
+    assign_globaly = models.ManyToManyField(ExtendedUserModel,related_name='assign_globaly', blank=True)
 
 
 

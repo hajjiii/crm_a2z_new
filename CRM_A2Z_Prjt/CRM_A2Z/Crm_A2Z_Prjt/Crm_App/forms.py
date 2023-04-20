@@ -1,5 +1,7 @@
 from django import forms
 from Crm_App.models import *
+from django.db.models import Q
+
 
 
 
@@ -36,6 +38,9 @@ class BranchUpdateForm(forms.ModelForm):
 
 
 class LeadAddForm(forms.ModelForm):
+
+    
+
     class Meta:
         model = Leads
         fields = "__all__"
@@ -61,7 +66,7 @@ class LeadAddForm(forms.ModelForm):
             'lead_category':forms.Select(attrs={'class':'form-control'}),
             'status':forms.Select(attrs={'class':'form-control'}),
             'lead_delivery_date': forms.DateInput(attrs={'class':'form-control','type':'date'}),
-            'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            # 'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
             'note_about_field_executive':forms.Textarea(attrs={'class':'form-control','rows':'3'})
 
         }
@@ -89,76 +94,14 @@ class LeadAddForm(forms.ModelForm):
         elif self.instance.pk and self.instance.district:
             self.fields['city'].queryset = self.instance.district.city_set.all()
     
-
+   
 
 class LeadViewForm(forms.ModelForm):
     notes_about_client = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows':3}), required=True)
     class Meta:
-        model = Leads
+        model = LeadsView
         fields = ['notes_about_client']
        
-
-
-
-class ProjectEditForm(forms.ModelForm):
-    class Meta:
-        model = Leads
-        fields = "__all__"
-        exclude = ['added_by','added_on','added_by_admin']
-
-        widgets ={
-            'lead_title':forms.TextInput(attrs={'class':'form-control'}),
-            'lead_description':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
-            'contact_person_name':forms.TextInput(attrs={'class':'form-control'}),
-            'contact_person_phone':forms.NumberInput(attrs={'class':'form-control'}),
-            'contact_person_designation':forms.TextInput(attrs={'class':'form-control'}),
-            'business_name':forms.TextInput(attrs={'class':'form-control'}),
-            'business_address':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
-            'state':forms.Select(attrs={'class':'form-control'}),
-            'district':forms.Select(attrs={'class':'form-control'}),
-            'city':forms.Select(attrs={'class':'form-control'}),
-            # 'city':forms.TextInput(attrs={'class':'form-control'}),
-            'interest_rate':forms.Select(attrs={'class':'form-control'}),
-            'lead_generated_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
-            'next_follow_up_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
-            'min_price':forms.NumberInput(attrs={'class':'form-control'}),
-            'max_price':forms.NumberInput(attrs={'class':'form-control'}),
-            'lead_category':forms.Select(attrs={'class':'form-control'}),
-            'status':forms.Select(attrs={'class':'form-control'}),
-            'lead_delivery_date': forms.DateInput(attrs={'class':'form-control','type':'date'}),
-            'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
-            'note_about_field_executive':forms.Textarea(attrs={'class':'form-control','rows':'3'})
-
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['district'].queryset = District.objects.none()
-        self.fields['city'].queryset = City.objects.none()
-
-        if 'state' in self.data:
-            try:
-                state_id = int(self.data.get('state'))
-                self.fields['district'].queryset = District.objects.filter(state=state_id)
-            except (ValueError, TypeError):
-                pass
-        elif self.instance.pk:
-            self.fields['district'].queryset = self.instance.state.district_set.all()
-
-        if 'district' in self.data:
-            try:
-                district_id = int(self.data.get('district'))
-                self.fields['city'].queryset = City.objects.filter(district=district_id)
-            except (ValueError, TypeError):
-                pass
-        elif self.instance.pk and self.instance.district:
-            self.fields['city'].queryset = self.instance.district.city_set.all()
-    
-
-
-
-
-
 
 
 
@@ -250,34 +193,67 @@ class ProjectModuleForm(forms.ModelForm):
 class ProjectAsignmentForm(forms.ModelForm):
     module_assigned = forms.ModelMultipleChoiceField(
         queryset=ProjectModule.objects.none(),
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.CheckboxSelectMultiple,
     )
     project_assignment = forms.ModelMultipleChoiceField(
         queryset=ExtendedUserModel.objects.none(),
-        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+        widget=forms.CheckboxSelectMultiple,
+        label = 'User Type'
+    )
+    select_all = forms.BooleanField(
+        required=False,
+        initial=False,
+        widget=forms.CheckboxInput(attrs={'onclick': 'toggleCheckbox(this)'})
+    )
+    assign_globaly = forms.ModelMultipleChoiceField(
+        queryset=ExtendedUserModel.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+    branch = forms.ModelMultipleChoiceField(
+        queryset=Branch.objects.none(),
+        widget=forms.CheckboxSelectMultiple(attrs={'multiple': 'multiple'}),
     )
 
    
 
     def __init__(self, *args, **kwargs):
-        request = kwargs.pop('request')
         project = kwargs.pop('project')
-        if not request.user.is_superuser:
-            branch = kwargs.pop('branch')
-            name = kwargs.pop('name')
+        branch = kwargs.pop('branch')
+        request = kwargs.pop('request')
 
+       
         super().__init__(*args, **kwargs)
         self.fields['module_assigned'].queryset = ProjectModule.objects.filter(project=project)
-        if not request.user.is_superuser:
-            self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch=branch).exclude(user__username=name)
-        else:
-            self.fields['project_assignment'].queryset = ExtendedUserModel.objects.all()
+      
+        self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch__in=branch).exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
+        self.fields['project_assignment'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'
+
+      
+
+        user_branch = request.user.user.branch
+        self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(employee_type='Global').exclude(branch=user_branch)
+        self.fields['assign_globaly'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'+ ' [' + obj.branch + ']'
+
+        self.fields['branch'].queryset = Branch.objects.exclude(name=user_branch)
+        self.fields['branch'].widget.attrs.update({'id': 'id_branch'})
+        self.fields['assign_globaly'].widget.attrs.update({'id': 'id_assign_globaly'})
+
+
+        
 
 
     class Meta:
         model = ProjectAssignment
-        fields = ['project_assignment', 'module_assigned']
+        fields = ['project_assignment', 'module_assigned','branch','assign_globaly']
         exclude = ['key', 'project', 'lead', 'project_module', 'added_by', 'added_on']
+      
+
+    def get_all_assignments(self):
+        if self.cleaned_data.get('select_all', False):
+            return self.fields['module_assigned'].queryset
+        else:
+            return self.cleaned_data['module_assigned']
+        
        
 
         
