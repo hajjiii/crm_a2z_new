@@ -1684,20 +1684,19 @@
 
     <!-- JAVASCRIPT -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
     <script>
         $(document).ready(function() {
             $('#id_branch').change(function() {
                 const url = $("#ProjectAsignmentForm").attr("data-branches-url");
-                const selected_branch_id = $(this).val();
+                const selected_branch_ids = $(this).val();
                 console.log('hi');
         
-                console.log(selected_branch_id);
-                if (selected_branch_id) {
+                console.log(selected_branch_ids);
+                if (selected_branch_ids) {
                     $.ajax({
                         url: url,
                         data: {
-                            'branch_id': selected_branch_id
+                            'branch_ids[]': selected_branch_ids
                         },
                         dataType: 'json',
                         success: function(data) {
@@ -1710,7 +1709,8 @@
                 }
             });
         });
-        </script>
+    </script>
+
    
    
     <script>

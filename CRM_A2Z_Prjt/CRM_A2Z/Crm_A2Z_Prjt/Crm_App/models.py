@@ -252,8 +252,8 @@ class ProjectAssignment(models.Model):
     added_on = models.DateField(auto_now_add=True, blank=False, null=False)
     module_assigned = models.ManyToManyField(ProjectModule,related_name='module_assigned', blank=True)
     project_assignment = models.ManyToManyField(ExtendedUserModel,related_name='project_assignment', blank=True)
-    branch =  models.ForeignKey(Branch,on_delete=models.CASCADE,related_name='branch', blank=True)
-    assign_globaly = models.ForeignKey(ExtendedUserModel,related_name='assign_globaly', blank=True,on_delete=models.SET_NULL,null=True)
+    branch =  models.ManyToManyField(Branch,related_name='branch', blank=True)
+    assign_globaly = models.ManyToManyField(ExtendedUserModel,related_name='assign_globaly', blank=True)
 
 
 

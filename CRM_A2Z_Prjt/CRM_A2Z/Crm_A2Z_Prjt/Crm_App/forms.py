@@ -355,12 +355,12 @@ class ProjectAsignmentForm(forms.ModelForm):
     assign_globaly = forms.ModelChoiceField(
         queryset=ExtendedUserModel.objects.none(),
         empty_label='Select user',
-        widget=forms.Select(attrs={'id': 'id_assign_globaly', 'class': 'form-control'})
+        widget=forms.CheckboxSelectMultiple(attrs={'id': 'id_assign_globaly'})
     )
 
-    branch = forms.ModelChoiceField(
+    branch = forms.ModelMultipleChoiceField(
         queryset=Branch.objects.none(),
-        widget=forms.Select(attrs={'id': 'id_branch', 'class': 'form-control'})
+        widget=forms.CheckboxSelectMultiple(attrs={'id': 'id_branch'})
     )
     def __init__(self, *args, **kwargs):
         project = kwargs.pop('project')
@@ -370,13 +370,12 @@ class ProjectAsignmentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if 'branch' in self.data:
             try:
-                branch_id = int(self.data.get('branch'))
-                self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch=branch_id)
+                branch_ids = self.data.getlist('branch')
+                self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch__in=branch_ids)
             except (ValueError, TypeError):
-                self.fields['assign_globlly'].queryset = ExtendedUserModel.objects.none()
-                
+                self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.none()
         elif self.instance.pk:
-            self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch=self.instance.branch).select_related('user')
+            self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch__in=self.instance.branch.all()).select_related('user')
             self.fields['assign_globaly'].initial = self.instance.assign_globaly
         else:
             self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.none()

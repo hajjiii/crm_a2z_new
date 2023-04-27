@@ -259,9 +259,20 @@ def load_places(request):
     cities = City.objects.filter(district=country_id).all()
     return render(request, 'place_dropdown_list_options.html', {'cities': cities})
 
+# def load_branches(request):
+#     branch_id = request.GET.get('branch_id')
+#     users = ExtendedUserModel.objects.filter(branch=branch_id,employee_type='Global').exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
+#     user_options = {user.id: f"{user.user.username} [{user.usertype}] [{user.branch}]"  for user in users}
+#     return JsonResponse({'users': user_options})
+
 def load_branches(request):
-    branch_id = request.GET.get('branch_id')
-    users = ExtendedUserModel.objects.filter(branch=branch_id)
+    branch_ids = request.GET.getlist('branch_id[]')
+    users = ExtendedUserModel.objects.filter(
+        branch__id__in=branch_ids,
+        employee_type='Global'
+    ).exclude(
+        Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff')
+    )
     user_options = {user.id: f"{user.user.username} [{user.usertype}] [{user.branch}]"  for user in users}
     return JsonResponse({'users': user_options})
 
