@@ -41,7 +41,6 @@ class Migration(migrations.Migration):
             name='ExtendedUserModel',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('branch', models.CharField(max_length=25)),
                 ('address', models.TextField()),
                 ('usertype', models.CharField(max_length=25)),
                 ('phn_number', models.CharField(max_length=15)),

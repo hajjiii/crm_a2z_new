@@ -51,8 +51,8 @@ def usermanagement(request):
                 user = User.objects.create_user(username = request.POST.get('username'), password = request.POST.get('password'),email=email)
                 usertype = request.POST.get('usertype')
                 mob = request.POST.get('mob')
-                branch = request.POST.get('branch')
-                print(branch)
+                branch_id = request.POST.get('branch')
+                branch  = Branch.objects.get(name=branch_id)
                 address = request.POST.get('address')
                 emp_type = request.POST.get('emp_type')
                 # if len(request.FILES) !=0:
@@ -92,7 +92,9 @@ def usermanagement_update(request,user_id):
         usrmanagement.email = request.POST.get('email')
         usrmanagement.user.usertype = request.POST.get('usertype')
         usrmanagement.user.user_photo = request.FILES.get('profile_pic')
-        usrmanagement.user.branch = request.POST.get('branch')
+        branch_id = request.POST.get('branch')
+        branch  = Branch.objects.get(name=branch_id)
+        usrmanagement.user.branch = branch
         usrmanagement.user.visibility = request.POST.get('visibility')
         usrmanagement.user.employee_type = request.POST.get('employe_type')
         usrmanagement.user.address = request.POST.get('addrs')
@@ -259,9 +261,16 @@ def load_places(request):
 
 def load_branches(request):
     branch_id = request.GET.get('branch_id')
-    branches = ExtendedUserModel.objects.filter(branch=branch_id).all()
+    users = ExtendedUserModel.objects.filter(branch=branch_id)
+    user_options = {user.id: f"{user.user.username} [{user.usertype}] [{user.branch}]"  for user in users}
+    return JsonResponse({'users': user_options})
+
+
+# def load_branches(request):
+#     branch_id = request.GET.get('branch_id')
+#     branches = ExtendedUserModel.objects.filter(branch=branch_id).all()
     
-    return render(request, 'branch_dropdown_list_options.html', {'branches': branches})
+#     return render(request, 'branch_dropdown_list_options.html', {'branches': branches})
 
 def load_assign_globaly(request):
     branch_id = request.GET.get('branch_id')
@@ -713,8 +722,13 @@ def project_assignment(request, id):
     key = h.hexdigest()
 
     if request.method == 'POST':
+        print(request.POST)
         form = ProjectAsignmentForm(request.POST, project=project, branch=branch,instance=instance,request=request)
         if form.is_valid():
+            branch = form.cleaned_data['branch']
+            print(branch)
+            branches = ExtendedUserModel.objects.filter(branch=branch, employee_type='Global').exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
+            print(branches)
             data = form.save(commit=False)
             data.key = key
             data.project = project

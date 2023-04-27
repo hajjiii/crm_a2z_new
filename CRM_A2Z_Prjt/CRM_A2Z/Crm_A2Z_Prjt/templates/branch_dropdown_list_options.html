@@ -1,4 +1,9 @@
-<option value="">---------</option>
+{% comment %} <option value="">---------</option>
 {% for branch in branches %}
 <option value="{{ branch.pk }}">{{ branch }}</option>
+{% endfor %} {% endcomment %}
+
+
+{% for branch in branches %}
+    <option value="{{ branch.id }}">{{ branch.user.username }} [{{ branch.usertype }}] [{{ branch.branch }}]</option>
 {% endfor %}

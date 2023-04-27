@@ -284,6 +284,58 @@ class ProjectModuleForm(forms.ModelForm):
 
 
 
+# class ProjectAsignmentForm(forms.ModelForm):
+#     module_assigned = forms.ModelMultipleChoiceField(
+#         queryset=ProjectModule.objects.none(),
+#         widget=forms.CheckboxSelectMultiple,
+#     )
+#     project_assignment = forms.ModelMultipleChoiceField(
+#         queryset=ExtendedUserModel.objects.none(),
+#         widget=forms.CheckboxSelectMultiple,
+#         label = 'User Type'
+#     )
+#     select_all = forms.BooleanField(
+#         required=False,
+#         initial=False,
+#         widget=forms.CheckboxInput(attrs={'onclick': 'toggleCheckbox(this)'})
+#     )
+    
+#     assign_globaly = forms.ModelChoiceField(
+#     queryset=ExtendedUserModel.objects.all(),
+#     empty_label='Select user',
+#     widget=forms.Select(attrs={'id': 'id_assign_globaly','class':'form-control'})
+# )
+#     branch = forms.ModelChoiceField(
+#         queryset=Branch.objects.none(),
+#         widget=forms.Select
+#     )
+
+   
+
+#     def __init__(self, *args, **kwargs):
+#         project = kwargs.pop('project')
+#         branch = kwargs.pop('branch')
+#         request = kwargs.pop('request')
+
+       
+#         super().__init__(*args, **kwargs)
+#         self.fields['module_assigned'].queryset = ProjectModule.objects.filter(project=project)
+      
+#         self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch__in=branch).exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
+#         self.fields['project_assignment'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'
+
+      
+
+#         user_branch = request.user.user.branch
+#         self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(employee_type='Global').exclude(branch=user_branch)
+#         self.fields['assign_globaly'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'+ ' [' + obj.branch + ']'
+
+#         self.fields['branch'].queryset = Branch.objects.exclude(name=user_branch)
+#         self.fields['branch'].widget.attrs.update({'id': 'id_branch','class':'form-control'})
+#         self.fields['assign_globaly'].widget.attrs.update({'id': 'id_assign_globaly'})
+
+
+        
 class ProjectAsignmentForm(forms.ModelForm):
     module_assigned = forms.ModelMultipleChoiceField(
         queryset=ProjectModule.objects.none(),
@@ -292,54 +344,58 @@ class ProjectAsignmentForm(forms.ModelForm):
     project_assignment = forms.ModelMultipleChoiceField(
         queryset=ExtendedUserModel.objects.none(),
         widget=forms.CheckboxSelectMultiple,
-        label = 'User Type'
+        label='User Type'
     )
     select_all = forms.BooleanField(
         required=False,
         initial=False,
         widget=forms.CheckboxInput(attrs={'onclick': 'toggleCheckbox(this)'})
     )
-    assign_globaly = forms.ModelMultipleChoiceField(
-        queryset=ExtendedUserModel.objects.all(),
-        widget=forms.CheckboxSelectMultiple(attrs={'id': 'id_assign_globaly'})
+
+    assign_globaly = forms.ModelChoiceField(
+        queryset=ExtendedUserModel.objects.none(),
+        empty_label='Select user',
+        widget=forms.Select(attrs={'id': 'id_assign_globaly', 'class': 'form-control'})
     )
-    branch = forms.ModelMultipleChoiceField(
+
+    branch = forms.ModelChoiceField(
         queryset=Branch.objects.none(),
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.Select(attrs={'id': 'id_branch', 'class': 'form-control'})
     )
-
-   
-
     def __init__(self, *args, **kwargs):
         project = kwargs.pop('project')
         branch = kwargs.pop('branch')
         request = kwargs.pop('request')
-
        
         super().__init__(*args, **kwargs)
+        if 'branch' in self.data:
+            try:
+                branch_id = int(self.data.get('branch'))
+                self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch=branch_id)
+            except (ValueError, TypeError):
+                self.fields['assign_globlly'].queryset = ExtendedUserModel.objects.none()
+                
+        elif self.instance.pk:
+            self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch=self.instance.branch).select_related('user')
+            self.fields['assign_globaly'].initial = self.instance.assign_globaly
+        else:
+            self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.none()
+
         self.fields['module_assigned'].queryset = ProjectModule.objects.filter(project=project)
-      
         self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch__in=branch).exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
-        self.fields['project_assignment'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'
-
-      
-
+        self.fields['project_assignment'].label_from_instance = lambda obj: f"{obj.user.username} [{obj.usertype}]"
         user_branch = request.user.user.branch
-        self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(employee_type='Global').exclude(branch=user_branch)
-        self.fields['assign_globaly'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'+ ' [' + obj.branch + ']'
-
+        self.fields['assign_globaly'].label_from_instance = lambda obj: f"{obj.user.username} [{obj.usertype}] [{obj.branch}]"
+        # self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(employee_type='Global').exclude(branch=user_branch)
+        # self.fields['assign_globaly'].label_from_instance = lambda obj: f"{obj.user.username} [{obj.usertype}] [{obj.branch}]"
         self.fields['branch'].queryset = Branch.objects.exclude(name=user_branch)
-        self.fields['branch'].widget.attrs.update({'id': 'id_branch'})
-        # self.fields['assign_globaly'].widget.attrs.update({'id': 'id_assign_globaly'})
-
-
-        
-
+    
 
     class Meta:
         model = ProjectAssignment
         fields = ['project_assignment', 'module_assigned','branch','assign_globaly']
         exclude = ['key', 'project', 'lead', 'project_module', 'added_by', 'added_on']
+    
       
 
     def get_all_assignments(self):

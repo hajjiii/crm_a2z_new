@@ -931,11 +931,11 @@
                                                                 </div>
                                                                 <hr>
                                                                 <div class="mb-3">
-                                                                    <label for="id_branch" id="id_branch" class="form-label text-muted">Branch<span class="text-danger">*</span></label>
-                                                                    {{ form.branch}}
-                                                               </div>
+                                                                    <label for="id_branch" class="form-label text-muted">Branch<span class="text-danger">*</span></label>
+                                                                    {{ form.branch }}
+                                                                </div>
                                                                 <div class="mb-3">
-                                                                    <label for="id_assign_globaly" id="id_assign_globaly" class="form-label text-muted">Assign Globally</label>
+                                                                    <label for="id_assign_globaly" class="form-label text-muted">Assign Globally</label>
                                                                     {{ form.assign_globaly }}
                                                                 </div>
 
@@ -1684,28 +1684,33 @@
 
     <!-- JAVASCRIPT -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
     
     <script>
-        $(document).ready(function() {         
+        $(document).ready(function() {
             $('#id_branch').change(function() {
                 const url = $("#ProjectAsignmentForm").attr("data-branches-url");
-                const selected_branches = $(this).val();
-                console.log(selected_branches)
-                if (selected_branches) {
+                const selected_branch_id = $(this).val();
+                console.log('hi');
+        
+                console.log(selected_branch_id);
+                if (selected_branch_id) {
                     $.ajax({
                         url: url,
                         data: {
-                            'branch_id': selected_branches
+                            'branch_id': selected_branch_id
                         },
+                        dataType: 'json',
                         success: function(data) {
-                            $('#id_assign_globaly').html(data);
+                            $('#id_assign_globaly').empty();
+                            $.each(data.users, function(user_id, username) {
+                                $('#id_assign_globaly').append('<option value="' + user_id + '">' + username + '</option>');
+                            });
                         }
                     });
                 }
             });
         });
-    </script>
+        </script>
    
    
     <script>

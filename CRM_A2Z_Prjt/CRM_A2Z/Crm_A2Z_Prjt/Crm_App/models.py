@@ -25,7 +25,7 @@ class ExtendedUserModel(models.Model):
     def __str__(self):
         return self.user.username
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
-    branch = models.CharField(max_length = 25,blank=False,null=False)
+    branch = models.ForeignKey(Branch,on_delete=models.CASCADE,blank=False,null=False)
     address = models.TextField(blank=False,null=False)
     usertype = models.CharField(max_length=25,blank=False,null=False)
     phn_number = models.CharField(max_length=15,blank=False,null=False)
@@ -36,21 +36,7 @@ class ExtendedUserModel(models.Model):
     auth_token = models.CharField(max_length=100,blank=True,null=True)
     is_verified = models.BooleanField(default=False)
 
-    # is_employee = models.BooleanField('Is employee', default=False)
-    # def save(self,*args,**kwargs):
-    #     account_sid = 'AC29149f221485419dafba9246c3e1576e'
-    #     auth_token = '4ff5723d9c94257517183cbac5355e84'
-    #     client = Client(account_sid,auth_token)
-    #     template = render_to_string('registermessge.html',{'emp_name':self.employe_name,'emp_id':self.user.username})
-    #     messege = client.messages.create(
-    #         body = template,
-    #         from_ = '+19705949271',
-    #         to = f'+91{self.phn_number}'
-    #     )
-    #     return super().save(*args,**kwargs)
-
-
-
+    
 
 
 
@@ -266,8 +252,8 @@ class ProjectAssignment(models.Model):
     added_on = models.DateField(auto_now_add=True, blank=False, null=False)
     module_assigned = models.ManyToManyField(ProjectModule,related_name='module_assigned', blank=True)
     project_assignment = models.ManyToManyField(ExtendedUserModel,related_name='project_assignment', blank=True)
-    branch =  models.ManyToManyField(Branch,related_name='branch', blank=True)
-    assign_globaly = models.ManyToManyField(ExtendedUserModel,related_name='assign_globaly', blank=True)
+    branch =  models.ForeignKey(Branch,on_delete=models.CASCADE,related_name='branch', blank=True)
+    assign_globaly = models.ForeignKey(ExtendedUserModel,related_name='assign_globaly', blank=True,on_delete=models.SET_NULL,null=True)
 
 
 
