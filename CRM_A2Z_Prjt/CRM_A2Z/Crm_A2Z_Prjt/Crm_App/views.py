@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
@@ -253,9 +253,21 @@ def load_cities(request):
 
 
 def load_places(request):
-    country_id = request.GET.get('country_id')
+    country_id = request.GET.get('districtId')
     cities = City.objects.filter(district=country_id).all()
     return render(request, 'place_dropdown_list_options.html', {'cities': cities})
+
+def load_branches(request):
+    branch_id = request.GET.get('branch_id')
+    branches = ExtendedUserModel.objects.filter(branch=branch_id).all()
+    
+    return render(request, 'branch_dropdown_list_options.html', {'branches': branches})
+
+def load_assign_globaly(request):
+    branch_id = request.GET.get('branch_id')
+    assign_globaly = ExtendedUserModel.objects.filter(employee_type='Global', branch=branch_id).exclude(branch=request.user.user.branch)
+    html = render_to_string('assign-globally-options.html', {'assign_globaly': assign_globaly})
+    return HttpResponse(html)
 
 
 def lead_view(request,id):
@@ -418,7 +430,6 @@ def lead_change_request(request):
     return render(request,'lead-change-request.html',context)
 
 
-
 def lead_change_request_view(request,id):
     qs = TempLead.objects.filter(id=id).first()
     qss = qs.lead
@@ -511,7 +522,7 @@ def lead_edit(request,id):
     h = blake2b(key=k, digest_size=10)
     key = h.hexdigest()
     lead = Leads.objects.filter(id=id).first()
-    form = LeadAddForm(request.POST or None, instance=lead)
+    form = LeadEditForm(request.POST or None, instance=lead)
     if form.is_valid():
         data = form.save(commit=False)
         print('helloo',type(data.status))
@@ -598,8 +609,11 @@ def project_edit(request,project_id):
 
 
 def project_view(request,id):
+
+    project = Project.objects.get(id=id)
+    form = ProjectViewForm(instance=project)
    
-    return render(request,'leads-view.html')
+    return render(request,'project-view.html',{"form":form})
 
 
 
@@ -727,13 +741,11 @@ def project_assignment(request, id):
    
     return render(request, 'project-asignment.html', context)
 
-
-def load_branch(request):
-    branch_id = request.GET.get('branch_id')
-    others = ExtendedUserModel.objects.filter(branch=branch_id).all()
-    print(others)
-    return render(request, 'branch_dropdown_list_options.html', {'others': others})
-
+def get_assign_globally(request):
+    selected_branches = request.GET.getlist('selected_branches[]')
+    assign_globaly = ExtendedUserModel.objects.filter(branch__in=selected_branches, employee_type='Global').exclude(branch=request.user.user.branch)
+    html = render_to_string('assign-globally-options.html', {'assign_globaly': assign_globaly})
+    return HttpResponse(html)
 
 
 def lead_help_centre(request):

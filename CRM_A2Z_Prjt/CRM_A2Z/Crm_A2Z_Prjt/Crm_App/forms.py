@@ -93,7 +93,67 @@ class LeadAddForm(forms.ModelForm):
                 pass
         elif self.instance.pk and self.instance.district:
             self.fields['city'].queryset = self.instance.district.city_set.all()
-    
+
+
+
+class LeadEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Leads
+        fields = "__all__"
+        exclude = ['added_by','added_on','added_by_admin']
+
+        widgets ={
+            'lead_title':forms.TextInput(attrs={'class':'form-control'}),
+            'lead_description':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'contact_person_name':forms.TextInput(attrs={'class':'form-control'}),
+            'contact_person_phone':forms.NumberInput(attrs={'class':'form-control'}),
+            'contact_person_designation':forms.TextInput(attrs={'class':'form-control'}),
+            'business_name':forms.TextInput(attrs={'class':'form-control'}),
+            'business_address':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'state':forms.Select(attrs={'class':'form-control'}),
+            'district':forms.Select(attrs={'class':'form-control'}),
+            'city':forms.Select(attrs={'class':'form-control'}),
+            # 'city':forms.TextInput(attrs={'class':'form-control'}),
+            'interest_rate':forms.Select(attrs={'class':'form-control'}),
+            'lead_generated_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+            'next_follow_up_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+            'min_price':forms.NumberInput(attrs={'class':'form-control'}),
+            'max_price':forms.NumberInput(attrs={'class':'form-control'}),
+            'lead_category':forms.Select(attrs={'class':'form-control'}),
+            'status':forms.Select(attrs={'class':'form-control'}),
+            'lead_delivery_date': forms.DateInput(attrs={'class':'form-control','type':'date'}),
+            # 'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'note_about_field_executive':forms.Textarea(attrs={'class':'form-control','rows':'3'})
+
+        }
+
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+        
+    #     # Set the initial queryset for the district and city fields
+    #     if self.instance.pk:
+    #         self.fields['district'].queryset = self.instance.state.district_set.all()
+    #         if self.instance.district:
+    #             self.fields['city'].queryset = self.instance.district.city_set.all()
+
+    #     # Update the queryset for the district and city fields when state is changed
+    #     if 'state' in self.data:
+    #         try:
+    #             state_id = int(self.data.get('state'))
+    #             self.fields['district'].queryset = District.objects.filter(state=state_id)
+    #         except (ValueError, TypeError):
+    #             pass
+    #         self.fields['city'].queryset = City.objects.none()
+
+    #     # Update the queryset for the city field when district is changed
+    #     if 'district' in self.data:
+    #         try:
+    #             district_id = int(self.data.get('district'))
+    #             self.fields['city'].queryset = City.objects.filter(district=district_id)
+    #         except (ValueError, TypeError):
+    #             pass
+      
    
 
 class LeadViewForm(forms.ModelForm):
@@ -177,6 +237,40 @@ class ExitLeadAssignmentForm(forms.ModelForm):
 
 
 
+class ProjectViewForm(forms.ModelForm):
+
+    
+
+    class Meta:
+        model = Project
+        fields = "__all__"
+        exclude = ['added_by','added_on','added_by_admin','lead']
+
+        widgets ={
+            'lead_title':forms.TextInput(attrs={'class':'form-control'}),
+            'lead_description':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'contact_person_name':forms.TextInput(attrs={'class':'form-control'}),
+            'contact_person_phone':forms.NumberInput(attrs={'class':'form-control'}),
+            'contact_person_designation':forms.TextInput(attrs={'class':'form-control'}),
+            'business_name':forms.TextInput(attrs={'class':'form-control'}),
+            'business_address':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'state':forms.Select(attrs={'class':'form-control'}),
+            'district':forms.Select(attrs={'class':'form-control'}),
+            'city':forms.Select(attrs={'class':'form-control'}),
+            # 'city':forms.TextInput(attrs={'class':'form-control'}),
+            'interest_rate':forms.Select(attrs={'class':'form-control'}),
+            'lead_generated_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+            'next_follow_up_date':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+            'min_price':forms.NumberInput(attrs={'class':'form-control'}),
+            'max_price':forms.NumberInput(attrs={'class':'form-control'}),
+            'lead_category':forms.Select(attrs={'class':'form-control'}),
+            'status':forms.Select(attrs={'class':'form-control'}),
+            'lead_delivery_date': forms.DateInput(attrs={'class':'form-control','type':'date'}),
+            # 'notes_about_client':forms.Textarea(attrs={'class':'form-control','rows':'3'}),
+            'note_about_field_executive':forms.Textarea(attrs={'class':'form-control','rows':'3'})
+
+        }
+
 class ProjectModuleForm(forms.ModelForm):
     class Meta:
         model = ProjectModule
@@ -207,11 +301,11 @@ class ProjectAsignmentForm(forms.ModelForm):
     )
     assign_globaly = forms.ModelMultipleChoiceField(
         queryset=ExtendedUserModel.objects.all(),
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.CheckboxSelectMultiple(attrs={'id': 'id_assign_globaly'})
     )
     branch = forms.ModelMultipleChoiceField(
         queryset=Branch.objects.none(),
-        widget=forms.CheckboxSelectMultiple(attrs={'multiple': 'multiple'}),
+        widget=forms.CheckboxSelectMultiple
     )
 
    
@@ -236,7 +330,7 @@ class ProjectAsignmentForm(forms.ModelForm):
 
         self.fields['branch'].queryset = Branch.objects.exclude(name=user_branch)
         self.fields['branch'].widget.attrs.update({'id': 'id_branch'})
-        self.fields['assign_globaly'].widget.attrs.update({'id': 'id_assign_globaly'})
+        # self.fields['assign_globaly'].widget.attrs.update({'id': 'id_assign_globaly'})
 
 
         

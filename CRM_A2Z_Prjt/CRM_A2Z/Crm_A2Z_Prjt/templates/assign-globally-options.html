@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for user in assign_globaly %}
+<option value="{{ user.pk }}">{{ user.user.username }} [{{ user.usertype }}] [{{ user.branch }}]</option>
+{% endfor %}

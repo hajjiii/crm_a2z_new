@@ -892,7 +892,7 @@
                                                     <div class="card-body p-4">
                                                         
                                                         <div class="p-2 mt-4">
-                                                            <form form method='post' id="LeadAddForm" class="needs-validation" novalidate="" data-cities-url="{% url 'Crm_App:ajax_load_cities'%}" data-places-url="{% url 'Crm_App:ajax_load_places'%}">
+                                                            <form form method='post' id="LeadEditForm" class="needs-validation" novalidate="" data-cities-url="{% url 'Crm_App:ajax_load_cities'%}" data-places-url="{% url 'Crm_App:ajax_load_places'%}">
                                                                 {% csrf_token %}
                                                                 <div class="mb-3">
                                                                     <label for="title" class="form-label text-muted">Lead Title <span class="text-danger">*</span></label>
@@ -1786,12 +1786,10 @@
     <script>
      $(document).ready(function() {
        // Disable district and city fields initially
-       $('#id_district').prop('disabled', true);
-       $('#id_city').prop('disabled', true);
-     
+      
        // Enable district field when state is selected
        $('#id_state').change(function() {
-         const url = $("#LeadAddForm").attr("data-cities-url");
+         const url = $("#LeadEditForm").attr("data-cities-url");
          const countryId = $(this).val();
      
          if (countryId) {
@@ -1806,16 +1804,12 @@
                $('#id_city').prop('disabled', true);
              }
            });
-         } else {
-           // Disable district and city fields if state is not selected
-           $('#id_district').prop('disabled', true);
-           $('#id_city').prop('disabled', true);
-         }
+         } 
        });
      
        // Enable city field when district is selected
        $('#id_district').change(function() {
-         const url = $("#LeadAddForm").attr("data-places-url");
+         const url = $("#LeadEditForm").attr("data-places-url");
          const districtId = $(this).val();
      
          if (districtId) {
@@ -1823,16 +1817,13 @@
            $.ajax({
              url: url,
              data: {
-               'country_id': districtId
+               'districtId': districtId
              },
              success: function(data) {
                $('#id_city').html(data);
              }
            });
-         } else {
-           // Disable city field if district is not selected
-           $('#id_city').prop('disabled', true);
-         }
+         } 
        });
      });
      </script>
