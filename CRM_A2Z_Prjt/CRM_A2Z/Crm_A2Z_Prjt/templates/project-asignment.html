@@ -30,6 +30,8 @@
     <!-- custom Css-->
     <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'assets/css/style.css" rel="stylesheet' %}" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 
 </head>
 
@@ -925,7 +927,7 @@
                                                                   
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label for="Description" class="form-label text-muted">Project Assigned To<span class="text-danger">*</span></label>
+                                                                    <label for="Description"  class="form-label text-muted">Project Assigned To<span class="text-danger">*</span></label>
                                                                                 {{form.project_assignment}}
                                                                   
                                                                 </div>
@@ -935,10 +937,12 @@
                                                                     {{ form.branch }}
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <label for="id_assign_globaly" class="form-label text-muted">Assign Globally</label>
+                                                                 <label for="id_assign_globaly" id="id_assign_globaly" class="form-label text-muted">Assign Globally</label>
                                                                     {{ form.assign_globaly }}
-                                                                </div>
+                                                                    
 
+                                                                   
+                                                                </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="mb-3">
                                                                             
@@ -1688,10 +1692,11 @@
         $(document).ready(function() {
             $('#id_branch').change(function() {
                 const url = $("#ProjectAsignmentForm").attr("data-branches-url");
-                const selected_branch_ids = $(this).val();
-                console.log('hi');
-        
+                const selected_branch_ids = $('input[name="branch"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
                 console.log(selected_branch_ids);
+                console.log('hi');
                 if (selected_branch_ids) {
                     $.ajax({
                         url: url,
@@ -1701,16 +1706,21 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#id_assign_globaly').empty();
+                            const checkbox_div = $('<div>').attr('id', 'assign_globaly_checkboxes');
                             $.each(data.users, function(user_id, username) {
-                                $('#id_assign_globaly').append('<option value="' + user_id + '">' + username + '</option>');
+                                const checkbox = $('<input>').attr('type', 'checkbox').attr('name', 'assign_globaly').val(user_id);
+                                const label = $('<label>').text(username);
+                                checkbox_div.append(checkbox).append(label).append('<br>'); ;
                             });
+                            $('#id_assign_globaly').append(checkbox_div);
                         }
                     });
+                } else {
+                    $('#id_assign_globaly').empty();
                 }
             });
         });
-    </script>
-
+        </script>
    
    
     <script>

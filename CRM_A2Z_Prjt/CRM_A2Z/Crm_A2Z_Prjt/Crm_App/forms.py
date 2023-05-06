@@ -128,31 +128,6 @@ class LeadEditForm(forms.ModelForm):
 
         }
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-        
-    #     # Set the initial queryset for the district and city fields
-    #     if self.instance.pk:
-    #         self.fields['district'].queryset = self.instance.state.district_set.all()
-    #         if self.instance.district:
-    #             self.fields['city'].queryset = self.instance.district.city_set.all()
-
-    #     # Update the queryset for the district and city fields when state is changed
-    #     if 'state' in self.data:
-    #         try:
-    #             state_id = int(self.data.get('state'))
-    #             self.fields['district'].queryset = District.objects.filter(state=state_id)
-    #         except (ValueError, TypeError):
-    #             pass
-    #         self.fields['city'].queryset = City.objects.none()
-
-    #     # Update the queryset for the city field when district is changed
-    #     if 'district' in self.data:
-    #         try:
-    #             district_id = int(self.data.get('district'))
-    #             self.fields['city'].queryset = City.objects.filter(district=district_id)
-    #         except (ValueError, TypeError):
-    #             pass
       
    
 
@@ -196,20 +171,6 @@ class LeadsManpowerAssignmentForm(forms.ModelForm):
         self.fields['added_by'].queryset = ExtendedUserModel.objects.filter(usertype='Field Executive', branch=self.branch)
     
     
-    
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     if self.instance.pk:
-    #         # Get the already assigned field executives
-    #         assigned_field_executives = self.instance.added_by.values_list('pk', flat=True)
-    #         # Exclude them from the queryset
-    #         self.fields['added_by'].queryset = ExtendedUserModel.objects.filter(
-    #             usertype='Field Executive'
-    #         ).exclude(id__in=assigned_field_executives)
-    #     else:
-    #         self.fields['added_by'].queryset = ExtendedUserModel.objects.filter(
-    #             usertype='Field Executive'
-    #         )
     
 
     
@@ -284,56 +245,6 @@ class ProjectModuleForm(forms.ModelForm):
 
 
 
-# class ProjectAsignmentForm(forms.ModelForm):
-#     module_assigned = forms.ModelMultipleChoiceField(
-#         queryset=ProjectModule.objects.none(),
-#         widget=forms.CheckboxSelectMultiple,
-#     )
-#     project_assignment = forms.ModelMultipleChoiceField(
-#         queryset=ExtendedUserModel.objects.none(),
-#         widget=forms.CheckboxSelectMultiple,
-#         label = 'User Type'
-#     )
-#     select_all = forms.BooleanField(
-#         required=False,
-#         initial=False,
-#         widget=forms.CheckboxInput(attrs={'onclick': 'toggleCheckbox(this)'})
-#     )
-    
-#     assign_globaly = forms.ModelChoiceField(
-#     queryset=ExtendedUserModel.objects.all(),
-#     empty_label='Select user',
-#     widget=forms.Select(attrs={'id': 'id_assign_globaly','class':'form-control'})
-# )
-#     branch = forms.ModelChoiceField(
-#         queryset=Branch.objects.none(),
-#         widget=forms.Select
-#     )
-
-   
-
-#     def __init__(self, *args, **kwargs):
-#         project = kwargs.pop('project')
-#         branch = kwargs.pop('branch')
-#         request = kwargs.pop('request')
-
-       
-#         super().__init__(*args, **kwargs)
-#         self.fields['module_assigned'].queryset = ProjectModule.objects.filter(project=project)
-      
-#         self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch__in=branch).exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
-#         self.fields['project_assignment'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'
-
-      
-
-#         user_branch = request.user.user.branch
-#         self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(employee_type='Global').exclude(branch=user_branch)
-#         self.fields['assign_globaly'].label_from_instance = lambda obj: obj.user.username + ' [' + obj.usertype + ']'+ ' [' + obj.branch + ']'
-
-#         self.fields['branch'].queryset = Branch.objects.exclude(name=user_branch)
-#         self.fields['branch'].widget.attrs.update({'id': 'id_branch','class':'form-control'})
-#         self.fields['assign_globaly'].widget.attrs.update({'id': 'id_assign_globaly'})
-
 
         
 class ProjectAsignmentForm(forms.ModelForm):
@@ -352,10 +263,10 @@ class ProjectAsignmentForm(forms.ModelForm):
         widget=forms.CheckboxInput(attrs={'onclick': 'toggleCheckbox(this)'})
     )
 
-    assign_globaly = forms.ModelChoiceField(
+    assign_globaly = forms.ModelMultipleChoiceField(
         queryset=ExtendedUserModel.objects.none(),
-        empty_label='Select user',
-        widget=forms.CheckboxSelectMultiple(attrs={'id': 'id_assign_globaly'})
+        widget=forms.CheckboxSelectMultiple(attrs={'id': 'id_assign_globaly'}),
+        required=False
     )
 
     branch = forms.ModelMultipleChoiceField(
@@ -364,30 +275,29 @@ class ProjectAsignmentForm(forms.ModelForm):
     )
     def __init__(self, *args, **kwargs):
         project = kwargs.pop('project')
-        branch = kwargs.pop('branch')
         request = kwargs.pop('request')
        
         super().__init__(*args, **kwargs)
+        branch1 = str(request.user.user.branch.id)
+        self.fields['branch'].queryset = Branch.objects.exclude(id=request.user.user.branch.id)
         if 'branch' in self.data:
             try:
-                branch_ids = self.data.getlist('branch')
-                self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch__in=branch_ids)
+                branch_id = self.data.get('branch')
+                self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(
+                    branch__id__in=branch_id,employee_type='Global').exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
             except (ValueError, TypeError):
-                self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.none()
+                pass
         elif self.instance.pk:
-            self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(branch__in=self.instance.branch.all()).select_related('user')
-            self.fields['assign_globaly'].initial = self.instance.assign_globaly
-        else:
-            self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.none()
-
+            assigned_branches = self.instance.branch.all()
+            self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(
+                branch__in=assigned_branches, employee_type='Global'
+                ).exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
+            self.fields['assign_globaly'].initial = self.instance.assign_globaly.all()
         self.fields['module_assigned'].queryset = ProjectModule.objects.filter(project=project)
-        self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch__in=branch).exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
+        self.fields['project_assignment'].queryset = ExtendedUserModel.objects.filter(branch__in=branch1).exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
         self.fields['project_assignment'].label_from_instance = lambda obj: f"{obj.user.username} [{obj.usertype}]"
-        user_branch = request.user.user.branch
+      
         self.fields['assign_globaly'].label_from_instance = lambda obj: f"{obj.user.username} [{obj.usertype}] [{obj.branch}]"
-        # self.fields['assign_globaly'].queryset = ExtendedUserModel.objects.filter(employee_type='Global').exclude(branch=user_branch)
-        # self.fields['assign_globaly'].label_from_instance = lambda obj: f"{obj.user.username} [{obj.usertype}] [{obj.branch}]"
-        self.fields['branch'].queryset = Branch.objects.exclude(name=user_branch)
     
 
     class Meta:

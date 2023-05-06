@@ -945,12 +945,17 @@
                                                         <th class="sort" data-sort="name">Project Title</th>
                                                         <th class="sort" data-sort="company_name">Contact Person Name</th>
                                                         <th class="sort" data-sort="leads_score">Phone</th>
+                                                        {%if not user.is_superuser%}
+                                                        <th class="sort" data-sort="leads_score">Assigned Module</th>
+                                                        {%endif%}
+
                                                         {% comment %} <th class="sort" data-sort="phone">View</th> {% endcomment %}
                                                         {% comment %} {% if user.is_superuser or user.user.usertype == 'Admin' %} {% endcomment %}
                                                         {% if user.user.usertype == 'Admin' %}
 
                                                         <th class="sort" data-sort="location">Edit</th>
                                                         <th class="sort" data-sort="location">Module Management</th>
+                                                        
                                                         <th class="sort" data-sort="location">Assignment</th>
 
 
@@ -958,14 +963,56 @@
                                                         {% comment %} {% else %}                                                        {% endcomment %}
                                                         {% comment %} <th class="sort" data-sort="location">Request For Change</th> {% endcomment %}
                                                         {% endif %} 
-                                                        {% comment %} {% if not user.is_superuser %}                                                        {% endcomment %}
-                                                        {% comment %} <th class="sort" data-sort="phone"> Preview</th> {% endcomment %}
-                                                        {% comment %} {% endif %} {% endcomment %}
-                                                        
+                                                        {% if user.is_superuser %}    
                                                         <th class="sort" data-sort="location">Action</th>
+    
+                                                        {% comment %} <th class="sort" data-sort="phone"> Preview</th> {% endcomment %}
+                                                        {% endif %} 
+
+                                                        
                                                        
                                                     </tr>
                                                 </thead>
+                                                {% if user.user.usertype == 'Developer' or user.user.usertype == 'Graphic Designer' or request.user.user.usertype == 'Workers'%}
+                                                {% for i in projects %}
+                                                <tbody class="list form-check-all">
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                            </div>
+                                                        </th>
+                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
+                                                      
+                                                        <td class="company_name"><a href="{% url 'Crm_App:project_view' i.id %}">{{i.project.lead_title}}</a></td>
+                                                        <td class="leads_score">{{i.project.contact_person_name}}</td>
+                                                        <td class="phone">{{i.project.contact_person_phone}}</td>
+                                                        <td class="phone">{% for module in i.module_assigned.all %}
+                                                            {{ module }}{% if not forloop.last %}, {% endif %}
+                                                        {% endfor %}</td>
+                                                        {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_view' i.id %}"><i class="fas fa-eye"></i></a></td> {% endcomment %}
+                                                        {% comment %} {% if user.is_superuser or user.user.usertype == 'Admin' %} {% endcomment %}
+                                                        {% if user.user.usertype == 'Admin' %}
+
+                                                        <td class="location text-center"><a href="{% url 'Crm_App:project_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                                        <td class="location text-center"><a href="{% url 'Crm_App:module_add' i.id %}"><i class="fa-solid fa-layer-group fa-bounce"></i></a>{% if i.projectmoduleprjct.all %}
+                                                           [ {{ i.projectmoduleprjct.all.count }} ]{% endif %}</td>
+                                                        <td class="location text-center"><a href="{% url 'Crm_App:project_assignment' i.id %}"><i class="fa-solid fa-list-check"></i></a></td>
+
+
+                                                        {% comment %} {% else %} {% endcomment %}
+                                                        {% comment %} <td class="location text-center"><a href="{% url 'Crm_App:tlead_edit' i.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td> {% endcomment %}
+                                                        {% endif %}
+                                                        {% if user.is_superuser %}
+                                                        <td class="location"><a href="{% url 'Crm_App:project_delete' i.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
+
+                                                        {% comment %} <td class="location"><a href="{% url 'Crm_App:lead_preview' i.id %}"><i class="fa-solid fa-eye"></i></a></td> {% endcomment %}
+                                                        {% endif %}
+
+                                                    
+                                                    </tr>
+                                                {%endfor%}
+                                                {% else %}
                                                 {% for i in projects %}
                                                 <tbody class="list form-check-all">
                                                     <tr>
@@ -1002,6 +1049,7 @@
                                                     
                                                     </tr>
                                                 {%endfor%}
+                                                {%endif%}
                                                 </tbody>
                                             </table>
                                             <div class="noresult" style="display: none">

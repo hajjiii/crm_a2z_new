@@ -259,14 +259,9 @@ def load_places(request):
     cities = City.objects.filter(district=country_id).all()
     return render(request, 'place_dropdown_list_options.html', {'cities': cities})
 
-# def load_branches(request):
-#     branch_id = request.GET.get('branch_id')
-#     users = ExtendedUserModel.objects.filter(branch=branch_id,employee_type='Global').exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
-#     user_options = {user.id: f"{user.user.username} [{user.usertype}] [{user.branch}]"  for user in users}
-#     return JsonResponse({'users': user_options})
 
 def load_branches(request):
-    branch_ids = request.GET.getlist('branch_id[]')
+    branch_ids = request.GET.getlist('branch_ids[]')
     users = ExtendedUserModel.objects.filter(
         branch__id__in=branch_ids,
         employee_type='Global'
@@ -276,18 +271,6 @@ def load_branches(request):
     user_options = {user.id: f"{user.user.username} [{user.usertype}] [{user.branch}]"  for user in users}
     return JsonResponse({'users': user_options})
 
-
-# def load_branches(request):
-#     branch_id = request.GET.get('branch_id')
-#     branches = ExtendedUserModel.objects.filter(branch=branch_id).all()
-    
-#     return render(request, 'branch_dropdown_list_options.html', {'branches': branches})
-
-def load_assign_globaly(request):
-    branch_id = request.GET.get('branch_id')
-    assign_globaly = ExtendedUserModel.objects.filter(employee_type='Global', branch=branch_id).exclude(branch=request.user.user.branch)
-    html = render_to_string('assign-globally-options.html', {'assign_globaly': assign_globaly})
-    return HttpResponse(html)
 
 
 def lead_view(request,id):
@@ -717,16 +700,15 @@ def module_delete(request, id):
 def project_assignment(request, id):
     
     
-    branch = []
     name = request.user.username
     project = Project.objects.get(id=id)
     lead = project.lead
     instance = ProjectAssignment.objects.filter(project=project).first()
-    added_by_users = project.added_by.all()  # Accessing the ManyToManyField
-    user_names = [user.user.username for user in added_by_users]   
-    for user_name in user_names:
-        user = ExtendedUserModel.objects.get(user__username=user_name)
-        branch.append(user.branch)
+    # added_by_users = project.added_by.all()  # Accessing the ManyToManyField
+    # user_names = [user.user.username for user in added_by_users]   
+    # for user_name in user_names:
+    #     user = ExtendedUserModel.objects.get(user__username=user_name)
+    #     branch.append(user.branch)
 
     k = str(time.time()).encode('utf-8')
     h = blake2b(key=k, digest_size=10)
@@ -734,11 +716,11 @@ def project_assignment(request, id):
 
     if request.method == 'POST':
         print(request.POST)
-        form = ProjectAsignmentForm(request.POST, project=project, branch=branch,instance=instance,request=request)
+        form = ProjectAsignmentForm(request.POST, project=project, instance=instance,request=request)
         if form.is_valid():
             branch = form.cleaned_data['branch']
             print(branch)
-            branches = ExtendedUserModel.objects.filter(branch=branch, employee_type='Global').exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
+            branches = ExtendedUserModel.objects.filter(branch__in=branch, employee_type='Global').exclude(Q(usertype='Field Executive') | Q(usertype='Admin') | Q(usertype='Office Staff'))
             print(branches)
             data = form.save(commit=False)
             data.key = key
@@ -752,10 +734,8 @@ def project_assignment(request, id):
             form.save_m2m()
             return redirect('Crm_App:project_management')
     else:
-        # if request.user.is_superuser:
-        #     form = ProjectAsignmentForm(project=project, instance=instance, branch=branch, request=request)
-        # else:
-        form = ProjectAsignmentForm(project=project, instance=instance, branch=branch,request=request)
+       
+        form = ProjectAsignmentForm(project=project, instance=instance, request=request)
 
     context = {
         'form': form,
@@ -766,11 +746,6 @@ def project_assignment(request, id):
    
     return render(request, 'project-asignment.html', context)
 
-def get_assign_globally(request):
-    selected_branches = request.GET.getlist('selected_branches[]')
-    assign_globaly = ExtendedUserModel.objects.filter(branch__in=selected_branches, employee_type='Global').exclude(branch=request.user.user.branch)
-    html = render_to_string('assign-globally-options.html', {'assign_globaly': assign_globaly})
-    return HttpResponse(html)
 
 
 def lead_help_centre(request):
@@ -779,13 +754,7 @@ def lead_help_centre(request):
     h = blake2b(key=k, digest_size=10)
     key = h.hexdigest()
     leads = Leads.objects.filter(added_by__user=request.user)
-    # leads = Leads.objects.all()
     print(leads)
-    # lead = Leads.objects.get(id=<lead_id>)
-    # for lead in leads:
-    #     for user in lead.added_by.all(): many to many field
-    #         print(user)
-
     all_notification = Notification.objects.all()
     
     
@@ -1068,13 +1037,13 @@ def send_mail_after_registration(email,token):
 
 
 def project_management(request):
-    # if request.user.is_superuser:
-    projects = Project.objects.all()
+
     module_count = ProjectModule.objects.all().count()
-    # elif request.user.extendedusermodel.usertype=='Admin':
-    #     added_by = ExtendedUserModel.objects.flter(user__username=request.user.username)
-    #     print(added_by)
-    #     projects = Project.objects.filter()
+    if hasattr(request.user, 'user') and request.user.user.usertype in ['Graphic Designer', 'Developer', 'Workers']:
+        projects = ProjectAssignment.objects.filter(project_assignment__user__username=request.user.username)
+        print(projects)
+    else:
+        projects = Project.objects.all()
 
     return render(request,'project.html',{'projects':projects,'module_count':module_count})
 

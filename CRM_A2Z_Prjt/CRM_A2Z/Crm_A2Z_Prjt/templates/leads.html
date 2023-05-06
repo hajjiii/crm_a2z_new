@@ -2029,6 +2029,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <script>
+    
         $(document).ready(function() {
           // Disable district and city fields initially
           $('#id_district').prop('disabled', true);
@@ -2038,6 +2039,7 @@
           $('#id_state').change(function() {
             const url = $("#LeadAddForm").attr("data-cities-url");
             const countryId = $(this).val();
+            console.log(countryId);
         
             if (countryId) {
               $('#id_district').prop('disabled', false);

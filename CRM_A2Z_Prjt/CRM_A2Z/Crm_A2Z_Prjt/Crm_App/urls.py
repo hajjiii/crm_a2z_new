@@ -84,7 +84,6 @@ urlpatterns = [
     path('module-add/<int:id>/', views.module_add,name='module_add'),
     path('module-delete/<int:id>/', views.module_delete,name='module_delete'),
     path('project-assignment/<int:id>/', views.project_assignment,name='project_assignment'),
-    path('load_assign_globaly', views.load_assign_globaly, name='load_assign_globaly'),
     path('ajax/load-branches/', views.load_branches, name='ajax_load_branches'),
 
 
